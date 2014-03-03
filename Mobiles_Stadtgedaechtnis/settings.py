@@ -163,3 +163,6 @@ LOGGING = {
         },
     }
 }
+
+# User settings, not Django settings from here
+GOOGLE_API_KEY = 'AIzaSyBu_pyZCIn6bsQz6NtcuCYW8TtwITydf_I' # for testing only!
