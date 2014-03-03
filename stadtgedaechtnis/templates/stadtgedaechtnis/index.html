@@ -12,23 +12,21 @@
 	<link href="{%static "css/normalize.css" %}" rel="stylesheet" media="all">
 	<link href="{%static "css/styles.css" %}" rel="stylesheet" media="all">	
 	<!--[if lt IE 9]><script src="{%static "js/html5shiv-printshiv.js" %}" media="all"></script><![endif]-->
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key={{ GOOGLE_API_KEY }}&sensor=true"></script>
-	<script type="text/javascript" src={%static "js/js.js" %}"></script>
+	<script type="text/javascript" src="{%static "js/jquery-1.11.0.js" %}"></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBu_pyZCIn6bsQz6NtcuCYW8TtwITydf_I&sensor=true"></script>
+	<script type="text/javascript" src="{%static "js/js.js" %}"></script>
 </head>
 <body onload="initialize_Map()">
-	<header role="banner">	
+	<header role="banner" id="header">	
 		<h1>{% trans "Stadtged&auml;chtnis Coburg" %}</h1>
-		<nav role="navigation">
-		
-		</nav>		
 	</header>
 	
-	<main role="main">
-		<div id="map_canvas"></div>
-	</main>		
-	
-	<footer role="contentinfo">
-		<small>Copyright &copy; <time datetime="2014">2014</time></small>
-	</footer>
+	<div id="container">
+		<main role="main">
+			<section>
+			<div id="map_canvas"></div>
+			</section>
+		</main>
+	</div>		
 </body>
 </html>
