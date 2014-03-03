@@ -1,13 +1,14 @@
 # Django settings for Mobiles_Stadtgedaechtnis project.
 
 from os import path
+from django.utils.translation import ugettext_lazy as _
 
 PROJECT_ROOT = path.dirname(path.abspath(path.dirname(__file__)))
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Jan-Christopher Pien', 'jan-christopher.pien@fokus.fraunhofer.de'),
 )
 
 MANAGERS = ADMINS
@@ -34,7 +35,12 @@ TIME_ZONE = 'Europe/Berlin'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'de-DE'
+LANGUAGE_CODE = 'de'
+
+LANGUAGES = (
+    ('de', _('German')),
+    ('en', _('English')),
+)
 
 SITE_ID = 1
 
@@ -94,8 +100,9 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -121,7 +128,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'polls',
+    'stadtgedaechtnis',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin'
     # Uncomment the next line to enable admin documentation:
