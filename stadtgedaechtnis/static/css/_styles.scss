@@ -1,0 +1,42 @@
+html {
+	height: 100%;
+}
+
+body {
+	font-family: Trebuchet MS, Arial, sans-serif;
+	height: 100%;
+}
+
+/* responsive image resizing */ 
+img {
+	max-width: 100%;
+	width: auto;
+}
+
+/* Header style */
+header {
+	background-image: url(../img/header.png);
+	background-image: none, url(../img/header.svg);
+	background-size: 100% 100%;
+	padding: .5em;
+
+	h1 {
+		text-transform: uppercase;
+		font-size: 1.3em;
+		margin: 0;
+		text-align: right;
+	}
+
+}
+/* Initial container moving */
+div#container {
+	padding-top: 1.7em;
+	margin-top: -1.7em;
+	height: 100%;
+}
+
+/* Sizing of map_section and map_canvas */
+main, .max_map {
+	height: 100%;
+	width: 100%;
+}

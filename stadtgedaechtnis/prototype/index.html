@@ -5,21 +5,37 @@
 	<title>Mobiles Stadtged&auml;chtnis</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-	<link href="../static/css/normalize.css" rel="stylesheet" media="all">
-	<link href="../static/css/styles.css" rel="stylesheet" media="all">	
+	<link href="../static/css/style.css" rel="stylesheet" media="all">	
 	<!--[if lt IE 9]><script src="../static/js/html5shiv-printshiv.js" media="all"></script><![endif]-->
 	<script type="text/javascript" src="../static/js/jquery-1.11.0.js"></script>
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBu_pyZCIn6bsQz6NtcuCYW8TtwITydf_I&sensor=true"></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBu_pyZCIn6bsQz6NtcuCYW8TtwITydf_I&sensor=true&language=de"></script>
 	<script type="text/javascript" src="../static/js/js.js"></script>
 </head>
 <body onload="initialize_Map()">
 	<header role="banner" id="header">	
-		<h1>Stadtged&auml;chtnis Coburg</h1>	
+		<h1>Stadtged&auml;chtnis Coburg</h1>
+		<nav role="navigation">
+			<ul>
+				<li>
+					<form name="langEN">
+					<input type="hidden" name="language" value="en">
+					<a href="#">EN</a>
+					</form>
+					<span>&nbsp;|&nbsp;</span>				
+				</li>
+				<li>
+					<form name="langDE">
+					<input type="hidden" name="language" value="de">
+					<a href="#">DE</a>
+					</form>				
+				</li>
+			</ul>
+		</nav>	
 	</header>
 	<div id="container">
 		<main role="main">
-			<section>
-			<div id="map_canvas"></div>
+			<section class="max_map">
+			<div class="max_map" id="map_canvas"></div>
 			</section>
 		</main>
 	</div>
