@@ -399,18 +399,41 @@ img {
   width: auto;
 }
 
+a {
+  color: black;
+}
+
 /* Header style */
-header {
+header[role="banner"] {
   background-image: url(../img/header.png);
   background-image: none, url(../img/header.svg);
   background-size: 100% 100%;
   padding: .5em;
 }
-header h1 {
+header[role="banner"] h1 {
   text-transform: uppercase;
   font-size: 1.3em;
   margin: 0;
   text-align: right;
+}
+header[role="banner"] nav {
+  float: left;
+}
+header[role="banner"] nav ul {
+  float: left;
+  margin: 0;
+  padding-left: .8em;
+  list-style-type: none;
+}
+header[role="banner"] nav ul li {
+  float: left;
+}
+header[role="banner"] nav ul li a {
+  text-decoration: none;
+  text-transform: uppercase;
+}
+header[role="banner"] nav ul li a.current {
+  text-decoration: underline;
 }
 
 /* Initial container moving */

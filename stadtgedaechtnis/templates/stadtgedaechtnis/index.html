@@ -16,14 +16,28 @@
 	<script type="text/javascript" src="{%static "js/js.js" %}"></script>
 </head>
 <body onload="initialize_Map()">
-	<header role="banner" id="header"&language>	
+	<header role="banner">	
+		<nav role="navigation">
+			<ul>
+				{% get_language_info_list for LANGUAGES as languages %}
+				{% for language in languages %}
+				<li>
+					<form action="{% url 'set_language' %}" name="lang{{ language.code}}">
+					{% csrf_token %}
+					<input type="hidden" name="language" value="{{ language.code }}">
+					<a href="#" onclick="document.lang{{ language.code}}.submit();return false;" {% if language.code == LANGUAGE_CODE %} class="current"{% endif %}><b>{{ language.code }}</b></a>{% if not forloop.last %}&nbsp;<b>|</b>&nbsp;{% endif %}
+					</form>
+				</li>
+				{% endfor %}
+			</ul>
+		</nav>	
 		<h1>{% trans "Stadtged&auml;chtnis Coburg" %}</h1>
 	</header>
 	
 	<div id="container">
 		<main role="main">
-			<section>
-			<div id="map_canvas"></div>
+			<section class="max_map">
+			<div class="max_map" id="map_canvas"></div>
 			</section>
 		</main>
 	</div>		

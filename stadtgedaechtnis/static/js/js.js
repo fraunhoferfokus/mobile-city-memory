@@ -17,7 +17,7 @@ function initialize_Map() {
  * resizes the div#container to the remaining browser height
  */
 var resizeContainer = function() {
-	var headerHeight = $("#header").css("height");
+	var headerHeight = $("header[role='banner']").css("height");
 	$("#container").css("padding-top", headerHeight);
 	$("#container").css("margin-top", "-" + headerHeight);
 };

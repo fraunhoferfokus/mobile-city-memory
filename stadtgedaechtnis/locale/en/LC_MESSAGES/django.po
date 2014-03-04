@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Stadtgedaechtnis\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-03 12:15+0100\n"
-"PO-Revision-Date: 2014-03-03 12:15+0100\n"
+"POT-Creation-Date: 2014-03-04 18:42+0100\n"
+"PO-Revision-Date: 2014-03-04 18:45+0100\n"
 "Last-Translator: Jan-Christopher Pien <jan-christopher.pien@fokus.fraunhofer."
 "de>\n"
 "Language-Team: \n"
@@ -16,6 +16,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: D:\\Work\\Stadtgedaechtnis\\stadtgedaechtnis\n"
 
-#: .\templates\stadtgedaechtnis\index.html:5
+#: .\templates\stadtgedaechtnis\index.html:9
 msgid "Mobiles Stadtged&auml;chtnis"
 msgstr "Mobile City Memory"
+
+#: .\templates\stadtgedaechtnis\index.html:20
+msgid "Stadtged&auml;chtnis Coburg"
+msgstr "City Memory Coburg"

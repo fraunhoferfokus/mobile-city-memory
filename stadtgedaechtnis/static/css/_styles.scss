@@ -13,8 +13,12 @@ img {
 	width: auto;
 }
 
+a {
+	color: black;
+}
+
 /* Header style */
-header {
+header[role="banner"] {
 	background-image: url(../img/header.png);
 	background-image: none, url(../img/header.svg);
 	background-size: 100% 100%;
@@ -25,6 +29,30 @@ header {
 		font-size: 1.3em;
 		margin: 0;
 		text-align: right;
+	}
+
+	nav {
+		float: left;
+
+		ul {
+			float: left;
+			margin: 0;
+			padding-left: .8em;
+			list-style-type: none;
+
+			li {
+				float: left;
+
+				a {
+					text-decoration: none;
+					text-transform: uppercase;
+				}
+
+				a.current {
+					text-decoration: underline;
+				}
+			}
+		}
 	}
 
 }
