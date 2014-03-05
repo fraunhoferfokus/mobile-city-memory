@@ -32,21 +32,20 @@ function Location() {
  * @returns {google.maps.LatLng|*}
  */
 Location.prototype.moveToCurrentLocationOrFallback = function () {
-	alert(Modernizr.geolocation);
 	if (Modernizr.geolocation) {
 		navigator.geolocation.getCurrentPosition(
 			// success callback
-			function (position) {
+			new function (position) {
 				alert(position);
 				this.moveToLocation(position.coords.latitude, position.coords.longitude);
 				//TODO: maybe add accuracy?
 			},
 			// error callback
-			function () {
+			new function () {
 				alert("Error");
 				this.moveToLocation(this.DEFAULT_LAT, this.DEFAULT_LONG);
 				//TODO: show hint that location couldn't be retrieved
-			}
+			}, {enableHighAccuracy: true}
 		);
 	} else {
 		this.moveToLocation(this.DEFAULT_LAT, this.DEFAULT_LONG);
