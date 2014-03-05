@@ -1,31 +1,43 @@
+/**
+ * Constant that identifies the map canvas.
+ * @type {string}
+ */
 var MAP_ELEMENT = "map_canvas";
 
-var positionMarker;
-
+/**
+ * Callback that is called when the location is successfully retrieved.
+ * @param position
+ */
 function successLocationCallback (position) {
 	//success callback
-	UserLocation.moveToLocation(position.coords.latitude, position.coords.longitude);
-	if (!positionMarker) {
-		positionMarker = new google.maps.Marker({
-			position: UserLocation.map.getCenter(),
-			map: UserLocation.map,
+	userLocation.moveToLocation(position.coords.latitude, position.coords.longitude);
+	if (!userLocation.positionMarker) {
+		userLocation.positionMarker = new google.maps.Marker({
+			position: userLocation.map.getCenter(),
+			map: userLocation.map,
 			animation: google.maps.Animation.DROP,
 			clickable: false,
 			icon: "static/img/marker_position.png"
 		});
+	} else {
+		userLocation.positionMarker.setPosition(position);
 	}
 	//TODO: maybe add accuracy?
 }
 
+/**
+ * Callback that is called when the location couldn't be retrieved.
+ * @param error
+ */
 function errorLocationCallback (error) {
 	// error callback
 	alert(error.id);
-	UserLocation.moveToLocation(this.DEFAULT_LAT, this.DEFAULT_LONG);
+	userLocation.moveToLocation(this.DEFAULT_LAT, this.DEFAULT_LONG);
 	//TODO: show hint that location couldn't be retrieved
 }
 
 /**
- * Location object to enable/disable tracking the location and to retrieve the current or fallback location
+ * Location object to enable/disable tracking the location and to retrieve the current or fallback location.
  * @param trackLocation
  * @constructor
  */
@@ -35,6 +47,7 @@ function Location() {
 	this.DEFAULT_LOCATION = new google.maps.LatLng(50.258, 10.965);
 
 	this.currentLocation = this.DEFAULT_LOCATION;
+	this.positionMarker = null;
 
 	var trackingID;
 	var tracking = false;
@@ -86,14 +99,14 @@ Location.prototype.moveToLocation = function(lat, long) {
 	}
 }
 
-var UserLocation = new Location();
+var userLocation = new Location();
 
 /**
  * Global map Options
  * @type {{center: google.maps.LatLng, zoom: number, mapTypeId: *, disableDefaultUI: boolean, zoomControl: boolean}}
  */
 var mapOptions = {
-	center: UserLocation.DEFAULT_LOCATION,
+	center: userLocation.DEFAULT_LOCATION,
 	zoom: 17,
 	mapTypeId: google.maps.MapTypeId.SATELLITE,
 	disableDefaultUI: true,
@@ -104,8 +117,8 @@ var mapOptions = {
  * Initializes the map
  */
 function initialize_Map() {
-	UserLocation.map = new google.maps.Map(document.getElementById(MAP_ELEMENT),
+	userLocation.map = new google.maps.Map(document.getElementById(MAP_ELEMENT),
 		mapOptions);
-	UserLocation.moveToCurrentLocationOrFallback();
-	UserLocation.trackLocation = true;
+	userLocation.moveToCurrentLocationOrFallback();
+	userLocation.trackLocation = true;
 }
