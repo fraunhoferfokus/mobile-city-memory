@@ -34,15 +34,15 @@ function Location() {
 Location.prototype.moveToCurrentLocationOrFallback = function () {
 	if (Modernizr.geolocation) {
 		navigator.geolocation.getCurrentPosition(
-			// success callback
-			new function (position) {
+			function (position) {
+				//success callback
 				alert(position);
 				this.moveToLocation(position.coords.latitude, position.coords.longitude);
 				//TODO: maybe add accuracy?
 			},
-			// error callback
-			new function () {
-				alert("Error");
+			function (error) {
+				// error callback
+				alert(error);
 				this.moveToLocation(this.DEFAULT_LAT, this.DEFAULT_LONG);
 				//TODO: show hint that location couldn't be retrieved
 			}, {enableHighAccuracy: true}
