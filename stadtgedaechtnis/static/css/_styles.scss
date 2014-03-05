@@ -7,11 +7,14 @@ body {
 	height: 100%;
 }
 
-/* responsive image resizing */ 
+/* responsive image resizing
+ * must be applied to a subclass
+ * otherwise google maps will display incorrectly
+ *
 img {
 	max-width: 100%;
 	width: auto;
-}
+} */ 
 
 a {
 	color: black;
@@ -24,20 +27,20 @@ header[role="banner"] {
 	background-size: 100% 100%;
 	padding: .5em;
 
+
 	h1 {
 		text-transform: uppercase;
 		font-size: 1.3em;
 		margin: 0;
-		text-align: right;
+		text-align: right
 	}
 
 	nav {
-		float: left;
 
 		ul {
 			float: left;
 			margin: 0;
-			padding-left: .8em;
+			padding: 0;
 			list-style-type: none;
 
 			li {

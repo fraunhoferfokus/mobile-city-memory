@@ -393,12 +393,14 @@ body {
   height: 100%;
 }
 
-/* responsive image resizing */
+/* responsive image resizing
+ * must be applied to a subclass
+ * otherwise google maps will display incorrectly
+ *
 img {
-  max-width: 100%;
-  width: auto;
-}
-
+	max-width: 100%;
+	width: auto;
+} */
 a {
   color: black;
 }
@@ -416,13 +418,10 @@ header[role="banner"] h1 {
   margin: 0;
   text-align: right;
 }
-header[role="banner"] nav {
-  float: left;
-}
 header[role="banner"] nav ul {
   float: left;
   margin: 0;
-  padding-left: .8em;
+  padding: 0;
   list-style-type: none;
 }
 header[role="banner"] nav ul li {

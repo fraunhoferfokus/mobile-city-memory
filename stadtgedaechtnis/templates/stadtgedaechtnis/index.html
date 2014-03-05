@@ -22,7 +22,7 @@
 				{% get_language_info_list for LANGUAGES as languages %}
 				{% for language in languages %}
 				<li>
-					<form action="{% url 'set_language' %}" name="lang{{ language.code}}">
+					<form action="{% url 'set_language' %}" name="lang{{ language.code}}" method="post">
 					{% csrf_token %}
 					<input type="hidden" name="language" value="{{ language.code }}">
 					<a href="#" onclick="document.lang{{ language.code}}.submit();return false;" {% if language.code == LANGUAGE_CODE %} class="current"{% endif %}><b>{{ language.code }}</b></a>{% if not forloop.last %}&nbsp;<b>|</b>&nbsp;{% endif %}
