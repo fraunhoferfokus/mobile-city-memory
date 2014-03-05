@@ -5,9 +5,7 @@ var MAP_ELEMENT = "map_canvas";
  * @param trackLocation
  * @constructor
  */
-function Location(trackLocation) {
-	var tracking = trackLocation;
-
+function Location() {
 	this.DEFAULT_LAT = 50.258;
 	this.DEFAULT_LONG = 10.965;
 	this.DEFAULT_LOCATION = new google.maps.LatLng(50.258, 10.965);
@@ -34,15 +32,18 @@ function Location(trackLocation) {
  * @returns {google.maps.LatLng|*}
  */
 Location.prototype.moveToCurrentLocationOrFallback = function () {
+	alert(Modernizr.geolocation);
 	if (Modernizr.geolocation) {
 		navigator.geolocation.getCurrentPosition(
 			// success callback
 			function (position) {
+				alert(position);
 				this.moveToLocation(position.coords.latitude, position.coords.longitude);
 				//TODO: maybe add accuracy?
 			},
 			// error callback
 			function () {
+				alert("Error");
 				this.moveToLocation(this.DEFAULT_LAT, this.DEFAULT_LONG);
 				//TODO: show hint that location couldn't be retrieved
 			}
@@ -66,7 +67,7 @@ Location.prototype.moveToLocation = function(lat, long) {
 	}
 }
 
-var UserLocation = new Location(true);
+var UserLocation = new Location();
 
 /**
  * Global map Options
@@ -86,4 +87,5 @@ var mapOptions = {
 function initialize_Map() {
 	UserLocation.map = new google.maps.Map(document.getElementById(MAP_ELEMENT),
 		mapOptions);
+	UserLocation.moveToCurrentLocationOrFallback();
 }
