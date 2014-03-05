@@ -36,14 +36,12 @@ Location.prototype.moveToCurrentLocationOrFallback = function () {
 		navigator.geolocation.getCurrentPosition(
 			function (position) {
 				//success callback
-				alert(position);
-				this.moveToLocation(position.coords.latitude, position.coords.longitude);
+				UserLocation.moveToLocation(position.coords.latitude, position.coords.longitude);
 				//TODO: maybe add accuracy?
 			},
 			function (error) {
 				// error callback
-				alert(error);
-				this.moveToLocation(this.DEFAULT_LAT, this.DEFAULT_LONG);
+				UserLocation.moveToLocation(this.DEFAULT_LAT, this.DEFAULT_LONG);
 				//TODO: show hint that location couldn't be retrieved
 			}, {enableHighAccuracy: true}
 		);
@@ -60,9 +58,9 @@ Location.prototype.moveToCurrentLocationOrFallback = function () {
  */
 Location.prototype.moveToLocation = function(lat, long) {
 	if (this.map) {
-		var newLocation = new google.maps.LatLng(lag, long);
+		var newLocation = new google.maps.LatLng(lat, long);
 		this.currentLocation = newLocation;
-		map.panTo(newLocation);
+		this.map.panTo(newLocation);
 	}
 }
 
