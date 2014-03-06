@@ -16,7 +16,7 @@ function successLocationCallback (position) {
 			position: userLocation.map.getCenter(),
 			map: userLocation.map,
 			clickable: false,
-			icon: "static/img/marker_position.png"
+			icon: "static/stadtgedaechtnis/img/marker_position.png"
 		});
 	}
 	//TODO: maybe add accuracy?
@@ -60,12 +60,14 @@ function Location() {
 	 * disable location tracking
 	 */
 	this.__defineSetter__("trackLocation", function (trackLocation) {
-		if (Modernizr.geolocation && trackLocation) {
-			trackingID = navigator.geolocation.watchPosition(successLocationCallback, errorLocationCallback, {enableHighAccuracy: true});
-		} else if (!trackLocation) {
-			navigator.geolocation.clearWatch(trackingID);
+		if (Modernizr.geolocation) {
+			if (trackLocation) {
+				trackingID = navigator.geolocation.watchPosition(successLocationCallback, errorLocationCallback, {enableHighAccuracy: true});
+			} else if (!trackLocation) {
+				navigator.geolocation.clearWatch(trackingID);
+			}
+			tracking = trackLocation;
 		}
-		tracking = trackLocation;
 	})
 
 }
