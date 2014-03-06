@@ -15,12 +15,9 @@ function successLocationCallback (position) {
 		userLocation.positionMarker = new google.maps.Marker({
 			position: userLocation.map.getCenter(),
 			map: userLocation.map,
-			animation: google.maps.Animation.DROP,
 			clickable: false,
 			icon: "static/img/marker_position.png"
 		});
-	} else {
-		userLocation.positionMarker.setPosition(position);
 	}
 	//TODO: maybe add accuracy?
 }
@@ -96,6 +93,9 @@ Location.prototype.moveToLocation = function(lat, long) {
 		var newLocation = new google.maps.LatLng(lat, long);
 		this.currentLocation = newLocation;
 		this.map.panTo(newLocation);
+		if (this.map.positionMarker) {
+			this.map.positionMarker.setPosition(newLocation);
+		}
 	}
 }
 
