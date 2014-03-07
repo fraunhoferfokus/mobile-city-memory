@@ -6,6 +6,9 @@ Created on 26.02.2014
 
 from django.utils.translation import ugettext as _
 from django.db import models
+from django.core.exceptions import ObjectDoesNotExist
+from django.db.models.signals import post_delete
+from django.dispatch.dispatcher import receiver
 
 
 class ItemWithMedia(models.Model):
@@ -17,12 +20,15 @@ class ItemWithMedia(models.Model):
 
     def __unicode__(self):
         try:
-            return self.EntryType.__unicode__(self)
-        except AttributeError:
+            return self.entrytype.__unicode__()
+        except ObjectDoesNotExist:
             try:
-                return self.Location.__unicode__(self)
-            except AttributeError:
-                return self.Entry.__unicode__(self)
+                return self.location.__unicode__()
+            except ObjectDoesNotExist:
+                try:
+                    return self.entry.__unicode__()
+                except ObjectDoesNotExist:
+                    return self.id
 
 
 class EntryType(ItemWithMedia):
@@ -44,7 +50,7 @@ class Location(ItemWithMedia):
     longitude = models.DecimalField(decimal_places=3, max_digits=10)
 
     def __unicode__(self):
-        return self.label + " (" + str(self.latitude) + ", " + str(self.longitude) + ")"
+        return self.label + " [" + str(self.latitude) + ", " + str(self.longitude) + "]"
 
 
 class Entry(ItemWithMedia):
@@ -84,17 +90,17 @@ class MediaObject(models.Model):
     alt = models.CharField(max_length=300)
 
     def __unicode__(self):
-        return self.alt
+        entry_name = " (" + self.entry.__unicode__() + ")"
+        return self.alt + entry_name
 
 
 class MediaSource(models.Model):
     """
     One Source file that belongs to a media object
     """
-    def get_upload_path(instance, filename):
-        return "/entries/" + instance.entry.id + filename
 
-    get_upload_path = staticmethod(get_upload_path)
+    def get_upload_path(self, filename):
+        return str(self.media_object.entry.id) + "/" + filename
 
     created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     modified = models.DateTimeField(auto_now=True, null=True, blank=True)
@@ -102,4 +108,9 @@ class MediaSource(models.Model):
     file = models.FileField(upload_to=get_upload_path)
 
     def __unicode__(self):
-        return self.file.file
+        return self.file.name
+
+@receiver(post_delete, sender=MediaSource)
+def delete_file(sender, instance, **kwargs):
+    if instance.file is not None:
+        instance.file.delete(False)
