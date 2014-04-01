@@ -1,6 +1,6 @@
 from django.contrib import admin
-from stadtgedaechtnis.models import *
 
+from stadtgedaechtnis.models import *
 
 admin.site.register(Entry)
 admin.site.register(Location)
