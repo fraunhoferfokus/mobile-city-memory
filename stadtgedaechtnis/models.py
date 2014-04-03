@@ -46,8 +46,9 @@ class Location(ItemWithMedia):
     A Location with a geoposition
     """
     label = models.CharField(max_length=150)
-    latitude = models.DecimalField(decimal_places=3, max_digits=10)
-    longitude = models.DecimalField(decimal_places=3, max_digits=10)
+    latitude = models.DecimalField(decimal_places=15, max_digits=18)
+    longitude = models.DecimalField(decimal_places=15, max_digits=18)
+    dbpedia_link = models.CharField(max_length=500, null=True, blank=True)
 
     def __unicode__(self):
         return self.label + " [" + str(self.latitude) + ", " + str(self.longitude) + "]"

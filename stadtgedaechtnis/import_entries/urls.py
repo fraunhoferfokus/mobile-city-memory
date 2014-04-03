@@ -4,7 +4,17 @@ from django.conf.urls import patterns, url
 
 from stadtgedaechtnis.import_entries.views import *
 
-simple_json = SimpleJSONImport("", True, "/admin/")
+from stadtgedaechtnis import admin
 
 urlpatterns = patterns('',
-    url(r'^simple-json/', simple_json.import_entries))
+    url(r'^simple-json/$', admin.site.admin_view(SimpleJSONImport.as_view(
+            source="http://www.stadtgeschichte-coburg.de/dev/json/dsg_coburg.js",
+            interactive=True,)),
+        name="simple-json"),
+    url(r'^simple-json-silent/$', SimpleJSONImport.as_view(
+            source="http://www.stadtgeschichte-coburg.de/dev/json/dsg_coburg.js",
+            interactive=False,
+            redirect=True,
+            redirect_to="/admin/"),
+        name="simple-json-silent"),
+)

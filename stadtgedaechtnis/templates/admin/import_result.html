@@ -1,0 +1,37 @@
+{% extends "admin:admin/base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+
+	<div id="content-main">
+
+	<div class="app-stadtgedaechtnis module">
+		<h2>{% trans 'Importiere Eintr&auml;ge' %}</h2>
+
+		<table>
+		<tr>
+			<th>{% trans 'Eintrag' %}</th><th>{% trans 'Ort' %}</th>
+		</tr>
+		{% for entry in success_import %}
+		<tr>
+			<td>{{ entry.title }}</td><td>{{ entry.location }}</td>
+		</tr>
+		{% endfor %}
+		</table>
+
+		<h2>{% trans 'Nicht importiere Eintr&auml;ge' %}</h2>
+
+		<table>
+		<tr>
+			<th>{% trans 'Eintrag' %}</th><th>{% trans 'Ort' %}</th>
+		</tr>
+		{% for entry in fail_import %}
+		<tr>
+			<td>{{ entry.id }}</td><td><a href="{{ entry.url }}" onclick="return !window.open(this.href, '{% trans 'Ort' %}', 'width=800, height=500')" target="_blank">{{ entry.lat }}, {{ entry.lon }}</a></td>
+		</tr>
+		{% endfor %}
+		</table>
+
+	</div>
+	</div>
+{% endblock %}
