@@ -6,12 +6,13 @@ from django.http import HttpResponse
 
 class GetNearbyPlacesDBPedia(View):
 
-    lat = None
-    lon = None
-
     def get(self, request, *args, **kwargs):
-        self.lat
-        return HttpResponse("",
+        lat, lon = float(kwargs["lat"]), float(kwargs["lon"])
+        min_lat, max_lat = lat - 0.1, lat + 0.1
+        min_lon, max_lon = lon - 0.1, lon + 0.1
+
+        result = ""
+        return HttpResponse(result,
                             content_type="application/json")
 
 

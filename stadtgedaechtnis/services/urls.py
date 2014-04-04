@@ -7,6 +7,6 @@ from stadtgedaechtnis.services.views import *
 
 urlpatterns = patterns('',
     # TODO: add a mixin for localhost access only
-    # TODO: add parameters
-    url(r'^get-nearby-places/$', GetNearbyPlacesDBPedia.as_view(), name="get-nearby-places"),
+    url(r'^get-nearby-places/(?P<lat>\d{1,3}\.\d{1,10})/(?P<lon>\d{1,3}\.\d{1,10})/$', GetNearbyPlacesDBPedia.as_view(),
+        name="get-nearby-places"),
     )
