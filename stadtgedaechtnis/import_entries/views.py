@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidde
 from django.core.urlresolvers import reverse
 from django.views.generic import TemplateView
 
-from stadtgedaechtnis.utils.utilities import replace_multiple
+from stadtgedaechtnis.utils import replace_multiple
 from stadtgedaechtnis.models import Location, Entry, EntryType
 
 
@@ -15,7 +15,7 @@ __author__ = 'jpi'
 
 class ImportView(TemplateView):
     """
-    Abstract class to import entries from various sources
+    Abstract class to import entries from various sources.
     """
 
     __metaclass__ = ABCMeta
@@ -27,7 +27,7 @@ class ImportView(TemplateView):
     @abstractmethod
     def do_import(self):
         """
-        Does the actual import
+        Does the actual import. Abstract method to be implemented in subclasses.
         """
         pass
 
