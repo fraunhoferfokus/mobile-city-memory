@@ -59,6 +59,7 @@ class SimpleJSONImport(ImportView):
     template_name = "admin/import_result.html"
     success_entries = []
     failed_entries = []
+    exist_entries = []
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -66,6 +67,7 @@ class SimpleJSONImport(ImportView):
         # Add succeeded and failed imports
         context['success_import'] = self.success_entries
         context['fail_import'] = self.failed_entries
+        context['exist_import'] = self.exist_entries
         return context
 
     def do_import(self):
@@ -123,13 +125,19 @@ class SimpleJSONImport(ImportView):
                     entry.author = story["author"]
                     entry.abstract = story["preview"]
                     entry.time_start = story["timeStart"]
-                    if story["timeEnd"] is not None:
+                    if "timeEnd" in story:
                         entry.time_end = story["timeEnd"]
                     entry.type = EntryType.objects.get(label=story["typename"])
                     # TODO: add more infos
                     entry.save()
                     # Add entry to succeeded entry list
                     self.success_entries.append(entry)
+                else:
+                    entry = dict()
+                    entry["title"] = label
+                    entry["location"] = location_object
+                    self.exist_entries.append(entry)
+
 
             except Location.DoesNotExist:
                 location["lat"] = str(lat)

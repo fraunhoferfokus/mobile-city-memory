@@ -15,19 +15,24 @@ class GetNearbyPlacesDBPedia(View):
         min_lon, max_lon = lon - 0.01, lon + 0.01
 
         sparql = SPARQLWrapper("http://dbpedia.org/sparql")
-        sparql.setQuery("select distinct ?link, ?name where "
-        	"{?link geo:lat ?latitude . ?link geo:long ?longitude . ?link foaf:name ?name "
-        	"filter (xsd:decimal(?latitude) >= " + str(min_lat)  + ") "
-        	"filter (xsd:decimal(?latitude) <= " + str(max_lat) + ") "
-        	"filter (xsd:decimal(?longitude) >= " + str(min_lon) + ") "
-        	"filter (xsd:decimal(?longitude) <= " + str(max_lon) + ")}")
+        sparql.setQuery("select distinct ?link, ?name, ?latitude, ?longitude where "
+                        "{?link geo:lat ?latitude . ?link geo:long ?longitude . ?link foaf:name ?name "
+                        "filter (xsd:decimal(?latitude) >= " + str(min_lat) + ") "
+                        "filter (xsd:decimal(?latitude) <= " + str(max_lat) + ") "
+                        "filter (xsd:decimal(?longitude) >= " + str(min_lon) + ") "
+                        "filter (xsd:decimal(?longitude) <= " + str(max_lon) + ")}")
         sparql.setReturnFormat(JSON)
         places = sparql.query().convert()
 
-        result = {"entries":[]}
+        result = {"entries": []}
 
         for place in places["results"]["bindings"]:
-    		result["entries"].append({"name": place["name"]["value"], "url": place["link"]["value"]})
+            result["entries"].append({
+                "name": place["name"]["value"],
+                "url": place["link"]["value"],
+                "lat": place["latitude"]["value"],
+                "lon": place["longitude"]["value"]
+            })
 
         return HttpResponse(json.dumps(result),
                             content_type="application/json")
