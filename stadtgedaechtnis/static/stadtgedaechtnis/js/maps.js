@@ -15,6 +15,35 @@ function errorLocationCallback (error) {
 	//TODO: show hint that location couldn't be retrieved
 }
 
+function addMarker (location) {
+    var latitude = parseFloat(location.latitude._int) * Math.pow(10, location.latitude._exp);
+    var longitude = parseFloat(location.longitude._int) * Math.pow(10, location.longitude._exp);
+
+    var marker = new google.maps.Marker({
+        map: userLocation.map,
+        position: new google.maps.LatLng(latitude, longitude),
+        title: location.label,
+        icon: "/static/stadtgedaechtnis/img/marker_story.png",
+        animation: google.maps.Animation.DROP
+    });
+}
+
+/**
+ * Callback that is called when the viewport changed
+ */
+function searchForEntries () {
+    var bounds = userLocation.map.getBounds()
+    var max_lat = bounds.getNorthEast().lat().toFixed(10)
+    var max_lon = bounds.getNorthEast().lng().toFixed(10)
+    var min_lat = bounds.getSouthWest().lat().toFixed(10)
+    var min_lon = bounds.getSouthWest().lng().toFixed(10)
+    $.getJSON("../stadtgedaechtnis/services/get-nearby-locations/" + min_lat + "/" + max_lat + "/" + min_lon + "/" + max_lon + "/", function (data) {
+        $.each(data, function (index, value) {
+            addMarker(value);
+        })
+    });
+}
+
 /**
  * Location object to enable/disable tracking the location and to retrieve the current or fallback location.
  * @param trackLocation
@@ -36,6 +65,7 @@ Location.prototype.moveToCurrentLocationOrFallback = function () {
 	    google.maps.event.addListenerOnce(this.positionMarker, 'position_changed', function() {
             this.map.setCenter(this.getPosition());
             this.map.fitBounds(this.getBounds());
+            searchForEntries();
         });
 	} else {
 		this.moveToLocation(this.DEFAULT_LAT, this.DEFAULT_LONG);
@@ -48,10 +78,10 @@ Location.prototype.moveToCurrentLocationOrFallback = function () {
  * @param lat
  * @param long
  */
-Location.prototype.moveToLocation = function(lat, long) {
+Location.prototype.moveToLocation = function(position) {
 	if (this.map) {
-		var newLocation = new google.maps.LatLng(lat, long);
-		this.map.panTo(newLocation);
+		this.map.panTo(position);
+        searchForEntries();
 	}
 }
 
@@ -79,4 +109,5 @@ function initialize_Map() {
     userLocation.positionMarker = new GeolocationMarker(userLocation.map)
     userLocation.moveToCurrentLocationOrFallback();
     google.maps.event.addListener(userLocation.positionMarker, 'geolocation_error', errorLocationCallback);
+    google.maps.event.addListener(userLocation.map, 'idle', searchForEntries)
 }
