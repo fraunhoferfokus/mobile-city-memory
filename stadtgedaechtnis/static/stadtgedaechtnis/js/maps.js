@@ -76,7 +76,7 @@ var mapOptions = {
 function initialize_Map() {
 	userLocation.map = new google.maps.Map(document.getElementById(MAP_ELEMENT),
 		mapOptions);
-	userLocation.moveToCurrentLocationOrFallback();
     userLocation.positionMarker = new GeolocationMarker(userLocation.map)
+    userLocation.moveToCurrentLocationOrFallback();
     google.maps.event.addListener(userLocation.positionMarker, 'geolocation_error', errorLocationCallback);
 }
