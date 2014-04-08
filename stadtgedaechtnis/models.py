@@ -1,8 +1,8 @@
-'''
+"""
 Created on 26.02.2014
 
 @author: jpi
-'''
+"""
 
 from django.utils.translation import ugettext as _
 from django.db import models
