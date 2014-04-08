@@ -5,31 +5,13 @@
 var MAP_ELEMENT = "map_canvas";
 
 /**
- * Callback that is called when the location is successfully retrieved.
- * @param position
- */
-function successLocationCallback (position) {
-	//success callback
-	userLocation.moveToLocation(position.coords.latitude, position.coords.longitude);
-	if (!userLocation.positionMarker) {
-		userLocation.positionMarker = new google.maps.Marker({
-			position: userLocation.map.getCenter(),
-			map: userLocation.map,
-			clickable: false,
-			icon: "static/stadtgedaechtnis/img/marker_position.png"
-		});
-	}
-	//TODO: maybe add accuracy?
-}
-
-/**
  * Callback that is called when the location couldn't be retrieved.
  * @param error
  */
 function errorLocationCallback (error) {
 	// error callback
-	alert(error.id);
 	userLocation.moveToLocation(this.DEFAULT_LAT, this.DEFAULT_LONG);
+    alert('There was an error obtaining your position. Message: ' + error.message);
 	//TODO: show hint that location couldn't be retrieved
 }
 
@@ -42,34 +24,7 @@ function Location() {
 	this.DEFAULT_LAT = 50.258;
 	this.DEFAULT_LONG = 10.965;
 	this.DEFAULT_LOCATION = new google.maps.LatLng(50.258, 10.965);
-
-	this.currentLocation = this.DEFAULT_LOCATION;
 	this.positionMarker = null;
-
-	var trackingID;
-	var tracking = false;
-
-	/**
-	 * enable location tracking
-	 */
-	this.__defineGetter__("trackLocation", function () {
-		return tracking;
-	})
-
-	/**
-	 * disable location tracking
-	 */
-	this.__defineSetter__("trackLocation", function (trackLocation) {
-		if (Modernizr.geolocation) {
-			if (trackLocation) {
-				trackingID = navigator.geolocation.watchPosition(successLocationCallback, errorLocationCallback, {enableHighAccuracy: true});
-			} else if (!trackLocation) {
-				navigator.geolocation.clearWatch(trackingID);
-			}
-			tracking = trackLocation;
-		}
-	})
-
 }
 
 /**
@@ -78,7 +33,10 @@ function Location() {
  */
 Location.prototype.moveToCurrentLocationOrFallback = function () {
 	if (Modernizr.geolocation) {
-		navigator.geolocation.getCurrentPosition(successLocationCallback, errorLocationCallback,{enableHighAccuracy: true});
+	    google.maps.event.addListenerOnce(this.positionMarker, 'position_changed', function() {
+            this.map.setCenter(this.getPosition());
+            this.map.fitBounds(this.getBounds());
+        });
 	} else {
 		this.moveToLocation(this.DEFAULT_LAT, this.DEFAULT_LONG);
 		//TODO: show hint that browser doesn't support location
@@ -93,11 +51,7 @@ Location.prototype.moveToCurrentLocationOrFallback = function () {
 Location.prototype.moveToLocation = function(lat, long) {
 	if (this.map) {
 		var newLocation = new google.maps.LatLng(lat, long);
-		this.currentLocation = newLocation;
 		this.map.panTo(newLocation);
-		if (this.map.positionMarker) {
-			this.map.positionMarker.setPosition(newLocation);
-		}
 	}
 }
 
@@ -123,6 +77,6 @@ function initialize_Map() {
 	userLocation.map = new google.maps.Map(document.getElementById(MAP_ELEMENT),
 		mapOptions);
 	userLocation.moveToCurrentLocationOrFallback();
-	userLocation.trackLocation = true;
     userLocation.positionMarker = new GeolocationMarker(userLocation.map)
+    google.maps.event.addListener(userLocation.positionMarker, 'geolocation_error', errorLocationCallback);
 }
