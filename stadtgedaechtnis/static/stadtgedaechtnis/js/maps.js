@@ -124,4 +124,5 @@ function initialize_Map() {
 		mapOptions);
 	userLocation.moveToCurrentLocationOrFallback();
 	userLocation.trackLocation = true;
+    userLocation.positionMarker = new GeolocationMarker(userLocation.map)
 }
