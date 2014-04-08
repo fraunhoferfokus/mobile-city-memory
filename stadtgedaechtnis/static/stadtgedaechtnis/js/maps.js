@@ -111,7 +111,7 @@ var mapOptions = {
 	center: userLocation.DEFAULT_LOCATION,
 	zoom: 17,
 	mapTypeId: google.maps.MapTypeId.SATELLITE,
-	disableDefaultUI: true,
+	disableDefaultUI: false,
 	zoomControl: true
 };
 

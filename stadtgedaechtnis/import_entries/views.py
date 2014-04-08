@@ -138,11 +138,11 @@ class SimpleJSONImport(ImportView):
                     entry["location"] = location_object
                     self.exist_entries.append(entry)
 
-
             except Location.DoesNotExist:
                 location["lat"] = str(lat)
                 location["lon"] = str(lon)
-                location["url"] = reverse('admin:stadtgedaechtnis_location_add') + "?latitude=" + str(lat) + "&longitude=" + str(lon)
+                location["url"] = reverse('admin:stadtgedaechtnis_location_add') + \
+                    "?latitude=" + str(lat) + "&longitude=" + str(lon)
                 self.failed_entries.append(location)
 
 
