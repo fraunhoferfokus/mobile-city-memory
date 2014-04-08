@@ -3,7 +3,7 @@ __author__ = 'jpi'
 from django.views.generic import View
 from django.http import HttpResponse
 from SPARQLWrapper import SPARQLWrapper, JSON
-from stadtgedaechtnis.models import Entry
+from stadtgedaechtnis.models import Entry, Location
 
 import jsonpickle
 import json
@@ -48,23 +48,32 @@ class GetNearbyPlacesDBPedia(View):
                             content_type="application/json")
 
 
-class GetNearbyEntries(View):
+class GetNearbyLocations(View):
     """
-    Returns a list of entries to a given location.
+    Returns a list of locations to given lat and lon coordinates
     Parameters: lat - Latitude, lon - Longitude
+    Option: maxlat - Maximum Latitude, maxlon - Maximum Longitude
     """
 
     def get(self, request, *args, **kwargs):
         lat, lon = float(kwargs["lat"]), float(kwargs["lon"])
-        min_lat, max_lat = lat - 0.01, lat + 0.01
-        min_lon, max_lon = lon - 0.01, lon + 0.01
+        if "maxlat" in kwargs and "maxlon" in kwargs:
+            min_lat, max_lat = lat, float(kwargs["maxlat"])
+            min_lon, max_lon = lon, float(kwargs["maxlon"])
+        else:
+            min_lat, max_lat = lat - 0.01, lat + 0.01
+            min_lon, max_lon = lon - 0.01, lon + 0.01
 
-        entries = Entry.objects.filter(location__latitude__gte=min_lat,
-                                       location__latitude__lte=max_lat,
-                                       location__longitude__gte=min_lon,
-                                       location__longitude__lte=max_lon)
+        locations = Location.objects.filter(latitude__gte=min_lat,
+                                            latitude__lte=max_lat,
+                                            longitude__gte=min_lon,
+                                            longitude__lte=max_lon,
+                                            entry__isnull=False)
 
-        result = list(entries)
+        result = list()
+        for location in locations:
+            location.entries = list(location.entry_set.all())
+            result.append(location)
 
-        return HttpResponse(jsonpickle.encode(result, unpicklable=False),
+        return HttpResponse(jsonpickle.encode(result, unpicklable=False, max_depth=5),
                             content_type="application/json")
