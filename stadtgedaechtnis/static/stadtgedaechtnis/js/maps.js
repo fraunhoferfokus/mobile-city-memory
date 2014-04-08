@@ -110,8 +110,9 @@ var userLocation = new Location();
 var mapOptions = {
 	center: userLocation.DEFAULT_LOCATION,
 	zoom: 17,
+    mapTypeControl: true,
 	mapTypeId: google.maps.MapTypeId.SATELLITE,
-	disableDefaultUI: false,
+	disableDefaultUI: true,
 	zoomControl: true
 };
 
