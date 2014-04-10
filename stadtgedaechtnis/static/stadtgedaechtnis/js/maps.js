@@ -30,19 +30,52 @@ function addMarker (location) {
             animation: google.maps.Animation.DROP
         });
 
-        var infoBox = new google.maps.InfoWindow({
-            content: location.entries[0].abstract,
-            maxWidth: 225
-        })
-
-        google.maps.event.addListener(marker, 'click', function() {
-            userLocation.currentInfobox = infoBox;
-            infoBox.open(userLocation.map, marker);
-        });
-
-        location.infobox = infoBox;
         location.marker = marker;
+        createInfobox(location);
+
         userLocation.markers[location.id] = location;
+    }
+}
+
+/**
+ * Creates an infobox for this location.
+ * @param location
+ */
+function createInfobox(location) {
+    if (location.entries.length > 1) {
+        //TODO: add more entries
+    } else {
+        content = location.entries[0].abstract;
+    }
+
+    var infoBox = new google.maps.InfoWindow({
+        content: location.entries[0].abstract,
+        maxWidth: 225
+    })
+
+    location.infobox = infoBox;
+    google.maps.event.addListener(location.marker, 'click', function () {
+        openEntry(location);
+    });
+}
+
+/**
+ * Opens an infobox for the first entry in this
+ * location and pops up the pop up with the
+ * correct heading and image. Handles click
+ * events on the marker.
+ * @param entry
+ */
+function openEntry(location) {
+    $("footer[role='complementary']").show();
+    userLocation.currentInfobox = location.infobox;
+    location.infobox.open(userLocation.map, location.marker);
+}
+
+function closeEntry() {
+    $("footer[role='complementary']").hide();
+    if (userLocation.currentInfobox != null) {
+        userLocation.currentInfobox.close();
     }
 }
 
@@ -132,10 +165,5 @@ function initialize_Map() {
     userLocation.moveToCurrentLocationOrFallback();
     google.maps.event.addListener(userLocation.positionMarker, 'geolocation_error', errorLocationCallback);
     google.maps.event.addListener(userLocation.map, 'idle', searchForEntries)
-    google.maps.event.addListener(userLocation.map, 'click', function(mouseevent) {
-        if (userLocation.currentInfobox != null) {
-            userLocation.currentInfobox.close();
-            mouseevent.stop();
-        }
-    })
+    google.maps.event.addListener(userLocation.map, 'click', closeEntry);
 }
