@@ -16,9 +16,11 @@ function errorLocationCallback (error) {
 }
 
 function addMarker (location) {
+    // calculate latitude and longitude
     var latitude = parseFloat(location.latitude._int) * Math.pow(10, location.latitude._exp);
     var longitude = parseFloat(location.longitude._int) * Math.pow(10, location.longitude._exp);
 
+    // if not already on the map, display marker
     if (!userLocation.markers.hasOwnProperty(location.id)) {
         var marker = new google.maps.Marker({
             map: userLocation.map,
@@ -27,7 +29,8 @@ function addMarker (location) {
             icon: "/static/stadtgedaechtnis/img/marker_story.png",
             animation: google.maps.Animation.DROP
         });
-        userLocation.markers[location.id] = marker;
+        location.marker = marker;
+        userLocation.markers[location.id] = location;
     }
 }
 
@@ -35,11 +38,13 @@ function addMarker (location) {
  * Callback that is called when the viewport changed
  */
 function searchForEntries () {
+    // calculate bounds to search for
     var bounds = userLocation.map.getBounds()
     var max_lat = bounds.getNorthEast().lat().toFixed(10)
     var max_lon = bounds.getNorthEast().lng().toFixed(10)
     var min_lat = bounds.getSouthWest().lat().toFixed(10)
     var min_lon = bounds.getSouthWest().lng().toFixed(10)
+    // get nearby locations
     $.getJSON("../stadtgedaechtnis/services/get-nearby-locations/" + min_lat + "/" + max_lat + "/" + min_lon + "/" + max_lon + "/", function (data) {
         $.each(data, function (index, value) {
             addMarker(value);

@@ -410,11 +410,11 @@ header[role="banner"] {
   background-image: url(../img/header.png);
   background-image: none, url(../img/header.svg);
   background-size: 100% 100%;
-  padding: .5em;
+  padding: .5rem;
 }
 header[role="banner"] h1 {
   text-transform: uppercase;
-  font-size: 1.3em;
+  font-size: 1.3rem;
   margin: 0;
   text-align: right;
 }
@@ -435,10 +435,33 @@ header[role="banner"] nav ul li a.current {
   text-decoration: underline;
 }
 
+footer[role="complementary"] {
+  margin: 0;
+  height: 6.5rem;
+  padding: 0.5rem;
+  box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.7);
+  -webkit-box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.7);
+  position: relative;
+  z-index: 1000;
+}
+footer[role="complementary"] h3 {
+  margin-top: 0;
+  margin-bottom: 0.25rem;
+}
+footer[role="complementary"] p {
+  margin: 0;
+  font-size: .7rem;
+}
+footer[role="complementary"] img {
+  margin-right: 1rem;
+  height: 100%;
+  float: left;
+}
+
 /* Initial container moving */
 div#container {
-  padding-top: 1.7em;
-  margin-top: -1.7em;
+  padding-top: 1.7rem;
+  margin-top: -1.7rem;
   height: 100%;
 }
 

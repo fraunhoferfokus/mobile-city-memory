@@ -12,9 +12,9 @@
  */
 function resizeContainer() {
 	var headerHeight = $("header[role='banner']").css("height");
-	$("#container").css("padding-top", headerHeight);
-	$("#container").css("margin-top", "-" + headerHeight);
-};
+    var footerHeight = $("footer[role='complementary']").css("height");
+	$("#container").css("padding-top", headerHeight).css("margin-top", "-" + headerHeight).css("padding-bottom", footerHeight).css("margin-bottom", "-" + footerHeight);
+}
 
 /**
  * $(document).ready
