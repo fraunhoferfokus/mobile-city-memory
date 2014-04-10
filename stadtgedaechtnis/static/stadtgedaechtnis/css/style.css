@@ -437,12 +437,13 @@ header[role="banner"] nav ul li a.current {
 
 footer[role="complementary"] {
   margin: 0;
-  height: 6.5rem;
+  height: 8rem;
   padding: 0.5rem;
   box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.7);
   -webkit-box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.7);
   position: relative;
   z-index: 1000;
+  overflow: scroll;
 }
 footer[role="complementary"] h3 {
   margin-top: 0;
@@ -450,7 +451,6 @@ footer[role="complementary"] h3 {
 }
 footer[role="complementary"] p {
   margin: 0;
-  font-size: .7rem;
 }
 footer[role="complementary"] img {
   margin-right: 1rem;
