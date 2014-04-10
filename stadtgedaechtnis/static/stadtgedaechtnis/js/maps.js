@@ -29,6 +29,17 @@ function addMarker (location) {
             icon: "/static/stadtgedaechtnis/img/marker_story.png",
             animation: google.maps.Animation.DROP
         });
+
+        var infoBox = new google.maps.InfoWindow({
+            content: location.entries[0].abstract,
+            maxWidth: 225
+        })
+
+        google.maps.event.addListener(marker, 'click', function() {
+            infoBox.open(userLocation.map, marker);
+        });
+
+        location.infobox = infoBox;
         location.marker = marker;
         userLocation.markers[location.id] = location;
     }

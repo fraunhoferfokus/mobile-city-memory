@@ -446,11 +446,16 @@ footer[role="complementary"] {
 }
 footer[role="complementary"] h3 {
   margin-top: 0;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
 }
 footer[role="complementary"] p {
   margin-top: 0;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
+  -moz-hyphens: auto;
+  -o-hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
 }
 footer[role="complementary"] img {
   width: 100%;
