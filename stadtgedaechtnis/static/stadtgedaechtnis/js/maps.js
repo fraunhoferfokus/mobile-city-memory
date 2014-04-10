@@ -36,6 +36,7 @@ function addMarker (location) {
         })
 
         google.maps.event.addListener(marker, 'click', function() {
+            userLocation.currentInfobox = infoBox;
             infoBox.open(userLocation.map, marker);
         });
 
@@ -74,6 +75,7 @@ function Location() {
 	this.DEFAULT_LOCATION = new google.maps.LatLng(50.258, 10.965);
 	this.positionMarker = null;
     this.markers = {}
+    this.currentInfobox = null;
 }
 
 /**
@@ -130,4 +132,10 @@ function initialize_Map() {
     userLocation.moveToCurrentLocationOrFallback();
     google.maps.event.addListener(userLocation.positionMarker, 'geolocation_error', errorLocationCallback);
     google.maps.event.addListener(userLocation.map, 'idle', searchForEntries)
+    google.maps.event.addListener(userLocation.map, 'click', function(mouseevent) {
+        if (userLocation.currentInfobox != null) {
+            userLocation.currentInfobox.close();
+            mouseevent.stop();
+        }
+    })
 }
