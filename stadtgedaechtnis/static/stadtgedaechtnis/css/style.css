@@ -443,19 +443,17 @@ footer[role="complementary"] {
   -webkit-box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.7);
   position: relative;
   z-index: 1000;
-  overflow: scroll;
 }
 footer[role="complementary"] h3 {
   margin-top: 0;
   margin-bottom: 0.25rem;
 }
 footer[role="complementary"] p {
-  margin: 0;
+  margin-top: 0;
+  margin-bottom: 0.25rem;
 }
 footer[role="complementary"] img {
-  margin-right: 1rem;
-  height: 100%;
-  float: left;
+  width: 100%;
 }
 
 /* Initial container moving */
