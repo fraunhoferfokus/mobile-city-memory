@@ -19,13 +19,16 @@ function addMarker (location) {
     var latitude = parseFloat(location.latitude._int) * Math.pow(10, location.latitude._exp);
     var longitude = parseFloat(location.longitude._int) * Math.pow(10, location.longitude._exp);
 
-    var marker = new google.maps.Marker({
-        map: userLocation.map,
-        position: new google.maps.LatLng(latitude, longitude),
-        title: location.label,
-        icon: "/static/stadtgedaechtnis/img/marker_story.png",
-        animation: google.maps.Animation.DROP
-    });
+    if (!userLocation.markers.hasOwnProperty(location.id)) {
+        var marker = new google.maps.Marker({
+            map: userLocation.map,
+            position: new google.maps.LatLng(latitude, longitude),
+            title: location.label,
+            icon: "/static/stadtgedaechtnis/img/marker_story.png",
+            animation: google.maps.Animation.DROP
+        });
+        userLocation.markers[location.id] = marker;
+    }
 }
 
 /**
@@ -54,6 +57,7 @@ function Location() {
 	this.DEFAULT_LONG = 10.965;
 	this.DEFAULT_LOCATION = new google.maps.LatLng(50.258, 10.965);
 	this.positionMarker = null;
+    this.markers = {}
 }
 
 /**
