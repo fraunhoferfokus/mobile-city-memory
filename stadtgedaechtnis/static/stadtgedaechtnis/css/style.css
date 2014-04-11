@@ -448,7 +448,6 @@ header[role="banner"] nav ul li a.current {
 footer[role="complementary"] {
   margin: 0;
   height: 8rem;
-  padding: 0.5rem;
   box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.7);
   -webkit-box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.7);
   position: relative;

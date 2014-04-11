@@ -73,7 +73,7 @@ function openEntry(location) {
             $("footer[role='complementary']").animate({height: "8rem"}, {
                 duration: 100,
                 easing: "swing"
-            });
+            }).css("padding", "0.5rem");
         },
         duration: 100,
         easing: "swing"
@@ -88,7 +88,7 @@ function closeEntry() {
             $("footer[role='complementary']").animate({height: "0rem"}, {
                 duration: 100,
                 easing: "swing"
-            });
+            }).css("padding", "0rem");
         },
         duration: 100,
         easing: "swing"

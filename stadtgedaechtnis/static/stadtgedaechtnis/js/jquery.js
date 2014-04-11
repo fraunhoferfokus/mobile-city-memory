@@ -14,9 +14,17 @@ var footerHeight;
  */
 function resizeContainer() {
 	var headerHeight = $("header[role='banner']").css("height");
-    footerHeight = $("footer[role='complementary']").css("height");
-	$("#container").css("padding-top", headerHeight).css("margin-top", "-" + headerHeight).css("padding-bottom", "0px").css("margin-bottom", "0px");
-    $("footer[role='complementary']").css("height", "0rem");
+    var footer = $("footer[role='complementary']");
+    footerHeight = footer.css("height");
+	$("#container").css({
+        paddingTop: headerHeight,
+        marginTop: "-" + headerHeight,
+        paddingBottom: "0px",
+        marginBottom: "0px"
+    });
+    footer.css({
+        height: "0rem"
+    });
 }
 
 /**
