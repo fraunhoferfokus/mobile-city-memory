@@ -68,12 +68,14 @@ function createInfobox(location) {
  * @param entry
  */
 function openEntry(location) {
-    $("#container").animate({paddingBottom: footerHeight, marginBottom: "-" + footerHeight}, {
+    var footer = $("footer[role='complementary']");
+    $("#container").transition({paddingBottom: footerHeight, marginBottom: "-" + footerHeight}, {
         start: function() {
-            $("footer[role='complementary']").animate({height: "8rem"}, {
+            /*footer.transition({height: "8rem"}, {
                 duration: 100,
                 easing: "swing"
-            }).css("padding", "0.5rem");
+            });*/
+            footer.css("padding", "0.5rem");
         },
         duration: 100,
         easing: "swing"
@@ -84,13 +86,13 @@ function openEntry(location) {
 
 function closeEntry() {
     var footer = $("footer[role='complementary']");
-    $("#container").animate({paddingBottom: "0px", marginBottom: "0px"}, {
-        start: function() {
-            footer.animate({height: "0rem"}, {
+    $("#container").transition({paddingBottom: "0px", marginBottom: "0px"}, {
+        /*start: function() {
+            footer.transition({height: "0rem"}, {
                 duration: 100,
                 easing: "swing"
             })
-        },
+        },*/
         duration: 100,
         easing: "swing",
         done: function() {
