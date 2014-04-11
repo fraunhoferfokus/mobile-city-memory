@@ -69,35 +69,18 @@ function createInfobox(location) {
  */
 function openEntry(location) {
     var footer = $("footer[role='complementary']");
-    $("#container").transition({paddingBottom: footerHeight, marginBottom: "-" + footerHeight}, {
-        start: function() {
-            /*footer.transition({height: "8rem"}, {
-                duration: 100,
-                easing: "swing"
-            });*/
-            footer.css("padding", "0.5rem");
-        },
-        duration: 100,
-        easing: "swing"
-    });
+    footer.css("padding", "0.5rem");
+    footer.transition({height: footerHeight}, 100, "ease");
+    $("#container").transition({paddingBottom: footerHeight, marginBottom: "-" + footerHeight}, 200, "ease");
     userLocation.currentInfobox = location.infobox;
     location.infobox.open(userLocation.map, location.marker);
 }
 
 function closeEntry() {
     var footer = $("footer[role='complementary']");
-    $("#container").transition({paddingBottom: "0px", marginBottom: "0px"}, {
-        /*start: function() {
-            footer.transition({height: "0rem"}, {
-                duration: 100,
-                easing: "swing"
-            })
-        },*/
-        duration: 100,
-        easing: "swing",
-        done: function() {
-            footer.css("padding", "0rem");
-        }
+    footer.transition({height: footerHeight}, 100, "ease");
+    $("#container").transition({paddingBottom: "0px", marginBottom: "0px"}, 200, "ease" , function() {
+        footer.css("padding", "0rem");
     });
     if (userLocation.currentInfobox != null) {
         userLocation.currentInfobox.close();
