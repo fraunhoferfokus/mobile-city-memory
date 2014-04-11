@@ -745,7 +745,7 @@
 			    phase = PHASE_CANCEL;
                 triggerHandler(event, phase);
 			} else if (options.checkThresholds) {
-                if (validateSwipeTime() && validateSwipeDistance()) {
+                if (validateSwipeTime() || validateSwipeDistance()) {
                     phase = PHASE_END;
                 } else {
                     phase = PHASE_CANCEL;

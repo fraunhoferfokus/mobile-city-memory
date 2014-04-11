@@ -8,14 +8,14 @@
  */
 
 var footerHeight;
+var headerHeight;
 var footerSwipeHeight;
-var swipeThreshold;
 
 /**
  * resizes the div#container to the remaining browser height
  */
 function resizeContainer() {
-	var headerHeight = $("header[role='banner']").css("height");
+	headerHeight = $("header[role='banner']").css("height");
     var footer = $("footer[role='complementary']");
     footerHeight = footer.css("height");
 	$("#container").css({
@@ -36,7 +36,8 @@ function initializeSwiping() {
     var footer = $("footer[role='complementary']");
     var container = $("#container");
 
-    swipeThreshold = container.height() / 2;
+    var swipeThreshold = container.height() / 2;
+    var maxPadding = container.height() + "px";
 
     footer.swipe({
         swipeStatus: function(event, phase, direction, distance) {
@@ -45,20 +46,23 @@ function initializeSwiping() {
                 var cssHeight = footer.css("height");
                 footerSwipeHeight = parseInt(cssHeight.substring(0, cssHeight.length - 2));
             } else if (phase === "cancel") {
-                $("footer[role='complementary']").transition({height: footerHeight}, 200, "ease");
-                $("#container").transition({paddingBottom: footerHeight, marginBottom: "-" + footerHeight}, 200, "ease");
+                var newPadding = (direction === "up" ? footerHeight : maxPadding);
+                footer.transition({height: newPadding}, 200, "ease");
+                container.transition({paddingBottom: newPadding, marginBottom: "-" + newPadding}, 200, "ease");
             } else if (phase === "end") {
-                $("footer[role='complementary']").transition({height: "1000px"}, 200, "ease");
-                $("#container").transition({paddingBottom: "1000px", marginBottom: "-" + "1000px"}, 200, "ease");
+                var newPadding = (direction === "up" ? maxPadding : footerHeight);
+                footer.transition({height: newPadding}, 200, "ease");
+                container.transition({paddingBottom: newPadding, marginBottom: "-" + newPadding}, 200, "ease");
+            } else {
+                var newPadding = footerSwipeHeight + (direction === "up" ? distance : -distance);
+                container.css({
+                    paddingBottom: newPadding + "px",
+                    marginBottom: "-" + newPadding + "px"
+                });
+                footer.css({
+                    height: newPadding + "px"
+                })
             }
-            var newPadding = footerSwipeHeight + (direction === "up" ? distance : -distance);
-            container.css({
-                paddingBottom: newPadding + "px",
-                marginBottom: "-" + newPadding + "px"
-            });
-            footer.css({
-                height: newPadding + "px"
-            })
         },
         checkThresholds: true,
         maxTimeThreshold: 300,
