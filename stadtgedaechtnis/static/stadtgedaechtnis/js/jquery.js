@@ -9,6 +9,7 @@
 
 var footerHeight;
 var footerSwipeHeight;
+var swipeThreshold;
 
 /**
  * resizes the div#container to the remaining browser height
@@ -32,22 +33,36 @@ function resizeContainer() {
  * Initializes the swipe ability on the footer.
  */
 function initializeSwiping() {
-    $("footer[role='complementary']").swipe({
+    var footer = $("footer[role='complementary']");
+    var container = $("#container");
+
+    swipeThreshold = container.height() / 2;
+
+    footer.swipe({
         swipeStatus: function(event, phase, direction, distance) {
             // handles the current swipe
             if (phase === "start") {
-                var cssHeight = $("footer[role='complementary']").css("height");
+                var cssHeight = footer.css("height");
                 footerSwipeHeight = parseInt(cssHeight.substring(0, cssHeight.length - 2));
+            } else if (phase === "cancel") {
+                $("footer[role='complementary']").transition({height: footerHeight}, 200, "ease");
+                $("#container").transition({paddingBottom: footerHeight, marginBottom: "-" + footerHeight}, 200, "ease");
+            } else if (phase === "end") {
+                $("footer[role='complementary']").transition({height: "1000px"}, 200, "ease");
+                $("#container").transition({paddingBottom: "1000px", marginBottom: "-" + "1000px"}, 200, "ease");
             }
             var newPadding = footerSwipeHeight + (direction === "up" ? distance : -distance);
-            $("#container").css({
+            container.css({
                 paddingBottom: newPadding + "px",
                 marginBottom: "-" + newPadding + "px"
             });
-            $("footer[role='complementary']").css({
+            footer.css({
                 height: newPadding + "px"
             })
-        }
+        },
+        checkThresholds: true,
+        maxTimeThreshold: 300,
+        threshold: swipeThreshold
     });
 }
 

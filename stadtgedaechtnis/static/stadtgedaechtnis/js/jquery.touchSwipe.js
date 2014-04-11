@@ -690,6 +690,7 @@
 						triggerHandler(event, phase);
 					}				
 				}
+
 			}
 			else {
 				phase = PHASE_CANCEL;
@@ -743,7 +744,14 @@
 			if(didSwipeBackToCancel()) {
 			    phase = PHASE_CANCEL;
                 triggerHandler(event, phase);
-			} else if (options.triggerOnTouchEnd || (options.triggerOnTouchEnd == false && phase === PHASE_MOVE)) {
+			} else if (options.checkThresholds) {
+                if (validateSwipeTime() && validateSwipeDistance()) {
+                    phase = PHASE_END;
+                } else {
+                    phase = PHASE_CANCEL;
+                }
+                triggerHandler(event, phase);
+            } else if (options.triggerOnTouchEnd || (options.triggerOnTouchEnd == false && phase === PHASE_MOVE)) {
 				phase = PHASE_END;
                 triggerHandler(event, phase);
 			}
@@ -1183,7 +1191,7 @@
 			var result;
 			//If no time set, then return true
 
-			if (options.maxTimeThreshold) {
+			if (options.maxTimeThreshold !== null) {
 				if (duration >= options.maxTimeThreshold) {
 					result = false;
 				} else {
