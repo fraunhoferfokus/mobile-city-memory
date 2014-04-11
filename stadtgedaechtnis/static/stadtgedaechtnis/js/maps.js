@@ -79,33 +79,37 @@ function openEntry(location) {
         alt: location.alt
     });
 
-    var footer = $("footer[role='complementary']");
-    footer.css("padding", "0.8rem");
+    if (userLocation.currentInfobox === null) {
+        var footer = $("footer[role='complementary']");
+        footer.css("padding", "0.8rem");
 
-    if ($(window).width() < 768) {
-        // mobile
-        channel = "mobile";
-        footer.transition({height: footerHeight}, 200, "ease");
-        footer.swipe("enable");
-        $("#container").transition({paddingBottom: footerHeight, marginBottom: "-" + footerHeight}, 200, "ease");
+        if ($(window).width() < 768) {
+            // mobile
+            channel = "mobile";
+            footer.transition({height: footerHeight}, 200, "ease");
+            footer.swipe("enable");
+            $("#container").transition({paddingBottom: footerHeight, marginBottom: "-" + footerHeight}, 200, "ease");
+        } else {
+            // desktop
+            footer.swipe("disable");
+            channel = "desktop";
+            footer.css({
+                height: "100%",
+                width: "0%"
+            });
+            $("section.max_map").transition({width: "80%"}, 200, "ease");
+            footer.transition({width: "20%"}, 200, "ease");
+        }
     } else {
-        // desktop
-        footer.swipe("disable");
-        channel = "desktop";
-        footer.css({
-            height: "100%",
-            width: "0%"
-        });
-        $("section.max_map").transition({width: "80%"}, 200, "ease");
-        footer.transition({width: "20%"}, 200, "ease");
+        userLocation.currentInfobox.close();
     }
+
     userLocation.currentInfobox = location.infobox;
     location.infobox.open(userLocation.map, location.marker);
 }
 
 function closeEntry() {
     var footer = $("footer[role='complementary']");
-
 
     if (channel === "mobile") {
         // mobile
@@ -125,8 +129,9 @@ function closeEntry() {
         $("section.max_map").transition({width: "100%"}, 200, "ease");
     }
 
-    if (userLocation.currentInfobox != null) {
+    if (userLocation.currentInfobox !== null) {
         userLocation.currentInfobox.close();
+        userLocation.currentInfobox = null;
     }
 }
 
