@@ -22,9 +22,9 @@ function resizeContainer() {
         paddingBottom: "0px",
         marginBottom: "0px"
     });
-    /*footer.css({
-        height: "0rem"
-    });*/
+    footer.css({
+        height: "0"
+    });
 }
 
 /**
