@@ -78,6 +78,7 @@ footer[role="complementary"] {
   -webkit-box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.70);
   position: relative;
   z-index: 1000;
+  overflow: hidden;
 
   h3 {
     margin-top: 0;
@@ -85,13 +86,13 @@ footer[role="complementary"] {
   }
 
   p {
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-   -moz-hyphens: auto;
-   -o-hyphens: auto;
-   -webkit-hyphens: auto;
-   -ms-hyphens: auto;
-   hyphens: auto;
+     margin-top: 0;
+     margin-bottom: 0.5rem;
+     -moz-hyphens: auto;
+     -o-hyphens: auto;
+     -webkit-hyphens: auto;
+     -ms-hyphens: auto;
+     hyphens: auto;
   }
 
   img {
@@ -100,9 +101,10 @@ footer[role="complementary"] {
 }
 /* Initial container moving */
 div#container {
-	padding-top: 1.7rem;
-	margin-top: -1.7rem;
-	height: 100%;
+  padding-top: 1.7rem;
+  margin-top: -1.7rem;
+  height: 100%;
+  overflow: hidden;
 }
 
 /* Sizing of map_section and map_canvas */

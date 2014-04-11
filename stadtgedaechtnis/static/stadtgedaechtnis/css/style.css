@@ -453,6 +453,7 @@ footer[role="complementary"] {
   -webkit-box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.7);
   position: relative;
   z-index: 1000;
+  overflow: hidden;
 }
 footer[role="complementary"] h3 {
   margin-top: 0;
@@ -476,6 +477,7 @@ div#container {
   padding-top: 1.7rem;
   margin-top: -1.7rem;
   height: 100%;
+  overflow: hidden;
 }
 
 /* Sizing of map_section and map_canvas */
