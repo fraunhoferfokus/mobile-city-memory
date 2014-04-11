@@ -475,7 +475,6 @@ footer[role="complementary"] img {
 /* Initial container moving */
 div#container {
   height: 100%;
-  overflow: hidden;
 }
 
 /* Sizing of map_section and map_canvas */
