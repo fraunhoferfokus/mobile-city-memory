@@ -15,10 +15,7 @@ var footerHeight;
 function resizeContainer() {
 	var headerHeight = $("header[role='banner']").css("height");
     footerHeight = $("footer[role='complementary']").css("height");
-    alert(headerHeight);
-	$("#container").css("padding-top", headerHeight).css("margin-top", "-" + headerHeight);
-    alert($("#container").css("padding-top"));
-    alert($("#container").css("margin-top"));
+	$("#container").css("padding-top", headerHeight).css("margin-top", "-" + headerHeight).css("padding-bottom", "0px").css("margin-bottom", "0px");
     $("footer[role='complementary']").css("height", "0rem");
 }
 
