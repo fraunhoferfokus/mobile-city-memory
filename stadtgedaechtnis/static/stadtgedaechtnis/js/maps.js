@@ -68,7 +68,13 @@ function createInfobox(location) {
  * @param entry
  */
 function openEntry(location) {
-    $("#container").animate({paddingBottom: footerHeight}, {
+    $("#container").animate({paddingBottom: footerHeight, marginBottom: "-" + footerHeight}, {
+        start: function() {
+            $("footer[role='complementary']").animate({height: "8rem"}, {
+                duration: 100,
+                easing: "swing"
+            });
+        },
         duration: 100,
         easing: "swing"
     });
@@ -77,7 +83,13 @@ function openEntry(location) {
 }
 
 function closeEntry() {
-    $("#container").animate({paddingBottom: "0px"}, {
+    $("#container").animate({paddingBottom: "0px", marginBottom: "0px"}, {
+        start: function() {
+            $("footer[role='complementary']").animate({height: "0rem"}, {
+                duration: 100,
+                easing: "swing"
+            });
+        },
         duration: 100,
         easing: "swing"
     });
