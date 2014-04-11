@@ -78,8 +78,9 @@ class GetNearbyLocations(View):
                 if entry.mediaobject_set.count > 0:
                     # set first image url and alt for entry
                     media_object = entry.mediaobject_set.first()
-                    entry.image = media_object.mediasource_set.first().file.url
-                    entry.alt = media_object.alt
+                    if media_object is not None:
+                        entry.image = media_object.mediasource_set.first().file.url
+                        entry.alt = media_object.alt
                 location.entries.append(entry)
 
             result.append(location)
