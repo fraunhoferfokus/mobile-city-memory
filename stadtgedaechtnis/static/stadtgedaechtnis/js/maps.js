@@ -78,7 +78,7 @@ function openEntry(location) {
 
 function closeEntry() {
     var footer = $("footer[role='complementary']");
-    footer.transition({height: footerHeight}, 100, "ease");
+    footer.transition({height: 0}, 100, "ease");
     $("#container").transition({paddingBottom: "0px", marginBottom: "0px"}, 200, "ease" , function() {
         footer.css("padding", "0rem");
     });
