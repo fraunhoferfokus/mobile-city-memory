@@ -72,7 +72,12 @@ class GetNearbyLocations(View):
 
         result = list()
         for location in locations:
-            location.entries = list(location.entry_set.all())
+            location.entries = list()
+            for entry in location.entry_set.all():
+                if entry.mediaobject_set.count > 0:
+                    entry.image = entry.mediaobject_set.first().mediasource_set.first().file.url
+                location.entries.append(entry)
+
             result.append(location)
 
         return HttpResponse(jsonpickle.encode(result, unpicklable=False, max_depth=5),
