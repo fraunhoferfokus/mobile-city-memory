@@ -83,15 +83,19 @@ function openEntry(location) {
 }
 
 function closeEntry() {
+    var footer = $("footer[role='complementary']");
     $("#container").animate({paddingBottom: "0px", marginBottom: "0px"}, {
         start: function() {
-            $("footer[role='complementary']").animate({height: "0rem"}, {
+            footer.animate({height: "0rem"}, {
                 duration: 100,
                 easing: "swing"
-            }).css("padding", "0rem");
+            })
         },
         duration: 100,
-        easing: "swing"
+        easing: "swing",
+        done: function() {
+            footer.css("padding", "0rem");
+        }
     });
     if (userLocation.currentInfobox != null) {
         userLocation.currentInfobox.close();
