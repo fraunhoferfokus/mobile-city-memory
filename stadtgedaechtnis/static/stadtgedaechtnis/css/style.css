@@ -403,14 +403,6 @@ p.infowindow {
   hyphens: auto;
 }
 
-/* responsive image resizing
- * must be applied to a subclass
- * otherwise google maps will display incorrectly
- *
-img {
-	max-width: 100%;
-	width: auto;
-} */
 a {
   color: black;
 }
