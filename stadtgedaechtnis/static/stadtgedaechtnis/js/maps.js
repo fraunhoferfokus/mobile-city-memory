@@ -45,11 +45,14 @@ function createInfobox(location) {
     if (location.entries.length > 1) {
         //TODO: add more entries
     } else {
-        var content = "<p class='infowindow'>" + location.entries[0].abstract + "</p>";
+        location.heading = location.entries[0].title;
+        location.image = location.entries[0].image;
+        location.alt = location.entries[0].alt;
+        var infoBoxContent = "<p class='infowindow'>" + location.entries[0].abstract + "</p>";
     }
 
     var infoBox = new google.maps.InfoWindow({
-        content: content,
+        content: infoBoxContent,
         maxWidth: 225
     })
 
@@ -68,9 +71,15 @@ function createInfobox(location) {
  * @param entry
  */
 function openEntry(location) {
+    $("footer[role='complementary'] h3").text(location.heading);
+    $("footer[role='complementary'] img").attr({
+        src: location.image,
+        alt: location.alt
+    });
+
     var footer = $("footer[role='complementary']");
-    footer.css("padding", "0.5rem");
-    footer.transition({height: footerHeight}, 100, "ease");
+    footer.css("padding", "0.8rem");
+    footer.transition({height: footerHeight}, 200, "ease");
     $("#container").transition({paddingBottom: footerHeight, marginBottom: "-" + footerHeight}, 200, "ease");
     userLocation.currentInfobox = location.infobox;
     location.infobox.open(userLocation.map, location.marker);
@@ -78,7 +87,7 @@ function openEntry(location) {
 
 function closeEntry() {
     var footer = $("footer[role='complementary']");
-    footer.transition({height: 0}, 100, "ease");
+    footer.transition({height: 0}, 200, "ease");
     $("#container").transition({paddingBottom: "0px", marginBottom: "0px"}, 200, "ease" , function() {
         footer.css("padding", "0rem");
     });

@@ -73,9 +73,13 @@ class GetNearbyLocations(View):
         result = list()
         for location in locations:
             location.entries = list()
+            # supply all the entries from the location
             for entry in location.entry_set.all():
                 if entry.mediaobject_set.count > 0:
-                    entry.image = entry.mediaobject_set.first().mediasource_set.first().file.url
+                    # set first image url and alt for entry
+                    media_object = entry.mediaobject_set.first()
+                    entry.image = media_object.mediasource_set.first().file.url
+                    entry.alt = media_object.alt
                 location.entries.append(entry)
 
             result.append(location)
