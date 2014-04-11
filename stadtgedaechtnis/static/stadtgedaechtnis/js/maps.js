@@ -45,11 +45,11 @@ function createInfobox(location) {
     if (location.entries.length > 1) {
         //TODO: add more entries
     } else {
-        content = location.entries[0].abstract;
+        var content = "<p class='infowindow'>" + location.entries[0].abstract + "</p>";
     }
 
     var infoBox = new google.maps.InfoWindow({
-        content: location.entries[0].abstract,
+        content: content,
         maxWidth: 225
     })
 
@@ -57,6 +57,7 @@ function createInfobox(location) {
     google.maps.event.addListener(location.marker, 'click', function () {
         openEntry(location);
     });
+    google.maps.event.addListener(infoBox, 'closeclick', closeEntry);
 }
 
 /**
@@ -67,13 +68,19 @@ function createInfobox(location) {
  * @param entry
  */
 function openEntry(location) {
-    $("footer[role='complementary']").show();
+    $("#container").animate({paddingBottom: footerHeight}, {
+        duration: 100,
+        easing: "swing"
+    });
     userLocation.currentInfobox = location.infobox;
     location.infobox.open(userLocation.map, location.marker);
 }
 
 function closeEntry() {
-    $("footer[role='complementary']").hide();
+    $("#container").animate({paddingBottom: "0px"}, {
+        duration: 100,
+        easing: "swing"
+    });
     if (userLocation.currentInfobox != null) {
         userLocation.currentInfobox.close();
     }

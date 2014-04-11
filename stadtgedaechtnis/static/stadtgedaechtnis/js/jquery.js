@@ -7,13 +7,15 @@
  * Using jQuery 1.11.0
  */
 
+var footerHeight;
+
 /**
  * resizes the div#container to the remaining browser height
  */
 function resizeContainer() {
 	var headerHeight = $("header[role='banner']").css("height");
-    var footerHeight = $("footer[role='complementary']").css("height");
-	$("#container").css("padding-top", headerHeight).css("margin-top", "-" + headerHeight).css("padding-bottom", footerHeight).css("margin-bottom", "-" + footerHeight);
+    footerHeight = $("footer[role='complementary']").css("height");
+	$("#container").css("padding-top", headerHeight).css("margin-top", "-" + headerHeight).css("margin-bottom", "-" + footerHeight);
 }
 
 /**

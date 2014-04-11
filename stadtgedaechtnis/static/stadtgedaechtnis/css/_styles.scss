@@ -5,6 +5,16 @@ html {
 body {
 	font-family: Trebuchet MS, Arial, sans-serif;
 	height: 100%;
+    overflow: hidden;
+}
+
+p.infowindow {
+    font-family: Trebuchet MS, Arial, sans-serif;
+    -moz-hyphens: auto;
+    -o-hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
 }
 
 /* responsive image resizing
