@@ -78,6 +78,7 @@ footer[role="complementary"] {
   position: relative;
   z-index: 1000;
   overflow: hidden;
+  cursor: grab;
 
   h3 {
     margin-top: 0;
@@ -85,13 +86,13 @@ footer[role="complementary"] {
   }
 
   p {
-     margin-top: 0;
-     margin-bottom: 0.5rem;
-     -moz-hyphens: auto;
-     -o-hyphens: auto;
-     -webkit-hyphens: auto;
-     -ms-hyphens: auto;
-     hyphens: auto;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    -moz-hyphens: auto;
+    -o-hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
   }
 
   img {
@@ -105,6 +106,14 @@ div#container {
 
 /* Sizing of map_section and map_canvas */
 main, .max_map {
-	height: 100%;
-	width: 100%;
+  height: 100%;
+  width: 100%;
+  float: left;
+}
+
+@media screen and (min-width: 768px) {
+  footer[role='complementary'] {
+    box-shadow: -5px 0 5px rgba(0, 0, 0, 0.70);
+    -webkit-box-shadow: -5px 0 5px rgba(0, 0, 0, 0.70);
+  }
 }

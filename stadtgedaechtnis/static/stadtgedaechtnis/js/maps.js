@@ -4,6 +4,8 @@
  */
 var MAP_ELEMENT = "map_canvas";
 
+var channel = "mobile";
+
 /**
  * Callback that is called when the location couldn't be retrieved.
  * @param error
@@ -79,18 +81,50 @@ function openEntry(location) {
 
     var footer = $("footer[role='complementary']");
     footer.css("padding", "0.8rem");
-    footer.transition({height: footerHeight}, 200, "ease");
-    $("#container").transition({paddingBottom: footerHeight, marginBottom: "-" + footerHeight}, 200, "ease");
+
+    if ($(window).width() < 768) {
+        // mobile
+        channel = "mobile";
+        footer.transition({height: footerHeight}, 200, "ease");
+        footer.swipe("enable");
+        $("#container").transition({paddingBottom: footerHeight, marginBottom: "-" + footerHeight}, 200, "ease");
+    } else {
+        // desktop
+        footer.swipe("disable");
+        channel = "desktop";
+        footer.css({
+            height: "100%",
+            width: "0%"
+        });
+        $("section.max_map").transition({width: "80%"}, 200, "ease");
+        footer.transition({width: "20%"}, 200, "ease");
+    }
     userLocation.currentInfobox = location.infobox;
     location.infobox.open(userLocation.map, location.marker);
 }
 
 function closeEntry() {
     var footer = $("footer[role='complementary']");
-    footer.transition({height: 0}, 200, "ease");
-    $("#container").transition({paddingBottom: "0px", marginBottom: "0px"}, 200, "ease" , function() {
-        footer.css("padding", "0rem");
-    });
+
+
+    if (channel === "mobile") {
+        // mobile
+        footer.transition({height: 0}, 200, "ease");
+        $("#container").transition({paddingBottom: "0px", marginBottom: "0px"}, 200, "ease" , function() {
+            footer.css("padding", "0rem");
+        });
+    } else {
+        // desktop
+        footer.transition({width: "0%"}, 200, "ease", function() {
+            footer.css({
+                height: "100%",
+                padding: "0rem",
+                width: "auto"
+            });
+        });
+        $("section.max_map").transition({width: "100%"}, 200, "ease");
+    }
+
     if (userLocation.currentInfobox != null) {
         userLocation.currentInfobox.close();
     }

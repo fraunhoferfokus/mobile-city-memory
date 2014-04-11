@@ -36,7 +36,7 @@ function initializeSwiping() {
     var footer = $("footer[role='complementary']");
     var container = $("#container");
 
-    var swipeThreshold = container.height() / 2;
+    var swipeThreshold = container.height() * 0.3;
     var maxPadding = container.height() + "px";
 
     footer.swipe({
@@ -78,4 +78,7 @@ function initializeSwiping() {
 $(function() {
 	resizeContainer();
     initializeSwiping();
+    $(window).resize(function() {
+
+    });
 });

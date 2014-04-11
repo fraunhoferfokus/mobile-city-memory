@@ -453,6 +453,7 @@ footer[role="complementary"] {
   position: relative;
   z-index: 1000;
   overflow: hidden;
+  cursor: grab;
 }
 footer[role="complementary"] h3 {
   margin-top: 0;
@@ -480,4 +481,12 @@ div#container {
 main, .max_map {
   height: 100%;
   width: 100%;
+  float: left;
+}
+
+@media screen and (min-width: 768px) {
+  footer[role='complementary'] {
+    box-shadow: -5px 0 5px rgba(0, 0, 0, 0.7);
+    -webkit-box-shadow: -5px 0 5px rgba(0, 0, 0, 0.7);
+  }
 }
