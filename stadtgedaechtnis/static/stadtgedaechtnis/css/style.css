@@ -474,8 +474,6 @@ footer[role="complementary"] img {
 
 /* Initial container moving */
 div#container {
-  padding-top: 1.7rem;
-  margin-top: -1.7rem;
   height: 100%;
   overflow: hidden;
 }

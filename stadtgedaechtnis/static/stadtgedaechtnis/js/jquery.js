@@ -15,6 +15,7 @@ var footerHeight;
 function resizeContainer() {
 	var headerHeight = $("header[role='banner']").css("height");
     footerHeight = $("footer[role='complementary']").css("height");
+    alert(headerHeight);
 	$("#container").css("padding-top", headerHeight).css("margin-top", "-" + headerHeight);
     $("footer[role='complementary']").css("height", "0rem");
 }
