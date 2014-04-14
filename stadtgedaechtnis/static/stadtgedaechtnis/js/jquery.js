@@ -34,12 +34,13 @@ function resizeContainer() {
  */
 function initializeSwiping() {
     var footer = $("section#article-section");
+    var footerHeading = $("section#article-section h3");
     var container = $("main");
 
     var swipeThreshold = container.height() * 0.3;
     var maxPadding = container.height() + "px";
 
-    footer.swipe({
+    footerHeading.swipe({
         swipeStatus: function(event, phase, direction, distance) {
             // handles the current swipe
             if (phase === "start") {

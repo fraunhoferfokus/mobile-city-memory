@@ -88,17 +88,18 @@ function openEntry(location) {
 
     if (userLocation.currentInfobox === null) {
         var footer = $("section#article-section");
+        var footerHeading = $("section#article-section h3");
         footer.css("padding", "0.8rem");
 
         if ($(window).width() < 768) {
             // mobile
             channel = "mobile";
             footer.transition({height: footerHeight}, 200, "ease");
-            footer.swipe("enable");
+            footerHeading.swipe("enable");
             $("main").transition({paddingBottom: footerHeight, marginBottom: "-" + footerHeight}, 200, "ease");
         } else {
             // desktop
-            footer.swipe("disable");
+            footerHeading.swipe("disable");
             channel = "desktop";
             footer.css({
                 height: "100%",
