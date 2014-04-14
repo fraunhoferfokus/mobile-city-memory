@@ -38,17 +38,20 @@
 		</nav>	
 		<h1>{% trans "Stadtged&auml;chtnis Coburg" %}</h1>
 	</header>
-	
-	<div id="container">
-		<main role="main">
-			<section class="max_map">
-			<div class="max_map" id="map_canvas"></div>
-			</section>
-			<footer role="complementary">
-				<h3></h3>
-				<img src="" alt=""/>
-			</footer>
-		</main>
-	</div>		
+
+	<main role="main">
+		<section class="max_map">
+		<div class="max_map" id="map_canvas"></div>
+		</section>
+		<section id="article-section">
+			<h3></h3>
+			<img src="" alt="" id="entry-first"/>
+			<span class="center">
+				<img src="{%static "stadtgedaechtnis/img/ajax-loader.gif" %}" id="load-more">
+			</span>
+			<article id="entry-more">
+			</article>
+		</section>
+	</main>
 </body>
 </html>

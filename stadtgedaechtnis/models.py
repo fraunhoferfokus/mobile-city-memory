@@ -9,6 +9,7 @@ from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.signals import post_delete
 from django.dispatch.dispatcher import receiver
+import mimetypes
 
 
 class ItemWithMedia(models.Model):
@@ -70,6 +71,28 @@ class Entry(ItemWithMedia):
     def __unicode__(self):
         return self.title + " (" + self.author + ")"
 
+    def get_additional_images(self):
+        """
+        Returns a list of additional images for this entry
+        """
+        result = list()
+        for index, media_object in enumerate(self.mediaobject_set.all()):
+            if index > 0 and media_object.type == MediaObject.IMAGE:
+                result.append(media_object)
+
+        return result
+
+    def get_additional_media(self):
+        """
+        Returns a list of additional media for this entry (no images)
+        """
+        result = list()
+        for media_object in self.mediaobject_set.all():
+            if media_object.type != MediaObject.IMAGE:
+                result.append(media_object)
+
+        return result
+
 
 class MediaObject(models.Model):
     """
@@ -110,6 +133,10 @@ class MediaSource(models.Model):
 
     def __unicode__(self):
         return self.file.name
+
+    def get_mime_type(self):
+        return mimetypes.guess_type(self.file.url)[0]
+
 
 @receiver(post_delete, sender=MediaSource)
 def delete_file(sender, instance, **kwargs):

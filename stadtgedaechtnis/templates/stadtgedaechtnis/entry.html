@@ -1,0 +1,15 @@
+{% for image in entry.get_additional_images %}
+	<img src="{{ image.mediasource_set.first.file.url }}" alt="{{ image.alt }}">
+{% endfor %}
+{% if entry.text %}
+{{ entry.text|safe }}
+{% endif %}
+{% for media_object in entry.get_additional_media %}
+	{% if media_object.type == "aud" %}
+		<audio controls preload="metadata">
+		{% for source in media_object.mediasource_set.all %}
+			<source src="{{ source.file.url }}" type="{{ source.get_mime_type }}">
+		{% endfor %}
+		</audio>
+	{% endif %}
+{% endfor %}

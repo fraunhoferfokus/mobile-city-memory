@@ -21,6 +21,10 @@ a {
     color: black;
 }
 
+.center {
+  text-align: center;
+}
+
 /* Header style */
 header[role="banner"] {
     background-image: url(../img/header.png);
@@ -61,14 +65,15 @@ header[role="banner"] {
 
 }
 
-footer[role="complementary"] {
+section#article-section {
   margin: 0;
   height: 8rem;
   box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.70);
   -webkit-box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.70);
   position: relative;
   z-index: 1000;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   cursor: grab;
 
   h3 {
@@ -89,10 +94,18 @@ footer[role="complementary"] {
   img {
     width: 100%;
   }
-}
-/* Initial container moving */
-div#container {
-  height: 100%;
+
+  img#load-more {
+    width: auto;
+    margin-top: 15px;
+  }
+
+  article#entry-more {
+
+    * {
+      margin-top: 10px;
+    }
+  }
 }
 
 /* Sizing of map_section and map_canvas */
@@ -103,7 +116,7 @@ main, .max_map {
 }
 
 @media screen and (min-width: 768px) {
-  footer[role='complementary'] {
+  section#article-section {
     box-shadow: -5px 0 5px rgba(0, 0, 0, 0.70);
     -webkit-box-shadow: -5px 0 5px rgba(0, 0, 0, 0.70);
   }

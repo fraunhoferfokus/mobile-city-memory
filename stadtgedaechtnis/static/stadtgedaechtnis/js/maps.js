@@ -50,6 +50,7 @@ function createInfobox(location) {
         location.heading = location.entries[0].title;
         location.image = location.entries[0].image;
         location.alt = location.entries[0].alt;
+        location.entryid = location.entries[0].id;
         var infoBoxContent = "<p class='infowindow'>" + location.entries[0].abstract + "</p>";
     }
 
@@ -73,14 +74,20 @@ function createInfobox(location) {
  * @param entry
  */
 function openEntry(location) {
-    $("footer[role='complementary'] h3").text(location.heading);
-    $("footer[role='complementary'] img").attr({
+    $("section#article-section h3").text(location.heading);
+    $("section#article-section img#entry-first").attr({
         src: location.image,
         alt: location.alt
     });
+    $("article#entry-more").html("");
+    $("img#load-more").show();
+    $.get("../stadtgedaechtnis/entry/" + location.entryid + "/", function (data) {
+        $("article#entry-more").html(data);
+        $("img#load-more").hide();
+    });
 
     if (userLocation.currentInfobox === null) {
-        var footer = $("footer[role='complementary']");
+        var footer = $("section#article-section");
         footer.css("padding", "0.8rem");
 
         if ($(window).width() < 768) {
@@ -88,7 +95,7 @@ function openEntry(location) {
             channel = "mobile";
             footer.transition({height: footerHeight}, 200, "ease");
             footer.swipe("enable");
-            $("#container").transition({paddingBottom: footerHeight, marginBottom: "-" + footerHeight}, 200, "ease");
+            $("main").transition({paddingBottom: footerHeight, marginBottom: "-" + footerHeight}, 200, "ease");
         } else {
             // desktop
             footer.swipe("disable");
@@ -109,12 +116,12 @@ function openEntry(location) {
 }
 
 function closeEntry() {
-    var footer = $("footer[role='complementary']");
+    var footer = $("section#article-section");
 
     if (channel === "mobile") {
         // mobile
         footer.transition({height: 0}, 200, "ease");
-        $("#container").transition({paddingBottom: "0px", marginBottom: "0px"}, 200, "ease" , function() {
+        $("main").transition({paddingBottom: "0px", marginBottom: "0px"}, 200, "ease" , function() {
             footer.css("padding", "0rem");
         });
     } else {

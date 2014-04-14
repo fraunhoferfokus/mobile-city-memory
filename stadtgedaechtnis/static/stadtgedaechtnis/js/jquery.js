@@ -12,13 +12,13 @@ var headerHeight;
 var footerSwipeHeight;
 
 /**
- * resizes the div#container to the remaining browser height
+ * resizes the main element to the remaining browser height
  */
 function resizeContainer() {
 	headerHeight = $("header[role='banner']").css("height");
-    var footer = $("footer[role='complementary']");
+    var footer = $("section#article-section");
     footerHeight = footer.css("height");
-	$("#container").css({
+	$("main").css({
         paddingTop: headerHeight,
         marginTop: "-" + headerHeight,
         paddingBottom: "0px",
@@ -33,8 +33,8 @@ function resizeContainer() {
  * Initializes the swipe ability on the footer.
  */
 function initializeSwiping() {
-    var footer = $("footer[role='complementary']");
-    var container = $("#container");
+    var footer = $("section#article-section");
+    var container = $("main");
 
     var swipeThreshold = container.height() * 0.3;
     var maxPadding = container.height() + "px";
@@ -78,7 +78,5 @@ function initializeSwiping() {
 $(function() {
 	resizeContainer();
     initializeSwiping();
-    $(window).resize(function() {
-
-    });
+    $("img#load-more").hide();
 });

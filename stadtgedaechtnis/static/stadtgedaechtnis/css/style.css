@@ -407,6 +407,10 @@ a {
   color: black;
 }
 
+.center {
+  text-align: center;
+}
+
 /* Header style */
 header[role="banner"] {
   background-image: url(../img/header.png);
@@ -437,21 +441,22 @@ header[role="banner"] nav ul li a.current {
   text-decoration: underline;
 }
 
-footer[role="complementary"] {
+section#article-section {
   margin: 0;
   height: 8rem;
   box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.7);
   -webkit-box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.7);
   position: relative;
   z-index: 1000;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   cursor: grab;
 }
-footer[role="complementary"] h3 {
+section#article-section h3 {
   margin-top: 0;
   margin-bottom: 0.5rem;
 }
-footer[role="complementary"] p {
+section#article-section p {
   margin-top: 0;
   margin-bottom: 0.5rem;
   -moz-hyphens: auto;
@@ -460,13 +465,15 @@ footer[role="complementary"] p {
   -ms-hyphens: auto;
   hyphens: auto;
 }
-footer[role="complementary"] img {
+section#article-section img {
   width: 100%;
 }
-
-/* Initial container moving */
-div#container {
-  height: 100%;
+section#article-section img#load-more {
+  width: auto;
+  margin-top: 15px;
+}
+section#article-section article#entry-more * {
+  margin-top: 10px;
 }
 
 /* Sizing of map_section and map_canvas */
@@ -477,7 +484,7 @@ main, .max_map {
 }
 
 @media screen and (min-width: 768px) {
-  footer[role='complementary'] {
+  section#article-section {
     box-shadow: -5px 0 5px rgba(0, 0, 0, 0.7);
     -webkit-box-shadow: -5px 0 5px rgba(0, 0, 0, 0.7);
   }
