@@ -54,6 +54,7 @@ function initializeSwiping() {
                 var newPadding = (direction === "up" ? maxPadding : footerHeight);
                 footer.transition({height: newPadding}, 200, "ease");
                 container.transition({paddingBottom: newPadding, marginBottom: "-" + newPadding}, 200, "ease");
+                footer.css("overflow-y", direction === "up" ? "auto" : "hidden");
             } else {
                 var newPadding = footerSwipeHeight + (direction === "up" ? distance : -distance);
                 container.css({

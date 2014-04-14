@@ -449,7 +449,7 @@ section#article-section {
   position: relative;
   z-index: 1000;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: hidden;
   cursor: grab;
 }
 section#article-section h3 {
