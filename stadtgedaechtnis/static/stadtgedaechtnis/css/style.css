@@ -449,12 +449,25 @@ section#article-section {
   position: relative;
   z-index: 1000;
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: auto;
   cursor: grab;
 }
-section#article-section h3 {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
+section#article-section div.article-heading {
+  display: table;
+}
+section#article-section div.article-heading div.article-heading-row {
+  display: table-row;
+}
+section#article-section div.article-heading div.article-heading-row div.article-heading-cell {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 0 .2em .5em .2em;
+}
+section#article-section div.article-heading div.article-heading-row div.article-heading-cell h3 {
+  margin: 0;
+}
+section#article-section div.article-heading div.article-heading-row div.article-heading-cell img {
+  width: auto;
 }
 section#article-section p {
   margin-top: 0;

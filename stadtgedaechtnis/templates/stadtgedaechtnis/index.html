@@ -44,11 +44,23 @@
 		<div class="max_map" id="map_canvas"></div>
 		</section>
 		<section id="article-section">
-			<h3></h3>
+			<div class="article-heading">
+				<div class="article-heading-row">
+					<div class="article-heading-cell entry-slide previous">
+						<img src="{%static "/static/stadtgedaechtnis/img/left.png" %}">
+					</div>
+					<div class="article-heading-cell">
+						<h3></h3>
+					</div>
+					<div class="article-heading-cell entry-slide next">
+						<img src="{%static "/static/stadtgedaechtnis/img/right.png" %}">
+					</div>
+				</div>
+			</div>
 			<img src="" alt="" id="entry-first"/>
-			<span class="center">
+			<div class="center">
 				<img src="{%static "stadtgedaechtnis/img/ajax-loader.gif" %}" id="load-more">
-			</span>
+			</div>
 			<article id="entry-more">
 			</article>
 		</section>

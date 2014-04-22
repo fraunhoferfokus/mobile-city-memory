@@ -73,12 +73,30 @@ section#article-section {
   position: relative;
   z-index: 1000;
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: auto;
   cursor: grab;
 
-  h3 {
-    margin-top: 0;
-    margin-bottom: 0.5rem;
+  div.article-heading {
+    display: table;
+
+    div.article-heading-row {
+      display: table-row;
+
+      div.article-heading-cell {
+        display: table-cell;
+        vertical-align: middle;
+        padding: 0 .2em .5em .2em;
+
+      h3 {
+        margin: 0;
+      }
+
+      img {
+        width: auto;
+      }
+      }
+    }
+
   }
 
   p {

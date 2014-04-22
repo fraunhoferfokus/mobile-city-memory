@@ -22,13 +22,17 @@ function addMarker (location) {
     var latitude = parseFloat(location.latitude._int) * Math.pow(10, location.latitude._exp);
     var longitude = parseFloat(location.longitude._int) * Math.pow(10, location.longitude._exp);
 
+    var entryCount = location.entries.length;
+    if (entryCount > 9) {
+        entryCount = 0;
+    }
     // if not already on the map, display marker
     if (!userLocation.markers.hasOwnProperty(location.id)) {
         var marker = new google.maps.Marker({
             map: userLocation.map,
             position: new google.maps.LatLng(latitude, longitude),
             title: location.label,
-            icon: "/static/stadtgedaechtnis/img/marker_story.png",
+            icon: "/static/stadtgedaechtnis/img/marker_" + entryCount + ".png",
             animation: google.maps.Animation.DROP
         });
 
@@ -45,7 +49,11 @@ function addMarker (location) {
  */
 function createInfobox(location) {
     if (location.entries.length > 1) {
-        //TODO: add more entries
+        location.heading = location.entries[0].title;
+        location.image = location.entries[0].image;
+        location.alt = location.entries[0].alt;
+        location.entryid = location.entries[0].id;
+        var infoBoxContent = "<p class='infowindow'>" + location.entries[0].abstract + "</p>";
     } else {
         location.heading = location.entries[0].title;
         location.image = location.entries[0].image;
@@ -75,10 +83,19 @@ function createInfobox(location) {
  */
 function openEntry(location) {
     $("section#article-section h3").text(location.heading);
-    $("section#article-section img#entry-first").attr({
-        src: location.image,
-        alt: location.alt
-    });
+    if (location.image !== undefined) {
+        $("section#article-section img#entry-first").show().attr({
+            src: location.image,
+            alt: location.alt
+        });
+    } else {
+        $("section#article-section img#entry-first").hide();
+    }
+    if (location.entries.length > 1) {
+        $("div.entry-slide").show();
+    } else {
+        $("div.entry-slide").hide();
+    }
     $("article#entry-more").html("");
     $("img#load-more").show();
     $.get("../stadtgedaechtnis/entry/" + location.entryid + "/", function (data) {
