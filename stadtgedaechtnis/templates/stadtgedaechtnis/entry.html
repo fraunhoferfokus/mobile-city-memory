@@ -11,5 +11,11 @@
 			<source src="{{ source.file.url }}" type="{{ source.get_mime_type }}">
 		{% endfor %}
 		</audio>
+	{% elif media_object.type == "vid" %}
+		<video controls preload="metadata">
+		{% for source in media_object.mediasource_set.all %}
+			<source src="{{ source.file.url }}" type="{{ source.get_mime_type }}">
+		{% endfor %}
+		</video>
 	{% endif %}
 {% endfor %}
