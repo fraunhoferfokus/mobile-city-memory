@@ -10,6 +10,7 @@
 var footerHeight;
 var headerHeight;
 var footerSwipeHeight;
+var up = false;
 
 /**
  * resizes the main element to the remaining browser height
@@ -55,7 +56,8 @@ function initializeSwiping() {
                 footer.transition({height: newPadding}, 200, "ease");
                 container.transition({paddingBottom: newPadding, marginBottom: "-" + newPadding}, 200, "ease");
                 footer.css("overflow-y", direction === "up" ? "auto" : "hidden");
-            } else {
+                up = (direction === "up" ? true : false);
+            } else if ((up && direction === "down") || (!up && direction === "up")) {
                 var newPadding = footerSwipeHeight + (direction === "up" ? distance : -distance);
                 container.css({
                     paddingBottom: newPadding + "px",
