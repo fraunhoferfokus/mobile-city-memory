@@ -9,12 +9,13 @@ body {
 }
 
 p.infowindow {
-    font-family: Trebuchet MS, Arial, sans-serif;
-    -moz-hyphens: auto;
-    -o-hyphens: auto;
-    -webkit-hyphens: auto;
-    -ms-hyphens: auto;
-    hyphens: auto;
+  font-family: Trebuchet MS, Arial, sans-serif;
+  -moz-hyphens: auto;
+  -o-hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  margin: 0;
 }
 
 a {
@@ -66,47 +67,34 @@ header[role="banner"] {
 }
 
 div.article-heading {
-  display: table;
   width: 100%;
-
-  div.article-heading-row {
-    display: table-row;
-
-    div.article-heading-cell {
-      display: table-cell;
-      vertical-align: middle;
-      padding: 0 .2em .5em .2em;
-
-      h3 {
-        margin: 0;
-      }
-
-    }
-  }
-
-  }
-
-div.article-heading-cell.entry-list {
-  position: relative;
-  overflow: auto;
 }
 
-ul.entrylist {
-  list-style: none;
-  padding: 0;
+div.article-heading, section#article-section div.article-heading {
+  img {
+    padding-top: .4rem;
+    width: auto;
+    height: auto;
+    cursor: pointer;
+  }
 
-  li {
+  img#previous {
+    float: left;
+  }
+
+  img#next {
+    float: right;
+  }
+
+  h3 {
+    margin: 0;
+  }
+
+  div.entry-slide {
+    width: 16px;
     float: left;
   }
 }
-
-section#article-section div.article-heading-cell, div.article-heading-cell {
-    img {
-      width: auto;
-      height: auto;
-      cursor: pointer;
-    }
-  }
 
 section#article-section {
   margin: 0;
@@ -118,6 +106,23 @@ section#article-section {
   overflow-x: hidden;
   overflow-y: hidden;
   cursor: grab;
+
+  div.entry-list {
+    position: relative;
+    overflow: auto;
+    float: left;
+    width: 90%;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        float: left;
+      }
+    }
+  }
 
   p {
     margin-top: 0;
@@ -139,6 +144,8 @@ section#article-section {
   }
 
   article#entry-more {
+    clear: both;
+    padding-top: .1rem;
 
     * {
       margin-top: 10px;

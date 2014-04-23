@@ -401,6 +401,7 @@ p.infowindow {
   -webkit-hyphens: auto;
   -ms-hyphens: auto;
   hyphens: auto;
+  margin: 0;
 }
 
 a {
@@ -442,38 +443,27 @@ header[role="banner"] nav ul li a.current {
 }
 
 div.article-heading {
-  display: table;
   width: 100%;
 }
-div.article-heading div.article-heading-row {
-  display: table-row;
-}
-div.article-heading div.article-heading-row div.article-heading-cell {
-  display: table-cell;
-  vertical-align: middle;
-  padding: 0 .2em .5em .2em;
-}
-div.article-heading div.article-heading-row div.article-heading-cell h3 {
-  margin: 0;
-}
 
-div.article-heading-cell.entry-list {
-  position: relative;
-  overflow: auto;
-}
-
-ul.entrylist {
-  list-style: none;
-  padding: 0;
-}
-ul.entrylist li {
-  float: left;
-}
-
-section#article-section div.article-heading-cell img, div.article-heading-cell img {
+div.article-heading img, section#article-section div.article-heading img {
+  padding-top: .4rem;
   width: auto;
   height: auto;
   cursor: pointer;
+}
+div.article-heading img#previous, section#article-section div.article-heading img#previous {
+  float: left;
+}
+div.article-heading img#next, section#article-section div.article-heading img#next {
+  float: right;
+}
+div.article-heading h3, section#article-section div.article-heading h3 {
+  margin: 0;
+}
+div.article-heading div.entry-slide, section#article-section div.article-heading div.entry-slide {
+  width: 16px;
+  float: left;
 }
 
 section#article-section {
@@ -486,6 +476,20 @@ section#article-section {
   overflow-x: hidden;
   overflow-y: hidden;
   cursor: grab;
+}
+section#article-section div.entry-list {
+  position: relative;
+  overflow: auto;
+  float: left;
+  width: 90%;
+}
+section#article-section div.entry-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+section#article-section div.entry-list ul li {
+  float: left;
 }
 section#article-section p {
   margin-top: 0;
@@ -502,6 +506,10 @@ section#article-section img {
 section#article-section img#load-more {
   width: auto;
   margin-top: 15px;
+}
+section#article-section article#entry-more {
+  clear: both;
+  padding-top: .1rem;
 }
 section#article-section article#entry-more * {
   margin-top: 10px;
