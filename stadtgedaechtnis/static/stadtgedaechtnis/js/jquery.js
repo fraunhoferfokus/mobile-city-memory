@@ -44,28 +44,30 @@ function initializeSwiping() {
     footerHeading.swipe({
         swipeStatus: function(event, phase, direction, distance) {
             // handles the current swipe
-            if (phase === "start") {
-                var cssHeight = footer.css("height");
-                footerSwipeHeight = parseInt(cssHeight.substring(0, cssHeight.length - 2));
-            } else if (phase === "cancel") {
-                var newPadding = (direction === "up" ? footerHeight : maxPadding);
-                footer.transition({height: newPadding}, 200, "ease");
-                container.transition({paddingBottom: newPadding, marginBottom: "-" + newPadding}, 200, "ease");
-            } else if (phase === "end") {
-                var newPadding = (direction === "up" ? maxPadding : footerHeight);
-                footer.transition({height: newPadding}, 200, "ease");
-                container.transition({paddingBottom: newPadding, marginBottom: "-" + newPadding}, 200, "ease");
-                footer.css("overflow-y", direction === "up" ? "auto" : "hidden");
-                up = (direction === "up" ? true : false);
-            } else if ((up && direction === "down") || (!up && direction === "up")) {
-                var newPadding = footerSwipeHeight + (direction === "up" ? distance : -distance);
-                container.css({
-                    paddingBottom: newPadding + "px",
-                    marginBottom: "-" + newPadding + "px"
-                });
-                footer.css({
-                    height: newPadding + "px"
-                })
+            if ((up && direction === "down") || (!up && direction === "up")) {
+                if (phase === "start") {
+                    var cssHeight = footer.css("height");
+                    footerSwipeHeight = parseInt(cssHeight.substring(0, cssHeight.length - 2));
+                } else if (phase === "cancel") {
+                    var newPadding = (direction === "up" ? footerHeight : maxPadding);
+                    footer.transition({height: newPadding}, 200, "ease");
+                    container.transition({paddingBottom: newPadding, marginBottom: "-" + newPadding}, 200, "ease");
+                } else if (phase === "end") {
+                    var newPadding = (direction === "up" ? maxPadding : footerHeight);
+                    footer.transition({height: newPadding}, 200, "ease");
+                    container.transition({paddingBottom: newPadding, marginBottom: "-" + newPadding}, 200, "ease");
+                    footer.css("overflow-y", direction === "up" ? "auto" : "hidden");
+                    up = (direction === "up" ? true : false);
+                } else {
+                    var newPadding = footerSwipeHeight + (direction === "up" ? distance : -distance);
+                    container.css({
+                        paddingBottom: newPadding + "px",
+                        marginBottom: "-" + newPadding + "px"
+                    });
+                    footer.css({
+                        height: newPadding + "px"
+                    })
+                }
             }
         },
         checkThresholds: true,
