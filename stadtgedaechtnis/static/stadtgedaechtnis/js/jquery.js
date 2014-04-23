@@ -43,12 +43,13 @@ function initializeSwiping() {
 
     footerHeading.swipe({
         swipeStatus: function(event, phase, direction, distance) {
+            if (phase === "start") {
+                var cssHeight = footer.css("height");
+                footerSwipeHeight = parseInt(cssHeight.substring(0, cssHeight.length - 2));
+            }
             // handles the current swipe
             if ((up && direction === "down") || (!up && direction === "up")) {
-                if (phase === "start") {
-                    var cssHeight = footer.css("height");
-                    footerSwipeHeight = parseInt(cssHeight.substring(0, cssHeight.length - 2));
-                } else if (phase === "cancel") {
+                if (phase === "cancel") {
                     var newPadding = (direction === "up" ? footerHeight : maxPadding);
                     footer.transition({height: newPadding}, 200, "ease");
                     container.transition({paddingBottom: newPadding, marginBottom: "-" + newPadding}, 200, "ease");
