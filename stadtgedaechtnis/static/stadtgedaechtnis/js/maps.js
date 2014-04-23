@@ -37,7 +37,7 @@ function addMarker (location) {
         });
 
         location.marker = marker;
-        createInfobox(location);
+        createInfobox(location, 0);
 
         userLocation.markers[location.id] = location;
     }
@@ -46,20 +46,25 @@ function addMarker (location) {
 /**
  * Creates an infobox for this location.
  * @param location
+ * @param index index of entry for this infobox
  */
-function createInfobox(location) {
+function createInfobox(location, index) {
     if (location.entries.length > 1) {
-        location.heading = location.entries[0].title;
-        location.image = location.entries[0].image;
-        location.alt = location.entries[0].alt;
-        location.entryid = location.entries[0].id;
-        var infoBoxContent = "<p class='infowindow'>" + location.entries[0].abstract + "</p>";
+        var infoBoxContent = "<div class='article-heading'>\
+				<div class='article-heading-row'>\
+					<div class='article-heading-cell entry-slide previous'>\
+						<img src='/static/stadtgedaechtnis/img/left.png' %}'>\
+					</div>\
+					<div class='article-heading-cell entry-list'>\
+						<p class='infowindow'>" + location.entries[index].abstract + "</p>\
+					</div>\
+					<div class='article-heading-cell entry-slide next'>\
+						<img src='/static/stadtgedaechtnis/img/right.png'>\
+					</div>\
+				</div>\
+			</div>";
     } else {
-        location.heading = location.entries[0].title;
-        location.image = location.entries[0].image;
-        location.alt = location.entries[0].alt;
-        location.entryid = location.entries[0].id;
-        var infoBoxContent = "<p class='infowindow'>" + location.entries[0].abstract + "</p>";
+        var infoBoxContent = "<p class='infowindow'>" + location.entries[index].abstract + "</p>";
     }
 
     var infoBox = new google.maps.InfoWindow({
@@ -68,10 +73,42 @@ function createInfobox(location) {
     })
 
     location.infobox = infoBox;
+    google.maps.event.clearListeners(location.marker, 'click');
     google.maps.event.addListener(location.marker, 'click', function () {
-        openEntry(location);
+        openEntry(location, index);
     });
     google.maps.event.addListener(infoBox, 'closeclick', closeEntry);
+}
+
+/**
+ * Reloads a new infobox and displays the content of
+ * the next story.
+ * @param location
+ * @param index
+ */
+function reloadInfobox(location, index) {
+    if (index >= location.entries.length) {
+        index = 0;
+    } else if (index < 0) {
+        index = location.entries.length - 1;
+    }
+
+    createInfobox(location, index);
+    openEntry(location, index);
+}
+
+/**
+ * Loads the complete entry for the given location and entry index.
+ * @param location
+ * @param index
+ */
+function loadAdditionalEntry(location, index) {
+    $("article#entry-more").html("");
+    $("img#load-more").show();
+    $.get("../stadtgedaechtnis/entry/" + location.entries[index].id + "/", function (data) {
+        $("article#entry-more").html(data);
+        $("img#load-more").hide();
+    });
 }
 
 /**
@@ -81,27 +118,18 @@ function createInfobox(location) {
  * events on the marker.
  * @param entry
  */
-function openEntry(location) {
-    $("section#article-section h3").text(location.heading);
-    if (location.image !== undefined) {
+function openEntry(location, index) {
+    $("section#article-section h3").text(location.entries[index].title);
+    if (location.entries[index].image !== undefined) {
         $("section#article-section img#entry-first").show().attr({
-            src: location.image,
-            alt: location.alt
+            src: location.entries[index].image,
+            alt: location.entries[index].alt
         });
     } else {
         $("section#article-section img#entry-first").hide();
     }
-    if (location.entries.length > 1) {
-        $("div.entry-slide").show();
-    } else {
-        $("div.entry-slide").hide();
-    }
-    $("article#entry-more").html("");
-    $("img#load-more").show();
-    $.get("../stadtgedaechtnis/entry/" + location.entryid + "/", function (data) {
-        $("article#entry-more").html(data);
-        $("img#load-more").hide();
-    });
+
+    loadAdditionalEntry(location, index);
 
     if (userLocation.currentInfobox === null) {
         var footer = $("section#article-section");
@@ -124,6 +152,7 @@ function openEntry(location) {
             });
             $("section.max_map").transition({width: "80%"}, 200, "ease");
             footer.transition({width: "20%"}, 200, "ease");
+            footer.css("overflow-y", "auto");
         }
     } else {
         userLocation.currentInfobox.close();
@@ -131,6 +160,18 @@ function openEntry(location) {
 
     userLocation.currentInfobox = location.infobox;
     location.infobox.open(userLocation.map, location.marker);
+
+    if (location.entries.length > 1) {
+        $("div.entry-slide").show();
+        $("div.entry-slide.next img").unbind("click").click(function() {
+            reloadInfobox(location, index + 1);
+        });
+        $("div.entry-slide.previous img").unbind("click").click(function() {
+            reloadInfobox(location, index - 1);
+        })
+    } else {
+        $("div.entry-slide").hide();
+    }
 }
 
 function closeEntry() {
@@ -152,6 +193,7 @@ function closeEntry() {
             });
         });
         $("section.max_map").transition({width: "100%"}, 200, "ease");
+        footer.css("overflow-y", "hidden");
     }
 
     if (userLocation.currentInfobox !== null) {

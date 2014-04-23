@@ -65,6 +65,49 @@ header[role="banner"] {
 
 }
 
+div.article-heading {
+  display: table;
+  width: 100%;
+
+  div.article-heading-row {
+    display: table-row;
+
+    div.article-heading-cell {
+      display: table-cell;
+      vertical-align: middle;
+      padding: 0 .2em .5em .2em;
+
+      h3 {
+        margin: 0;
+      }
+
+    }
+  }
+
+  }
+
+div.article-heading-cell.entry-list {
+  position: relative;
+  overflow: auto;
+}
+
+ul.entrylist {
+  list-style: none;
+  padding: 0;
+
+  li {
+    float: left;
+  }
+}
+
+section#article-section div.article-heading-cell, div.article-heading-cell {
+    img {
+      width: auto;
+      height: auto;
+      cursor: pointer;
+    }
+  }
+
 section#article-section {
   margin: 0;
   height: 8rem;
@@ -75,29 +118,6 @@ section#article-section {
   overflow-x: hidden;
   overflow-y: hidden;
   cursor: grab;
-
-  div.article-heading {
-    display: table;
-
-    div.article-heading-row {
-      display: table-row;
-
-      div.article-heading-cell {
-        display: table-cell;
-        vertical-align: middle;
-        padding: 0 .2em .5em .2em;
-
-      h3 {
-        margin: 0;
-      }
-
-      img {
-        width: auto;
-      }
-      }
-    }
-
-  }
 
   p {
     margin-top: 0;
