@@ -35,7 +35,7 @@ function resizeContainer() {
  */
 function initializeSwiping() {
     var footer = $("section#article-section");
-    var footerHeading = $("section#article-section h3");
+    var footerHeading = $("div.entry-list");
     var container = $("main");
 
     var swipeThreshold = container.height() * 0.3;
