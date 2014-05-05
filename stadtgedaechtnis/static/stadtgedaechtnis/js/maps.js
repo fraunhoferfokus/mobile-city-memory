@@ -109,7 +109,7 @@ function openEntry(location, index, reload) {
             entryList += "<li><h3>" + location.entries[i].title + "</h3></li>";
         }
         $("div.article-heading div.entry-list ul").html(entryList);
-        //$("section#article-section h3").text(location.entries[index].title);
+        $("section#article-section h3#single-heading").text(location.entries[index].title);
     }
     if (location.entries[index].image !== undefined) {
         $("section#article-section img#entry-first").show().attr({
@@ -133,9 +133,7 @@ function openEntry(location, index, reload) {
             footer.transition({height: footerHeight}, 200, "ease");
             footerHeading.swipe("enable");
             $("main").transition({paddingBottom: footerHeight, marginBottom: "-" + footerHeight}, 200, "ease", function() {
-                if (!reload) {
                     $("section#article-section div.entry-list").unslider();
-                }
             });
         } else {
             // desktop
@@ -147,9 +145,7 @@ function openEntry(location, index, reload) {
             });
             $("section.max_map").transition({width: "80%"}, 200, "ease");
             footer.transition({width: "20%"}, 200, "ease", function() {
-                if (!reload) {
                     $("section#article-section div.entry-list").unslider();
-                }
             });
             footer.css("overflow-y", "auto");
         }
@@ -161,6 +157,7 @@ function openEntry(location, index, reload) {
     location.infobox.open(userLocation.map, location.marker);
 
     if (location.entries.length > 1) {
+        $("section#article-section h3#single-heading").hide();
         $("div.article-heading").show();
         $("div.article-heading img#previous").unbind("click").click(function() {
             $("section#article-section div.entry-list").data("unslider").next();
@@ -173,6 +170,7 @@ function openEntry(location, index, reload) {
 
     } else {
         $("div.article-heading").hide();
+        $("section#article-section h3#single-heading").show();
     }
 }
 

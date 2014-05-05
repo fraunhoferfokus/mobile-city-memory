@@ -107,6 +107,10 @@ section#article-section {
   overflow-y: hidden;
   cursor: grab;
 
+  h3#single-heading {
+    margin-top: 0;
+  }
+
   div.entry-list {
     position: relative;
     overflow: auto;

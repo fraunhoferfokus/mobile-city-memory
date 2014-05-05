@@ -477,6 +477,9 @@ section#article-section {
   overflow-y: hidden;
   cursor: grab;
 }
+section#article-section h3#single-heading {
+  margin-top: 0;
+}
 section#article-section div.entry-list {
   position: relative;
   overflow: auto;
