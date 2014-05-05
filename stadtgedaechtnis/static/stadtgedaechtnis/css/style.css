@@ -481,7 +481,7 @@ section#article-section div.entry-list {
   position: relative;
   overflow: auto;
   float: left;
-  width: 90%;
+  width: 85%;
 }
 section#article-section div.entry-list ul {
   list-style: none;
