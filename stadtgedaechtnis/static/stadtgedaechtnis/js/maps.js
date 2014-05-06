@@ -143,8 +143,10 @@ function openEntry(location, index, reload) {
                 height: "100%",
                 width: "0%"
             });
-            $("section.max_map").transition({width: "80%"}, 200, "ease");
-            footer.transition({width: "20%"}, 200, "ease", function() {
+            var map = $("section.max_map");
+            var map_width = map.width();
+            map.transition({width: map_width - 380 + "px"}, 200, "ease");
+            footer.transition({width: "380px"}, 200, "ease", function() {
                     $("section#article-section div.entry-list").unslider();
             });
             footer.css("overflow-y", "auto");
