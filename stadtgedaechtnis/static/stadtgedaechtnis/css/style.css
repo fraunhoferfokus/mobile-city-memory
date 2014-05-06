@@ -394,7 +394,7 @@ body {
   overflow: hidden;
 }
 
-p.infowindow {
+div.infowindow {
   font-family: Trebuchet MS, Arial, sans-serif;
   -moz-hyphens: auto;
   -o-hyphens: auto;
@@ -402,10 +402,22 @@ p.infowindow {
   -ms-hyphens: auto;
   hyphens: auto;
   margin: 0;
+  max-height: 250px;
+}
+div.infowindow p {
+  margin: .2rem 0;
+}
+div.infowindow ul {
+  margin: .2rem 0;
+  padding: 0;
+}
+div.infowindow ul li {
+  margin: .3rem 0;
 }
 
 a {
   color: black;
+  outline: none;
 }
 
 .center {
@@ -446,29 +458,8 @@ div.article-heading {
   width: 100%;
 }
 
-div.article-heading img, section#article-section div.article-heading img {
-  padding-top: .4rem;
-  width: auto;
-  height: auto;
-  cursor: pointer;
-}
-div.article-heading img#previous, section#article-section div.article-heading img#previous {
-  float: left;
-}
-div.article-heading img#next, section#article-section div.article-heading img#next {
-  float: right;
-}
-div.article-heading h3, section#article-section div.article-heading h3 {
-  margin: 0;
-}
-div.article-heading div.entry-slide, section#article-section div.article-heading div.entry-slide {
-  width: 16px;
-  float: left;
-}
-
 section#article-section {
   margin: 0;
-  height: 8rem;
   box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.7);
   -webkit-box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.7);
   position: relative;
@@ -477,22 +468,41 @@ section#article-section {
   overflow-y: hidden;
   cursor: grab;
 }
-section#article-section h3#single-heading {
-  margin-top: 0;
-}
 section#article-section div.entry-list {
   position: relative;
   overflow: auto;
   float: left;
-  width: 85%;
+  height: 100%;
+  width: 100%;
+}
+section#article-section div.entry-list div.article-heading img {
+  padding-top: .4rem;
+  width: auto;
+  height: auto;
+  cursor: pointer;
+}
+section#article-section div.entry-list div.article-heading img#previous {
+  float: left;
+}
+section#article-section div.entry-list div.article-heading img#next {
+  float: right;
+}
+section#article-section div.entry-list div.article-heading h3 {
+  margin: 0 0 .5rem 0;
+}
+section#article-section div.entry-list div.article-heading div.entry-slide {
+  width: 16px;
+  float: left;
 }
 section#article-section div.entry-list ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  width: 100%;
 }
 section#article-section div.entry-list ul li {
   float: left;
+  width: 100%;
 }
 section#article-section p {
   margin-top: 0;
@@ -506,15 +516,15 @@ section#article-section p {
 section#article-section img {
   width: 100%;
 }
-section#article-section img#load-more {
+section#article-section img.load-more {
   width: auto;
   margin-top: 15px;
 }
-section#article-section article#entry-more {
+section#article-section article.entry-more {
   clear: both;
   padding-top: .1rem;
 }
-section#article-section article#entry-more * {
+section#article-section article.entry-more * {
   margin-top: 10px;
 }
 

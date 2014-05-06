@@ -8,7 +8,7 @@ body {
     overflow: hidden;
 }
 
-p.infowindow {
+div.infowindow {
   font-family: Trebuchet MS, Arial, sans-serif;
   -moz-hyphens: auto;
   -o-hyphens: auto;
@@ -16,10 +16,25 @@ p.infowindow {
   -ms-hyphens: auto;
   hyphens: auto;
   margin: 0;
+  max-height: 250px;
+
+  p {
+    margin: .2rem 0;
+  }
+
+  ul {
+    margin: .2rem 0;
+    padding: 0;
+
+    li {
+      margin: .3rem 0;
+    }
+  }
 }
 
 a {
-    color: black;
+  color: black;
+  outline: none;
 }
 
 .center {
@@ -70,35 +85,9 @@ div.article-heading {
   width: 100%;
 }
 
-div.article-heading, section#article-section div.article-heading {
-  img {
-    padding-top: .4rem;
-    width: auto;
-    height: auto;
-    cursor: pointer;
-  }
-
-  img#previous {
-    float: left;
-  }
-
-  img#next {
-    float: right;
-  }
-
-  h3 {
-    margin: 0;
-  }
-
-  div.entry-slide {
-    width: 16px;
-    float: left;
-  }
-}
-
 section#article-section {
   margin: 0;
-  height: 8rem;
+  //height: 8rem;
   box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.70);
   -webkit-box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.70);
   position: relative;
@@ -107,23 +96,48 @@ section#article-section {
   overflow-y: hidden;
   cursor: grab;
 
-  h3#single-heading {
-    margin-top: 0;
-  }
-
   div.entry-list {
+    div.article-heading {
+      img {
+        padding-top: .4rem;
+        width: auto;
+        height: auto;
+        cursor: pointer;
+      }
+
+      img#previous {
+        float: left;
+      }
+
+      img#next {
+        float: right;
+      }
+
+      h3 {
+        margin: 0 0 .5rem 0;
+      }
+
+      div.entry-slide {
+        width: 16px;
+        float: left;
+      }
+    }
+
     position: relative;
     overflow: auto;
     float: left;
-    width: 85%;
+    height: 100%;
+    width: 100%;
 
     ul {
       list-style: none;
       padding: 0;
       margin: 0;
+      width: 100%;
 
       li {
         float: left;
+        width: 100%;
       }
     }
   }
@@ -142,12 +156,12 @@ section#article-section {
     width: 100%;
   }
 
-  img#load-more {
+  img.load-more {
     width: auto;
     margin-top: 15px;
   }
 
-  article#entry-more {
+  article.entry-more {
     clear: both;
     padding-top: .1rem;
 
