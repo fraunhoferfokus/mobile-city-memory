@@ -1,45 +1,73 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
 	<meta charset="utf-8">	
-	<title>Mobiles Stadtged&auml;chtnis</title>
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-	<link href="../static/stadtgedaechtnis/css/style.css" rel="stylesheet" media="all">
-	<!--[if lt IE 9]><script src="../static/js/html5shiv-printshiv.js" media="all"></script><![endif]-->
-	<script type="text/javascript" src="../static/stadtgedaechtnis/js/modernizr-latest.js"></script>
-	<script type="text/javascript" src="../static/stadtgedaechtnis/js/jquery-1.11.0.js"></script>
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBu_pyZCIn6bsQz6NtcuCYW8TtwITydf_I&sensor=true&language=de"></script>
-	<script type="text/javascript" src="../static/stadtgedaechtnis/js/geolocationmarker.js"></script>
-	<script type="text/javascript" src="../static/stadtgedaechtnis/js/maps.js"></script>
-	<script type="text/javascript" src="../static/stadtgedaechtnis/js/jquery.js"></script>
-</head>
+	<title>Mobiles Stadtgedächtnis</title>
+	<meta content="" name="description">
+	<meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
+	<link media="all" rel="stylesheet" href="/static/stadtgedaechtnis/css/style.css">
+	<!--[if lt IE 9]><script src="/static/stadtgedaechtnis/js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+	<script src="/static/stadtgedaechtnis/js/modernizr-latest.js" type="text/javascript" style=""></script>
+	<script src="/static/stadtgedaechtnis/js/jquery-1.11.0.js" type="text/javascript"></script>
+	<script src="/static/stadtgedaechtnis/js/jquery.transit.js" type="text/javascript"></script>
+	<script src="/static/stadtgedaechtnis/js/jquery.touchSwipe.js" type="text/javascript"></script>
+	<script src="/static/stadtgedaechtnis/js/unslider.js" type="text/javascript"></script>
+	<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBu_pyZCIn6bsQz6NtcuCYW8TtwITydf_I&amp;sensor=true&amp;language=de" type="text/javascript"></script>
+	<script src="/static/stadtgedaechtnis/js/geolocationmarker.js" type="text/javascript"></script>
+	<script src="/static/stadtgedaechtnis/js/maps.js" type="text/javascript"></script>
+	<script src="/static/stadtgedaechtnis/js/jquery.js" type="text/javascript"></script>
 <body onload="initialize_Map()">
 	<header role="banner">	
 		<nav role="navigation">
 			<ul>
+				
+				
 				<li>
-					<form name="langEN" method="post">
-					<input type="hidden" name="language" value="en">
-					<a href="#"><b>EN</b></a>&nbsp;<b>|</b>&nbsp;
+					<form method="post" name="langde" action="/i18n/setlang/">
+					<input type="hidden" value="aOwaeGVIACkOqkJ3Blc47Rt5Vl0vPBji" name="csrfmiddlewaretoken">
+					<input type="hidden" value="de" name="language">
+					<a class="current" onclick="document.langde.submit();return false;" href="#"><b>de</b></a>&nbsp;<b>|</b>&nbsp;
 					</form>
 				</li>
+				
 				<li>
-					<form name="langDE" method="post">
-					<input type="hidden" name="language" value="de">
-					<a href="#"><b>DE</b></a>
-					</form>				
+					<form method="post" name="langen" action="/i18n/setlang/">
+					<input type="hidden" value="aOwaeGVIACkOqkJ3Blc47Rt5Vl0vPBji" name="csrfmiddlewaretoken">
+					<input type="hidden" value="en" name="language">
+					<a onclick="document.langen.submit();return false;" href="#"><b>en</b></a>
+					</form>
 				</li>
+				
 			</ul>
 		</nav>	
-		<h1>Stadtged&auml;chtnis Coburg</h1>
+		<h1>Stadtgedächtnis Coburg</h1>
 	</header>
-	<div id="container">
-		<main role="main">
-			<section class="max_map">
-			<div class="max_map" id="map_canvas"></div>
-			</section>
-		</main>
-	</div>
-</body>
-</html>
+
+	<main role="main">
+		<section class="max_map">
+		<div class="max_map" id="map_canvas"></div>
+		</section>
+		<section id="article-section">
+			<div class="article-heading">
+				<div class="entry-slide"><img src="/static/stadtgedaechtnis/img/left.png" id="previous"></div>
+				<div class="entry-list">
+					<ul><li><h3>Else und Walter Lewy, geb. 1891 + 1928</h3></li>
+					<li><h3>Dr. Moritz Baer, geb. 1877</h3></li>
+					<li><h3>Sabine und Meyer Levenbach, geb. 1876 + 1876</h3></li></ul>
+				</div>
+				<div class="entry-slide"><img src="/static/stadtgedaechtnis/img/right.png" id="next"></div>
+			</div>
+			<h3 id="single-heading" style="display: none;">Else und Walter Lewy, geb. 1891 + 1928</h3>
+			<img id="entry-first" alt="" src="" style="display: none;">
+			<div class="center">
+				<img id="load-more" src="/static/stadtgedaechtnis/img/ajax-loader.gif" style="display: none;">
+			</div>
+			<article id="entry-more">
+
+<p>Hier wohnten Else und Walter Lewy.</p><p>Else Lewy wurde am 13.12.1891 geboren, Walter Lewy am 14. April 1928. Die beiden befanden sich unter den insgesamt 26 Juden, die am 27. November 1941 hier in ihrer Wohnung verhaftet und nach Riga deportiert wurden. Überlebende berichteten später von den schrecklichen Reisebedingungen, denen auch Else und der damals gerade einmal 13-Jähriger Walter Lewy ausgesetzt waren: Die Zugabteile waren größtenteils nicht beheizt und völlig überfüllt. Familienangehörige wurden rücksichtslos voneinander getrennt. Verpflegung gab es während der mehrtägigen Reise nicht, Wasser wurde nur zweimal angeboten. Für die Fahrt mussten die Juden 60 Reichsmark bezahlen &ndash; ohne überhaupt das Ziel der Reise zu kennen. Else und Walter Lewy landeten in der lettischen Hauptstadt Riga. Hier wurden kurz zuvor über 27.000 Juden umgebracht, um Platz für die Neuankömmlinge zu schaffen. Im sogenannten Reichsjuden-Ghetto wurden auch die Coburger entweder unmittelbar nach ihrer Ankunft ermordet oder fielen später den harten Bedingungen des Lagers und regelmäßigen Aussonderungen zum Opfer. Die allerwenigsten überlebten. Von Else und Walter Lewy verliert sich im Dezember 1941 die Spur.</p><p>
+Pate Else Lewy: Christl Grünberg im Namen der Altkatholischen Kirchengemeinde St. Nikolaus Coburg</p><p>Pate Walter Lewy: Matthias Kirchner</p>
+
+</article>
+		</section>
+	</main>
+
+</body></html>

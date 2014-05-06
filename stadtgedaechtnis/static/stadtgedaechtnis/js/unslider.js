@@ -67,9 +67,9 @@
 		this.setup = function() {
 			//  Set the main element
 			this.el.css({
-				overflow: 'hidden',
-				width: _.max[0],
-				height: this.items.first().outerHeight()
+				overflow: 'hidden'
+				//width: _.max[0]
+				//height: this.items.first().outerHeight()
 			});
 			
 			//  Set the relative widths
@@ -117,16 +117,17 @@
 			if(index < 0) index = (this.items.length - 1);
 			
 			var target = this.items.eq(index);
-			var obj = {height: target.outerHeight()};
+			//var obj = {height: target.outerHeight()};
+            var obj = Object();
 			var speed = cb ? 5 : this.opts.speed;
 			
 			if(!this.ul.is(':animated')) {			
 				//  Handle those pesky dots
 				_.el.find('.dot:eq(' + index + ')').addClass('active').siblings().removeClass('active');
 
-				this.el.animate(obj, speed) && this.ul.animate($.extend({left: '-' + index + '00%'}, obj), speed, function(data) {
+				this.el.animate(obj, speed) && this.ul.transition($.extend({left: '-' + index + '00%'}, obj), speed, function(data) {
 					_.current = index;
-					$.isFunction(_.opts.complete) && !cb && _.opts.complete(_.el);
+					$.isFunction(_.opts.complete) && !cb && _.opts.complete(target);
 				});
 			}
 		};

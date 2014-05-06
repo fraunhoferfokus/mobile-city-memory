@@ -37,7 +37,7 @@ function addMarker (location) {
         });
 
         location.marker = marker;
-        createInfobox(location, 0);
+        createInfobox(location);
 
         userLocation.markers[location.id] = location;
     }
@@ -48,8 +48,16 @@ function addMarker (location) {
  * @param location
  * @param index index of entry for this infobox
  */
-function createInfobox(location, index) {
-    var infoBoxContent = "<p class='infowindow'>" + location.entries[index].abstract + "</p>";
+function createInfobox(location) {
+    if (location.entries.length > 1) {
+        var infoBoxContent = "<div class='infowindow'><ul>";
+        for (var i = 0; i < location.entries.length; i++) {
+            infoBoxContent += "<li><a href='#' class='switch-entry' data-entry='" + i + "'>" + location.entries[i].title + "</a></li>";
+        }
+        infoBoxContent += "</ul></div>";
+    } else {
+        var infoBoxContent = "<div class='infowindow'><p>" + location.entries[0].abstract + "</p></div>";
+    }
 
     var infoBox = new google.maps.InfoWindow({
         content: infoBoxContent,
@@ -59,26 +67,9 @@ function createInfobox(location, index) {
     location.infobox = infoBox;
     google.maps.event.clearListeners(location.marker, 'click');
     google.maps.event.addListener(location.marker, 'click', function () {
-        openEntry(location, index, false);
+        openEntry(location);
     });
     google.maps.event.addListener(infoBox, 'closeclick', closeEntry);
-}
-
-/**
- * Reloads a new infobox and displays the content of
- * the next story.
- * @param location
- * @param index
- */
-function reloadInfobox(location, index) {
-    if (index >= location.entries.length) {
-        index = 0;
-    } else if (index < 0) {
-        index = location.entries.length - 1;
-    }
-
-    createInfobox(location, index);
-    openEntry(location, index, true);
 }
 
 /**
@@ -86,12 +77,19 @@ function reloadInfobox(location, index) {
  * @param location
  * @param index
  */
-function loadAdditionalEntry(location, index) {
-    $("article#entry-more").html("");
-    $("img#load-more").show();
-    $.get("../stadtgedaechtnis/entry/" + location.entries[index].id + "/", function (data) {
-        $("article#entry-more").html(data);
-        $("img#load-more").hide();
+function loadAdditionalEntry(listElement) {
+    var listElement = $(listElement);
+    console.log(listElement);
+    var index = listElement.data("entry");
+    var id = listElement.data("id");
+    console.log("index: " + index);
+    console.log("id: " + id);
+
+    $("article#entry-more-" + index).html("");
+    $("img#load-more-" + index).show();
+    $.get("../stadtgedaechtnis/entry/" + id + "/", function (data) {
+        $("article#entry-more-" + index).html(data);
+        $("img#load-more-" + index).hide();
     });
 }
 
@@ -102,25 +100,40 @@ function loadAdditionalEntry(location, index) {
  * events on the marker.
  * @param entry
  */
-function openEntry(location, index, reload) {
-    if (!reload) {
-        var entryList = "";
-        for (var i = 0; i < location.entries.length; i++) {
-            entryList += "<li><h3>" + location.entries[i].title + "</h3></li>";
+function openEntry(location) {
+    var entryList = "";
+    for (var i = 0; i < location.entries.length; i++) {
+        entryList += '<li data-entry="' + i + '" data-id="' + location.entries[i].id + '">\
+                        <div class="article-heading">\
+                            <div class="entry-slide"><img class="previous" src="/static/stadtgedaechtnis/img/left.png"></div>\
+                            <h3 id="article-heading-' + i + '">' + location.entries[i].title + '</h3>\
+                            <div class="entry-slide"><img class="next" src="/static/stadtgedaechtnis/img/right.png"></div>\
+                        </div>';
+        if (location.entries[i].image !== undefined) {
+            entryList += '<img src="' + location.entries[i].image + '" alt="' + location.entries[i].alt + '" id="entry-first-' + i + '"/>';
         }
-        $("div.article-heading div.entry-list ul").html(entryList);
-        $("section#article-section h3#single-heading").text(location.entries[index].title);
+        entryList += '<div class="center">\
+                            <img src="/static/stadtgedaechtnis/img/ajax-loader.gif" id="load-more-' + i + '" class="load-more">\
+                        </div>\
+                        <article class="entry-more" id="entry-more-' + i + '">\
+                        </article>\
+                    </li>';
     }
-    if (location.entries[index].image !== undefined) {
-        $("section#article-section img#entry-first").show().attr({
-            src: location.entries[index].image,
-            alt: location.entries[index].alt
-        });
+    $("div.entry-list ul").html(entryList);
+
+    if (location.entries.length > 1) {
+        $("div.entry-slide").show();
+        $("div.article-heading img.previous").unbind("click").click(function() {
+                $("section#article-section div.entry-list").data("unslider").prev();
+            });
+        $("div.article-heading img.next").unbind("click").click(function() {
+                $("section#article-section div.entry-list").data("unslider").next();
+            });
     } else {
-        $("section#article-section img#entry-first").hide();
+        $("div.entry-slide").hide();
     }
 
-    loadAdditionalEntry(location, index);
+    loadAdditionalEntry($("div.entry-list ul li:first"));
 
     if (userLocation.currentInfobox === null) {
         var footer = $("section#article-section");
@@ -133,7 +146,9 @@ function openEntry(location, index, reload) {
             footer.transition({height: footerHeight}, 200, "ease");
             footerHeading.swipe("enable");
             $("main").transition({paddingBottom: footerHeight, marginBottom: "-" + footerHeight}, 200, "ease", function() {
-                    $("section#article-section div.entry-list").unslider();
+                    $("section#article-section div.entry-list").unslider({
+                        complete: loadAdditionalEntry
+                    });
             });
         } else {
             // desktop
@@ -147,32 +162,27 @@ function openEntry(location, index, reload) {
             var map_width = map.width();
             map.transition({width: map_width - 380 + "px"}, 200, "ease");
             footer.transition({width: "380px"}, 200, "ease", function() {
-                    $("section#article-section div.entry-list").unslider();
+                    $("section#article-section div.entry-list").unslider({
+                        complete: loadAdditionalEntry
+                    });
             });
             footer.css("overflow-y", "auto");
         }
     } else {
         userLocation.currentInfobox.close();
+        $("section#article-section div.entry-list").unslider();
     }
 
     userLocation.currentInfobox = location.infobox;
     location.infobox.open(userLocation.map, location.marker);
 
     if (location.entries.length > 1) {
-        $("section#article-section h3#single-heading").hide();
-        $("div.article-heading").show();
-        $("div.article-heading img#previous").unbind("click").click(function() {
-            $("section#article-section div.entry-list").data("unslider").next();
-            reloadInfobox(location, index + 1);
+        $("a.switch-entry").each(function() {
+            $(this).click(function() {
+                var entryIndex = $(this).data("entry");
+                $("section#article-section div.entry-list").data("unslider").move(entryIndex);
+            });
         });
-        $("div.article-heading img#next").unbind("click").click(function() {
-            $("section#article-section div.entry-list").data("unslider").prev();
-            reloadInfobox(location, index - 1);
-        })
-
-    } else {
-        $("div.article-heading").hide();
-        $("section#article-section h3#single-heading").show();
     }
 }
 
