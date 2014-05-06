@@ -79,15 +79,13 @@ function createInfobox(location) {
  */
 function loadAdditionalEntry(listElement) {
     var listElement = $(listElement);
-    console.log(listElement);
     var index = listElement.data("entry");
     var id = listElement.data("id");
-    console.log("index: " + index);
-    console.log("id: " + id);
 
     $("article#entry-more-" + index).html("");
     $("img#load-more-" + index).show();
     $.get("../stadtgedaechtnis/entry/" + id + "/", function (data) {
+        console.log("index: " + index);
         $("article#entry-more-" + index).html(data);
         $("img#load-more-" + index).hide();
     });
@@ -170,7 +168,7 @@ function openEntry(location) {
         }
     } else {
         userLocation.currentInfobox.close();
-        $("section#article-section div.entry-list").unslider();
+        $("section#article-section div.entry-list").unslider().data("unslider").move(0);
     }
 
     userLocation.currentInfobox = location.infobox;

@@ -87,7 +87,8 @@ div.article-heading {
 
 section#article-section {
   margin: 0;
-  //height: 8rem;
+  padding: 0;
+  height: 8rem;
   box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.70);
   -webkit-box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.70);
   position: relative;
@@ -97,6 +98,12 @@ section#article-section {
   cursor: grab;
 
   div.entry-list {
+    position: relative;
+    overflow: auto;
+    float: left;
+    //height: 100%;
+    width: 100%;
+
     div.article-heading {
       img {
         padding-top: .4rem;
@@ -122,12 +129,6 @@ section#article-section {
         float: left;
       }
     }
-
-    position: relative;
-    overflow: auto;
-    float: left;
-    height: 100%;
-    width: 100%;
 
     ul {
       list-style: none;

@@ -460,6 +460,8 @@ div.article-heading {
 
 section#article-section {
   margin: 0;
+  padding: 0;
+  height: 8rem;
   box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.7);
   -webkit-box-shadow: 0 -5px 5px rgba(0, 0, 0, 0.7);
   position: relative;
@@ -472,7 +474,6 @@ section#article-section div.entry-list {
   position: relative;
   overflow: auto;
   float: left;
-  height: 100%;
   width: 100%;
 }
 section#article-section div.entry-list div.article-heading img {
