@@ -71,7 +71,7 @@
 				//width: _.max[0]
 				//height: this.items.first().outerHeight()
 			});
-			
+
 			//  Set the relative widths
 			this.ul.css({width: (this.items.length * 100) + '%', position: 'relative'});
 			this.items.css('width', (100 / this.items.length) + '%');
@@ -125,12 +125,25 @@
 				//  Handle those pesky dots
 				_.el.find('.dot:eq(' + index + ')').addClass('active').siblings().removeClass('active');
 
-				this.el.animate(obj, speed) && this.ul.transition($.extend({left: '-' + index + '00%'}, obj), speed, function(data) {
+				this.ul.transition($.extend({left: '-' + index + '00%'}, obj), speed, function(data) {
 					_.current = index;
 					$.isFunction(_.opts.complete) && !cb && _.opts.complete(target);
 				});
 			}
 		};
+
+        // Set Unslider to a slide instantly
+        this.set = function(index, cb) {
+            //  If it's out of bounds, go to the first slide
+			if(!this.items.eq(index).length) index = 0;
+			if(index < 0) index = (this.items.length - 1);
+
+			var target = this.items.eq(index);
+
+            this.ul.css({left: '-' + index + '00%'});
+            _.current = index;
+            $.isFunction(_.opts.complete) && !cb && _.opts.complete(target);
+        }
 		
 		//  Autoplay functionality
 		this.start = function() {

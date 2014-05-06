@@ -78,17 +78,19 @@ function createInfobox(location) {
  * @param index
  */
 function loadAdditionalEntry(listElement) {
-    var listElement = $(listElement);
-    var index = listElement.data("entry");
-    var id = listElement.data("id");
+    if (!listElement.data("loaded")) {
+        var index = listElement.data("entry");
+        var id = listElement.data("id");
 
-    $("article#entry-more-" + index).html("");
-    $("img#load-more-" + index).show();
-    $.get("../stadtgedaechtnis/entry/" + id + "/", function (data) {
-        console.log("index: " + index);
-        $("article#entry-more-" + index).html(data);
-        $("img#load-more-" + index).hide();
-    });
+        $("article#entry-more-" + index).html("");
+        $("img#load-more-" + index).show();
+        $.get("../stadtgedaechtnis/entry/" + id + "/", function (data) {
+            console.log($("article#entry-more-" + index));
+            $("article#entry-more-" + index).html(data);
+            $("img#load-more-" + index).hide();
+            listElement.data("loaded", true);
+        });
+    }
 }
 
 /**
@@ -101,6 +103,7 @@ function loadAdditionalEntry(listElement) {
 function openEntry(location) {
     var entryList = "";
     for (var i = 0; i < location.entries.length; i++) {
+        // create list of entrys for slider
         entryList += '<li data-entry="' + i + '" data-id="' + location.entries[i].id + '">\
                         <div class="article-heading">\
                             <div class="entry-slide"><img class="previous" src="/static/stadtgedaechtnis/img/left.png"></div>\
@@ -117,23 +120,26 @@ function openEntry(location) {
                         </article>\
                     </li>';
     }
+
     $("div.entry-list ul").html(entryList);
+    var jQueryEntryList = $("section#article-section div.entry-list");
 
     if (location.entries.length > 1) {
+        // Show next and previous buttons
         $("div.entry-slide").show();
         $("div.article-heading img.previous").unbind("click").click(function() {
-                $("section#article-section div.entry-list").data("unslider").prev();
+                jQueryEntryList.data("unslider").prev();
             });
         $("div.article-heading img.next").unbind("click").click(function() {
-                $("section#article-section div.entry-list").data("unslider").next();
+                jQueryEntryList.data("unslider").next();
             });
     } else {
+        // Hide next and previous buttons
         $("div.entry-slide").hide();
     }
 
-    loadAdditionalEntry($("div.entry-list ul li:first"));
-
     if (userLocation.currentInfobox === null) {
+        // New entry opened
         var footer = $("section#article-section");
         var footerHeading = $("section#article-section h3");
         footer.css("padding", "0.8rem");
@@ -141,10 +147,11 @@ function openEntry(location) {
         if ($(window).width() < 768) {
             // mobile
             channel = "mobile";
+            jQueryEntryList.data("unslider") && jQueryEntryList.data("unslider").set(0, true);
             footer.transition({height: footerHeight}, 200, "ease");
             footerHeading.swipe("enable");
             $("main").transition({paddingBottom: footerHeight, marginBottom: "-" + footerHeight}, 200, "ease", function() {
-                    $("section#article-section div.entry-list").unslider({
+                    jQueryEntryList.unslider({
                         complete: loadAdditionalEntry
                     });
             });
@@ -158,18 +165,25 @@ function openEntry(location) {
             });
             var map = $("section.max_map");
             var map_width = map.width();
+            jQueryEntryList.data("unslider") && jQueryEntryList.data("unslider").set(0, true);
             map.transition({width: map_width - 380 + "px"}, 200, "ease");
             footer.transition({width: "380px"}, 200, "ease", function() {
-                    $("section#article-section div.entry-list").unslider({
-                        complete: loadAdditionalEntry
-                    });
+                jQueryEntryList.unslider({
+                    complete: loadAdditionalEntry
+                });
             });
             footer.css("overflow-y", "auto");
         }
     } else {
+        // Old entry already opened
+        jQueryEntryList.data("unslider").set(0, true);
         userLocation.currentInfobox.close();
-        $("section#article-section div.entry-list").unslider().data("unslider").move(0);
+        jQueryEntryList.unslider({
+            complete: loadAdditionalEntry
+        });
     }
+
+    loadAdditionalEntry($("div.entry-list ul li:first"));
 
     userLocation.currentInfobox = location.infobox;
     location.infobox.open(userLocation.map, location.marker);
@@ -178,7 +192,7 @@ function openEntry(location) {
         $("a.switch-entry").each(function() {
             $(this).click(function() {
                 var entryIndex = $(this).data("entry");
-                $("section#article-section div.entry-list").data("unslider").move(entryIndex);
+                jQueryEntryList.data("unslider").move(entryIndex);
             });
         });
     }
@@ -192,6 +206,7 @@ function closeEntry() {
         footer.transition({height: 0}, 200, "ease");
         $("main").transition({paddingBottom: "0px", marginBottom: "0px"}, 200, "ease" , function() {
             footer.css("padding", "0rem");
+            $("div.entry-list ul").removeAttr("style");
         });
     } else {
         // desktop
@@ -201,6 +216,7 @@ function closeEntry() {
                 padding: "0rem",
                 width: "auto"
             });
+            $("div.entry-list ul").removeAttr("style")
         });
         $("section.max_map").transition({width: "100%"}, 200, "ease");
         footer.css("overflow-y", "hidden");
