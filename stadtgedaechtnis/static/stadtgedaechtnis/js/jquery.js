@@ -51,10 +51,15 @@ function initializeSwiping() {
             if ((up && direction === "down") || (!up && direction === "up")) {
                 if (phase === "cancel") {
                     var newPadding = (direction === "up" ? footerHeight : maxPadding);
+                    var footerPadding = (direction === "up" ? "0.8rem 0.8rem 0 0.8rem" : "0.8rem");
+                    footer.css("padding", footerPadding);
                     footer.transition({height: newPadding}, 200, "ease");
                     container.transition({paddingBottom: newPadding, marginBottom: "-" + newPadding}, 200, "ease");
+                    footer.css("padding", "0.8rem 0.8rem 0 0.8rem");
                 } else if (phase === "end") {
                     var newPadding = (direction === "up" ? maxPadding : footerHeight);
+                    var footerPadding = (direction === "up" ? "0.8rem" : "0.8rem 0.8rem 0 0.8rem");
+                    footer.css("padding", footerPadding);
                     footer.transition({height: newPadding}, 200, "ease");
                     container.transition({paddingBottom: newPadding, marginBottom: "-" + newPadding}, 200, "ease");
                     $("div.entry-list ul li").css("overflow-y", direction === "up" ? "auto" : "hidden");
