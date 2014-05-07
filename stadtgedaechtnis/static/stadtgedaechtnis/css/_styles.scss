@@ -83,6 +83,22 @@ header[role="banner"] {
 
 div.article-heading {
   width: 100%;
+  display: table;
+
+  div.article-heading-row {
+    display: table-row;
+
+    div.article-heading-cell {
+      display: table-cell;
+      vertical-align: middle;
+      padding: 0 .2em .5em .2em;
+
+      h3 {
+        margin: 0;
+      }
+
+    }
+  }
 }
 
 section#article-section {
@@ -99,9 +115,8 @@ section#article-section {
 
   div.entry-list {
     position: relative;
-    overflow: auto;
     float: left;
-    //height: 100%;
+    height: 100%;
     width: 100%;
 
     div.article-heading {
@@ -111,23 +126,6 @@ section#article-section {
         height: auto;
         cursor: pointer;
       }
-
-      img#previous {
-        float: left;
-      }
-
-      img#next {
-        float: right;
-      }
-
-      h3 {
-        margin: 0 0 .5rem 0;
-      }
-
-      div.entry-slide {
-        width: 16px;
-        float: left;
-      }
     }
 
     ul {
@@ -135,10 +133,12 @@ section#article-section {
       padding: 0;
       margin: 0;
       width: 100%;
+      height: 100%;
 
       li {
         float: left;
         width: 100%;
+        height: 100%;
       }
     }
   }

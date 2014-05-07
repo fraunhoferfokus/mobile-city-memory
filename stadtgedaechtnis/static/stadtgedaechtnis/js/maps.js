@@ -106,9 +106,17 @@ function openEntry(location) {
         // create list of entrys for slider
         entryList += '<li data-entry="' + i + '" data-id="' + location.entries[i].id + '">\
                         <div class="article-heading">\
-                            <div class="entry-slide"><img class="previous" src="/static/stadtgedaechtnis/img/left.png"></div>\
-                            <h3 id="article-heading-' + i + '">' + location.entries[i].title + '</h3>\
-                            <div class="entry-slide"><img class="next" src="/static/stadtgedaechtnis/img/right.png"></div>\
+                            <div class="article-heading-row">\
+                                <div class="article-heading-cell entry-slide">\
+                                    <img class="previous" src="/static/stadtgedaechtnis/img/left.png">\
+                                </div>\
+                                <div class="article-heading-cell">\
+                                    <h3 id="article-heading-' + i + '">' + location.entries[i].title + '</h3>\
+                                </div>\
+                                <div class="article-heading-cell entry-slide">\
+                                    <img class="next" src="/static/stadtgedaechtnis/img/right.png"></div>\
+                                </div>\
+                            </div>\
                         </div>';
         if (location.entries[i].image !== undefined) {
             entryList += '<img src="' + location.entries[i].image + '" alt="' + location.entries[i].alt + '" id="entry-first-' + i + '"/>';
@@ -141,15 +149,14 @@ function openEntry(location) {
     if (userLocation.currentInfobox === null) {
         // New entry opened
         var footer = $("section#article-section");
-        var footerHeading = $("section#article-section h3");
-        footer.css("padding", "0.8rem");
+        footer.css("padding", "0.8rem 0.8rem 0 0.8rem");
 
         if ($(window).width() < 768) {
             // mobile
             channel = "mobile";
             jQueryEntryList.data("unslider") && jQueryEntryList.data("unslider").set(0, true);
             footer.transition({height: footerHeight}, 200, "ease");
-            footerHeading.swipe("enable");
+            initializeSwiping();
             $("main").transition({paddingBottom: footerHeight, marginBottom: "-" + footerHeight}, 200, "ease", function() {
                 jQueryEntryList.unslider({
                     complete: loadAdditionalEntry
@@ -158,7 +165,7 @@ function openEntry(location) {
             });
         } else {
             // desktop
-            footerHeading.swipe("disable");
+            $("div.article-heading").swipe("disable");
             channel = "desktop";
             footer.css({
                 height: "100%",
@@ -174,7 +181,7 @@ function openEntry(location) {
                 });
                 jQueryEntryList.data("unslider").set(0, true);
             });
-            footer.css("overflow-y", "auto");
+            $("div.entry-list ul li").css("overflow-y", "auto");
         }
     } else {
         // Old entry already opened
@@ -221,7 +228,7 @@ function closeEntry() {
             $("div.entry-list ul").removeAttr("style")
         });
         $("section.max_map").transition({width: "100%"}, 200, "ease");
-        footer.css("overflow-y", "hidden");
+        //footer.css("overflow-y", "hidden");
     }
 
     if (userLocation.currentInfobox !== null) {

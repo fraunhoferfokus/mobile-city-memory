@@ -35,7 +35,7 @@ function resizeContainer() {
  */
 function initializeSwiping() {
     var footer = $("section#article-section");
-    var footerHeading = $("div.entry-list");
+    var footerHeading = $("div.article-heading");
     var container = $("main");
 
     var swipeThreshold = container.height() * 0.3;
@@ -57,7 +57,7 @@ function initializeSwiping() {
                     var newPadding = (direction === "up" ? maxPadding : footerHeight);
                     footer.transition({height: newPadding}, 200, "ease");
                     container.transition({paddingBottom: newPadding, marginBottom: "-" + newPadding}, 200, "ease");
-                    footer.css("overflow-y", direction === "up" ? "auto" : "hidden");
+                    $("div.entry-list ul li").css("overflow-y", direction === "up" ? "auto" : "hidden");
                     up = (direction === "up" ? true : false);
                 } else {
                     var newPadding = footerSwipeHeight + (direction === "up" ? distance : -distance);

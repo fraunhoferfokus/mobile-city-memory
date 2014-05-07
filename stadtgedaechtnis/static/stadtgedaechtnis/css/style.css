@@ -456,6 +456,18 @@ header[role="banner"] nav ul li a.current {
 
 div.article-heading {
   width: 100%;
+  display: table;
+}
+div.article-heading div.article-heading-row {
+  display: table-row;
+}
+div.article-heading div.article-heading-row div.article-heading-cell {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 0 .2em .5em .2em;
+}
+div.article-heading div.article-heading-row div.article-heading-cell h3 {
+  margin: 0;
 }
 
 section#article-section {
@@ -472,8 +484,8 @@ section#article-section {
 }
 section#article-section div.entry-list {
   position: relative;
-  overflow: auto;
   float: left;
+  height: 100%;
   width: 100%;
 }
 section#article-section div.entry-list div.article-heading img {
@@ -482,28 +494,17 @@ section#article-section div.entry-list div.article-heading img {
   height: auto;
   cursor: pointer;
 }
-section#article-section div.entry-list div.article-heading img#previous {
-  float: left;
-}
-section#article-section div.entry-list div.article-heading img#next {
-  float: right;
-}
-section#article-section div.entry-list div.article-heading h3 {
-  margin: 0 0 .5rem 0;
-}
-section#article-section div.entry-list div.article-heading div.entry-slide {
-  width: 16px;
-  float: left;
-}
 section#article-section div.entry-list ul {
   list-style: none;
   padding: 0;
   margin: 0;
   width: 100%;
+  height: 100%;
 }
 section#article-section div.entry-list ul li {
   float: left;
   width: 100%;
+  height: 100%;
 }
 section#article-section p {
   margin-top: 0;
