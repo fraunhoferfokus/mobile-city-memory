@@ -151,9 +151,10 @@ function openEntry(location) {
             footer.transition({height: footerHeight}, 200, "ease");
             footerHeading.swipe("enable");
             $("main").transition({paddingBottom: footerHeight, marginBottom: "-" + footerHeight}, 200, "ease", function() {
-                    jQueryEntryList.unslider({
-                        complete: loadAdditionalEntry
-                    });
+                jQueryEntryList.unslider({
+                    complete: loadAdditionalEntry
+                });
+                jQueryEntryList.data("unslider").set(0, true);
             });
         } else {
             // desktop
@@ -171,6 +172,7 @@ function openEntry(location) {
                 jQueryEntryList.unslider({
                     complete: loadAdditionalEntry
                 });
+                jQueryEntryList.data("unslider").set(0, true);
             });
             footer.css("overflow-y", "auto");
         }

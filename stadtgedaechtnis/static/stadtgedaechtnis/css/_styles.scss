@@ -32,7 +32,7 @@ div.infowindow {
   }
 }
 
-a {
+a, a:hover, a:visited, a:active, a:focus {
   color: black;
   outline: none;
 }

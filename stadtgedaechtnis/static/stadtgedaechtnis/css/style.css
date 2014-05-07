@@ -415,7 +415,7 @@ div.infowindow ul li {
   margin: .3rem 0;
 }
 
-a {
+a, a:hover, a:visited, a:active, a:focus {
   color: black;
   outline: none;
 }
