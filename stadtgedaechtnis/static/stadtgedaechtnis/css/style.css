@@ -494,6 +494,10 @@ section#article-section div.entry-list div.article-heading img {
   height: auto;
   cursor: pointer;
 }
+section#article-section div.entry-list div.article-heading div.entry-slide {
+  height: 24px;
+  width: 24px;
+}
 section#article-section div.entry-list ul {
   list-style: none;
   padding: 0;
