@@ -83,11 +83,11 @@ function initializeSwiping() {
 
     var slideWidth = $("div.entry-list ul li:first").width();
     var swipeLeftRightThreshold = slideWidth * 0.3;
+    var slideList = $("section#article-section div.entry-list");
 
     $("div.article-heading-row").swipe({
        swipeStatus: function(event, phase, direction, distance) {
            if (direction === "left" || direction ==="right") {
-               var slideList = $("div.entry-list ul");
                var unslider = slideList.data("unslider");
                var currentSlide = unslider.current;
                console.log(currentSlide);
@@ -95,7 +95,7 @@ function initializeSwiping() {
                    if ((direction === "left" && (currentSlide === unslider.items.length - 1)) || (direction === "right" && (currentSlide === 0))) {
                        return false;
                    } else {
-                       unslider.move(currentSlide + (direction === "left" ? 1 : -1), true);
+                       unslider.move(currentSlide + (direction === "left" ? 1 : -1));
                    }
                } else if (phase === "cancel") {
                         unslider.move(currentSlide);
@@ -103,10 +103,10 @@ function initializeSwiping() {
                    if ((direction === "left" && (currentSlide === unslider.items.length - 1)) || (direction === "right" && (currentSlide === 0))) {
                        return false;
                    } else {
-                       var percentMoved = distance / slideWidth;
+                       var percentMoved = (distance / slideWidth) * 100;
                        var newPercentage = currentSlide * 100 + (direction === "left" ? percentMoved : -percentMoved);
                        var newLeft = "-" + newPercentage + "%";
-                       slideList.css("left", newLeft);
+                       $("section#article-section div.entry-list ul").css("left", newLeft);
                    }
                }
            }
