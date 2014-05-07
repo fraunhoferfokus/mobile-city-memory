@@ -107,14 +107,14 @@ function openEntry(location) {
         entryList += '<li data-entry="' + i + '" data-id="' + location.entries[i].id + '">\
                         <div class="article-heading">\
                             <div class="article-heading-row">\
-                                <div class="article-heading-cell entry-slide">\
-                                    <img class="previous" src="/static/stadtgedaechtnis/img/left.png">\
+                                <div class="article-heading-cell entry-slide previous">\
+                                    <img src="/static/stadtgedaechtnis/img/left.png">\
                                 </div>\
                                 <div class="article-heading-cell">\
                                     <h3 id="article-heading-' + i + '">' + location.entries[i].title + '</h3>\
                                 </div>\
-                                <div class="article-heading-cell entry-slide">\
-                                    <img class="next" src="/static/stadtgedaechtnis/img/right.png"></div>\
+                                <div class="article-heading-cell entry-slide next">\
+                                    <img src="/static/stadtgedaechtnis/img/right.png"></div>\
                                 </div>\
                             </div>\
                         </div>';
@@ -135,10 +135,10 @@ function openEntry(location) {
     if (location.entries.length > 1) {
         // Show next and previous buttons
         $("div.entry-slide").show();
-        $("div.article-heading img.previous").unbind("click").click(function() {
+        $("div.entry-slide.previous").unbind("click").click(function() {
                 jQueryEntryList.data("unslider").prev();
             });
-        $("div.article-heading img.next").unbind("click").click(function() {
+        $("div.entry-slide.next").unbind("click").click(function() {
                 jQueryEntryList.data("unslider").next();
             });
     } else {
