@@ -105,17 +105,21 @@ function openEntry(location) {
         // create list of entrys for slider
         entryList += '<li data-entry="' + i + '" data-id="' + location.entries[i].id + '">\
                         <div class="article-heading">\
-                            <div class="article-heading-row">\
-                                <a href="#" class="previous"><div class="article-heading-cell entry-slide previous">\
-                                    <img src="/static/stadtgedaechtnis/img/left.png">\
-                                </div></a>\
-                                <div class="article-heading-cell">\
+                            <div class="article-heading-row">';
+        if (i > 0) {
+            entryList += '    <a href="#" class="previous"><div class="article-heading-cell entry-slide previous">\
+                <img src="/static/stadtgedaechtnis/img/left.png">\
+            </div></a>'
+        }
+        entryList += '<div class="article-heading-cell">\
                                     <h3 id="article-heading-' + i + '">' + location.entries[i].title + '</h3>\
-                                </div>\
-                                <a href="#" class="next"><div class="article-heading-cell entry-slide next">\
-                                    <img src="/static/stadtgedaechtnis/img/right.png">\
-                                </div></a>\
-                            </div>\
+                                </div>';
+        if (i < location.entries.length - 1) {
+            entryList += '<a href="#" class="next"><div class="article-heading-cell entry-slide next">\
+                <img src="/static/stadtgedaechtnis/img/right.png">\
+            </div></a>';
+        }
+        entryList += '</div>\
                         </div>';
         if (location.entries[i].image !== undefined) {
             entryList += '<img src="' + location.entries[i].image + '" alt="' + location.entries[i].alt + '" id="entry-first-' + i + '"/>';
