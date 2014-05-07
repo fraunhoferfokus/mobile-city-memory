@@ -85,7 +85,7 @@ function initializeSwiping() {
     var swipeLeftRightThreshold = slideWidth * 0.3;
     var slideList = $("section#article-section div.entry-list");
 
-    $("section#article-section div.entry-list ul li").swipe({
+    $("div.article-heading-row").swipe({
        swipeStatus: function(event, phase, direction, distance) {
            if (direction === "left" || direction ==="right") {
                var unslider = slideList.data("unslider");

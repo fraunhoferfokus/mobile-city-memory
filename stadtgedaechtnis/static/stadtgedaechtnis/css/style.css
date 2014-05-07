@@ -467,6 +467,7 @@ div.article-heading div.article-heading-row div.article-heading-cell {
   display: table-cell;
   vertical-align: middle;
   padding: 0 .2em .5em .2em;
+  text-align: center;
 }
 div.article-heading div.article-heading-row div.article-heading-cell h3 {
   margin: 0;
