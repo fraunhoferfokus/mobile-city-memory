@@ -150,11 +150,11 @@ function openEntry(location) {
     if (userLocation.currentInfobox === null) {
         // New entry opened
         var footer = $("section#article-section");
-        footer.css("padding", "0.8rem 0.8rem 0 0.8rem");
 
         if ($(window).width() < 768) {
             // mobile
             channel = "mobile";
+            footer.css("padding", "0.8rem 0.8rem 0 0.8rem");
             jQueryEntryList.data("unslider") && jQueryEntryList.data("unslider").set(0, true);
             footer.transition({height: footerHeight}, 200, "ease");
             initializeSwiping();
@@ -170,7 +170,8 @@ function openEntry(location) {
             channel = "desktop";
             footer.css({
                 height: "100%",
-                width: "0%"
+                width: "0%",
+                padding: "0.8rem"
             });
             var map = $("section.max_map");
             var map_width = map.width();

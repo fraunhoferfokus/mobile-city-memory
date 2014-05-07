@@ -80,6 +80,41 @@ function initializeSwiping() {
         maxTimeThreshold: 300,
         threshold: swipeThreshold
     });
+
+    var slideWidth = $("div.entry-list ul li:first").width();
+    var swipeLeftRightThreshold = slideWidth * 0.3;
+
+    $("div.article-heading-row").swipe({
+       swipeStatus: function(event, phase, direction, distance) {
+           if (direction === "left" || direction ==="right") {
+               var slideList = $("div.entry-list ul");
+               var unslider = slideList.data("unslider");
+               var currentSlide = unslider.current;
+               console.log(currentSlide);
+               if (phase === "end") {
+                   if ((direction === "left" && (currentSlide === unslider.items.length - 1)) || (direction === "right" && (currentSlide === 0))) {
+                       return false;
+                   } else {
+                       unslider.move(currentSlide + (direction === "left" ? 1 : -1), true);
+                   }
+               } else if (phase === "cancel") {
+                        unslider.move(currentSlide);
+               } else {
+                   if ((direction === "left" && (currentSlide === unslider.items.length - 1)) || (direction === "right" && (currentSlide === 0))) {
+                       return false;
+                   } else {
+                       var percentMoved = distance / slideWidth;
+                       var newPercentage = currentSlide * 100 + (direction === "left" ? percentMoved : -percentMoved);
+                       var newLeft = "-" + newPercentage + "%";
+                       slideList.css("left", newLeft);
+                   }
+               }
+           }
+       },
+       checkThresholds: true,
+       maxTimeThreshold: 300,
+       threshold: swipeLeftRightThreshold
+    });
 }
 
 /**

@@ -430,6 +430,8 @@ header[role="banner"] {
   background-image: none, url(../img/header.svg);
   background-size: 100% 100%;
   padding: .5rem;
+  position: relative;
+  z-index: 500;
 }
 header[role="banner"] h1 {
   text-transform: uppercase;
