@@ -106,15 +106,15 @@ function openEntry(location) {
         entryList += '<li data-entry="' + i + '" data-id="' + location.entries[i].id + '">\
                         <div class="article-heading">\
                             <div class="article-heading-row">\
-                                <div class="article-heading-cell entry-slide previous">\
-                                    <a href="#"><img src="/static/stadtgedaechtnis/img/left.png"></a>\
-                                </div>\
+                                <a href="#" class="previous"><div class="article-heading-cell entry-slide previous">\
+                                    <img src="/static/stadtgedaechtnis/img/left.png">\
+                                </div></a>\
                                 <div class="article-heading-cell">\
                                     <h3 id="article-heading-' + i + '">' + location.entries[i].title + '</h3>\
                                 </div>\
-                                <div class="article-heading-cell entry-slide next">\
-                                    <a href="#"><img src="/static/stadtgedaechtnis/img/right.png"></a>\
-                                </div>\
+                                <a href="#" class="next"><div class="article-heading-cell entry-slide next">\
+                                    <img src="/static/stadtgedaechtnis/img/right.png">\
+                                </div></a>\
                             </div>\
                         </div>';
         if (location.entries[i].image !== undefined) {
@@ -134,11 +134,11 @@ function openEntry(location) {
     if (location.entries.length > 1) {
         // Show next and previous buttons
         $("div.entry-slide").show();
-        $("div.entry-slide.previous a").unbind("click").click(function() {
+        $("div.article-heading-row a.previous").unbind("click").click(function() {
             jQueryEntryList.data("unslider").prev();
             return false;
         });
-        $("div.entry-slide.next a").unbind("click").click(function() {
+        $("div.article-heading-row a.next").unbind("click").click(function() {
             jQueryEntryList.data("unslider").next();
             return false;
         });
