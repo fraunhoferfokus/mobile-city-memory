@@ -85,7 +85,6 @@ function loadAdditionalEntry(listElement) {
         $("article#entry-more-" + index).html("");
         $("img#load-more-" + index).show();
         $.get("../stadtgedaechtnis/entry/" + id + "/", function (data) {
-            console.log($("article#entry-more-" + index));
             $("article#entry-more-" + index).html(data);
             $("img#load-more-" + index).hide();
             listElement.data("loaded", true);
@@ -108,13 +107,13 @@ function openEntry(location) {
                         <div class="article-heading">\
                             <div class="article-heading-row">\
                                 <div class="article-heading-cell entry-slide previous">\
-                                    <img src="/static/stadtgedaechtnis/img/left.png">\
+                                    <a href="#"><img src="/static/stadtgedaechtnis/img/left.png"></a>\
                                 </div>\
                                 <div class="article-heading-cell">\
                                     <h3 id="article-heading-' + i + '">' + location.entries[i].title + '</h3>\
                                 </div>\
                                 <div class="article-heading-cell entry-slide next">\
-                                    <img src="/static/stadtgedaechtnis/img/right.png"></div>\
+                                    <a href="#"><img src="/static/stadtgedaechtnis/img/right.png"></a>\
                                 </div>\
                             </div>\
                         </div>';
@@ -135,12 +134,14 @@ function openEntry(location) {
     if (location.entries.length > 1) {
         // Show next and previous buttons
         $("div.entry-slide").show();
-        $("div.entry-slide.previous").unbind("click").click(function() {
-                jQueryEntryList.data("unslider").prev();
-            });
-        $("div.entry-slide.next").unbind("click").click(function() {
-                jQueryEntryList.data("unslider").next();
-            });
+        $("div.entry-slide.previous a").unbind("click").click(function() {
+            jQueryEntryList.data("unslider").prev();
+            return false;
+        });
+        $("div.entry-slide.next a").unbind("click").click(function() {
+            jQueryEntryList.data("unslider").next();
+            return false;
+        });
     } else {
         // Hide next and previous buttons
         $("div.entry-slide").hide();
