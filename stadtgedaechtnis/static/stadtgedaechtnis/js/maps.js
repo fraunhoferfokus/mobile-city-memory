@@ -84,7 +84,7 @@ function loadAdditionalEntry(listElement) {
 
         $("article#entry-more-" + index).html("");
         $("img#load-more-" + index).show();
-        $.get("../stadtgedaechtnis/entry/" + id + "/", function (data) {
+        $.get("/entry/" + id + "/", function (data) {
             $("article#entry-more-" + index).html(data);
             $("img#load-more-" + index).hide();
             listElement.data("loaded", true);
@@ -254,7 +254,7 @@ function searchForEntries () {
     var min_lat = bounds.getSouthWest().lat().toFixed(10)
     var min_lon = bounds.getSouthWest().lng().toFixed(10)
     // get nearby locations
-    $.getJSON("../stadtgedaechtnis/services/get-nearby-locations/" + min_lat + "/" + max_lat + "/" + min_lon + "/" + max_lon + "/", function (data) {
+    $.getJSON("/services/get-nearby-locations/" + min_lat + "/" + max_lat + "/" + min_lon + "/" + max_lon + "/", function (data) {
         $.each(data, function (index, value) {
             addMarker(value);
         })
