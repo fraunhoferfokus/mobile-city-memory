@@ -1,6 +1,7 @@
 from abc import ABCMeta, abstractmethod
 import urllib2
 import json
+import time
 
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
 from django.core.urlresolvers import reverse
@@ -124,7 +125,12 @@ class SimpleJSONImport(ImportView):
                     entry.location = location_object
                     entry.author = story["author"]
                     entry.abstract = story["preview"]
-                    entry.time_start = story["timeStart"]
+                    if "timeStart" in story:
+                        entry.time_start = story["timeStart"]
+                    else:
+                        entry.time_start = time.strftime(
+                            "%Y-%m-%d",
+                            time.strptime(story["created"], "%d.%m.%Y %H:%M:%S"))
                     if "timeEnd" in story:
                         entry.time_end = story["timeEnd"]
                     entry.type = EntryType.objects.get(label=story["typename"])

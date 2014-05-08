@@ -11,8 +11,9 @@
 </style>
 <script type="text/javascript" src="{%static "stadtgedaechtnis/js/jquery-1.11.0.js" %}"></script>
 <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu_pyZCIn6bsQz6NtcuCYW8TtwITydf_I&sensor=false&libraries=places"></script>
+<script type="text/javascript" src="{% static "stadtgedaechtnis/js/locations.js"%}"></script>
 <script type="text/javascript" src="{% static "stadtgedaechtnis/js/admin/add_location.js"%}"></script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu_pyZCIn6bsQz6NtcuCYW8TtwITydf_I&sensor=false"></script>
 {% endblock %}
 
 {% block after_field_sets %}
