@@ -53,11 +53,25 @@ function search_locations() {
             title: gettext("Aktueller Ort")
         });
 
-    $.get("../../../../stadtgedaechtnis/services/get-nearby-places/" + lat + "/" + lon + "/").done(replace_locations);
+    $.get("/services/get-nearby-places/" + lat + "/" + lon + "/").done(replace_locations);
+    getNearbyAddresses(lat, lon, function(result) {
+        for (var i = 0; i < result.length; i++) {
+            var addressMarker = new google.maps.Marker({
+                position: new google.maps.LatLng(result[i].latitude, result[i].longitude),
+                map: map,
+                title: result[i].address
+            });
+            google.maps.event.addListener(addressMarker, 'click', (function(address){
+                return function() {
+                    $("input#id_label").val(address);
+                }
+            }(result[i].address)));
+        }
+    })
 }
 
 function add_link(url) {
-    $("#id_dbpedia_link").val(url);
+    $("input#id_dbpedia_link").val(url);
 }
 
 function initialize_map() {
