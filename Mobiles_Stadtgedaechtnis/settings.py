@@ -23,7 +23,6 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
         'OPTIONS': {
             'provider': 'SQLNCLI11',
-            'use_mars': False
         }
     }
 }
