@@ -4,6 +4,7 @@ from django.views.generic import View
 from django.http import HttpResponse
 from SPARQLWrapper import SPARQLWrapper, JSON
 from stadtgedaechtnis.models import Entry, Location
+from decimal import Decimal
 
 import jsonpickle
 import json
@@ -56,10 +57,10 @@ class GetNearbyLocations(View):
     """
 
     def get(self, request, *args, **kwargs):
-        lat, lon = float(kwargs["lat"]), float(kwargs["lon"])
+        lat, lon = Decimal(kwargs["lat"]), Decimal(kwargs["lon"])
         if "maxlat" in kwargs and "maxlon" in kwargs:
-            min_lat, max_lat = lat, float(kwargs["maxlat"])
-            min_lon, max_lon = lon, float(kwargs["maxlon"])
+            min_lat, max_lat = lat, Decimal(kwargs["maxlat"])
+            min_lon, max_lon = lon, Decimal(kwargs["maxlon"])
         else:
             min_lat, max_lat = lat - 0.01, lat + 0.01
             min_lon, max_lon = lon - 0.01, lon + 0.01
