@@ -22,7 +22,7 @@ DATABASES = {
         'HOST': '127.0.0.1',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
         'OPTIONS': {
-            'provider': 'SQLNCLI11',
+            'provider': 'SQLNCLI10',
         }
     }
 }
