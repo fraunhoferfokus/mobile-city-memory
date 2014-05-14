@@ -536,6 +536,10 @@ section#article-section article.entry-more {
 section#article-section article.entry-more * {
   margin-top: 10px;
 }
+section#article-section article.entry-more p.author {
+  text-align: right;
+  font-size: .8rem;
+}
 
 /* Sizing of map_section and map_canvas */
 main, .max_map {

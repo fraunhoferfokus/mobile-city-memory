@@ -181,7 +181,7 @@ class SimpleJSONImport(ImportView):
                         entry.save()
                     # Add entry to succeeded entry list
                     self.success_entries.append(entry)
-                    
+
                 else:
                     entry = dict()
                     entry["title"] = label

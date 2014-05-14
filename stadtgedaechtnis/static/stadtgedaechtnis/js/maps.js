@@ -196,6 +196,7 @@ function openEntry(location) {
         jQueryEntryList.unslider({
             complete: loadAdditionalEntry
         });
+        $("div.entry-list ul li").css("overflow-y", "auto");
     }
 
     loadAdditionalEntry($("div.entry-list ul li:first"));
