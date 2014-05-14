@@ -210,9 +210,11 @@ function openEntry(location) {
 
     if (location.entries.length > 1) {
         $("a.switch-entry").each(function() {
-            $(this).click(function() {
+            $(this).click(function(event) {
                 var entryIndex = $(this).data("entry");
                 jQueryEntryList.data("unslider").move(entryIndex);
+                event.preventDefault;
+                return false;
             });
         });
     }
