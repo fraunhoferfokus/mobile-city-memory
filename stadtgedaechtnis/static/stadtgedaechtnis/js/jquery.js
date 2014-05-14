@@ -10,6 +10,7 @@
 var footerHeight;
 var headerHeight;
 var footerSwipeHeight;
+var containerHeight;
 var up = false;
 
 /**
@@ -19,6 +20,7 @@ function resizeContainer() {
 	headerHeight = $("header[role='banner']").css("height");
     var footer = $("section#article-section");
     footerHeight = footer.css("height");
+    containerHeight = $("main").height();
 	$("main").css({
         paddingTop: headerHeight,
         marginTop: "-" + headerHeight,
@@ -38,8 +40,8 @@ function initializeSwiping() {
     var footerHeading = $("div.article-heading");
     var container = $("main");
 
-    var swipeThreshold = container.height() * 0.3;
-    var maxPadding = container.height() + "px";
+    var swipeThreshold = containerHeight * 0.3;
+    var maxPadding = containerHeight + "px";
 
     footerHeading.swipe({
         swipeStatus: function(event, phase, direction, distance) {
@@ -90,7 +92,6 @@ function initializeSwiping() {
            if (direction === "left" || direction ==="right") {
                var unslider = slideList.data("unslider");
                var currentSlide = unslider.current;
-               console.log(currentSlide);
                if (phase === "end") {
                    if ((direction === "left" && (currentSlide === unslider.items.length - 1)) || (direction === "right" && (currentSlide === 0))) {
                        return false;
