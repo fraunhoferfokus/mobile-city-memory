@@ -68,7 +68,7 @@ class Entry(ItemWithMedia):
     author = models.CharField(max_length=150)
     time_start = models.DateField()
     time_end = models.DateField(null=True, blank=True)
-    location = models.ForeignKey(Location, on_delete=models.PROTECT)
+    location = models.ForeignKey(Location, on_delete=models.PROTECT, null=True, blank=True)
 
     def __unicode__(self):
         return self.title + " (" + self.author + ")"
