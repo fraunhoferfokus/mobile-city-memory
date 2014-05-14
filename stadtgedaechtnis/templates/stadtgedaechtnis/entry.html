@@ -1,3 +1,4 @@
+{% load i18n %}
 {% for image in entry.get_additional_images %}
 	<img src="{{ image.mediasource_set.first.file.url }}" alt="{{ image.alt }}">
 {% endfor %}
@@ -19,3 +20,4 @@
 		</video>
 	{% endif %}
 {% endfor %}
+<p class="author">{% trans "Autor_in" %}:&nbsp;{{ entry.author }}</p>
