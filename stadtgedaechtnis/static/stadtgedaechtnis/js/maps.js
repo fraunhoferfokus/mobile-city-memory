@@ -198,6 +198,8 @@ function openEntry(location) {
         });
         if (channel === "desktop") {
             $("div.entry-list ul li").css("overflow-y", "auto");
+        } else {
+            initializeSwiping();
         }
     }
 
