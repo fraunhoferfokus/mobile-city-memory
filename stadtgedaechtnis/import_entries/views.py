@@ -4,17 +4,57 @@ import json
 import time
 import os
 
-from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse
 from django.core.urlresolvers import reverse
 from django.views.generic import TemplateView
 from django.conf import settings
 from datetime import datetime
+from django.views.generic import View
 
-from stadtgedaechtnis.utils import replace_multiple
+from stadtgedaechtnis.utils import replace_multiple, get_nearby_locations
 from stadtgedaechtnis.models import Location, Entry, EntryType, MediaObject, MediaSource
 
 
 __author__ = 'jpi'
+
+
+def load_json(source):
+        """
+        Loads the JSON file from the source and makes it available in a usable form.
+        """
+        response = urllib2.urlopen(source)
+        result = response.read()
+        dictionary = {
+            "id:": "\"id\":",
+            "isDuration:": "\"isDuration\":",
+            "type:": "\"type\":",
+            "addressLatLng:": "\"addressLatLng\":",
+            "typename:": "\"typename\":",
+            "created:": "\"created\":",
+            "label:": "\"label\":",
+            "preview:": "\"preview\":",
+            "pic:": "\"pic\":",
+            "pic_text:": "\"pic_text\":",
+            "timeStart:": "\"timeStart\":",
+            "author:": "\"author\":",
+            "www:": "\"www\":",
+            "details:": "\"details\":",
+            "timeEnd:": "\"timeEnd\":",
+            "nr:": "\"nr\":",
+            "age:": "\"age\":",
+            "types:": "\"types\":",
+            "pluralLabel:": "\"pluralLabel\":",
+            "properties:": "\"properties\":",
+            "valueType:": "\"valueType\":",
+            "	": "",
+            ",\r\n,": ",\r\n",
+        }
+        # make the JSON valid
+        result = replace_multiple(result, dictionary)
+        json_result = json.loads(result)
+        # select all the items
+        items = json_result["items"]
+        return items
 
 
 class ImportView(TemplateView):
@@ -77,38 +117,8 @@ class SimpleJSONImport(ImportView):
     def do_import(self):
         self.success_entries = []
         self.failed_entries = []
-        response = urllib2.urlopen(self.source)
-        result = response.read()
-        dictionary = {
-            "id:": "\"id\":",
-            "isDuration:": "\"isDuration\":",
-            "type:": "\"type\":",
-            "addressLatLng:": "\"addressLatLng\":",
-            "typename:": "\"typename\":",
-            "created:": "\"created\":",
-            "label:": "\"label\":",
-            "preview:": "\"preview\":",
-            "pic:": "\"pic\":",
-            "pic_text:": "\"pic_text\":",
-            "timeStart:": "\"timeStart\":",
-            "author:": "\"author\":",
-            "www:": "\"www\":",
-            "details:": "\"details\":",
-            "timeEnd:": "\"timeEnd\":",
-            "nr:": "\"nr\":",
-            "age:": "\"age\":",
-            "types:": "\"types\":",
-            "pluralLabel:": "\"pluralLabel\":",
-            "properties:": "\"properties\":",
-            "valueType:": "\"valueType\":",
-            "	": "",
-            ",\r\n,": ",\r\n",
-        }
-        # make the JSON valid
-        result = replace_multiple(result, dictionary)
-        json_result = json.loads(result)
-        # select all the items
-        items = json_result["items"]
+        self.exist_entries = []
+        items = load_json(self.source)
         # filter for all the locations
         location_items = filter(lambda entry: "id" in entry, items)
         story_items = filter(lambda entry: "label" in entry, items)
@@ -119,10 +129,10 @@ class SimpleJSONImport(ImportView):
             lat, lon = round(float(lat), 10), round(float(lon), 10)
             label = location["id"]
 
+            # find the story
+            story = filter(lambda entry: entry["label"] == label, story_items)[0]
             try:
                 location_object = Location.objects.get(latitude=lat, longitude=lon)
-                # find the story
-                story = filter(lambda entry: entry["label"] == label, story_items)[0]
 
                 # only insert story if story does not exist so far
                 if not Entry.objects.filter(title=label).exists():
@@ -193,6 +203,23 @@ class SimpleJSONImport(ImportView):
                 location["lon"] = str(lon)
                 location["url"] = reverse('admin:stadtgedaechtnis_location_add') + \
                     "?latitude=" + str(lat) + "&longitude=" + str(lon)
+                location["near_locations"] = list()
+                location["nr"] = story["nr"]
+                for nearby_location in get_nearby_locations(lat, lon):
+                    near_location = dict()
+                    near_location["id"] = nearby_location.id
+                    near_location["label"] = nearby_location.__unicode__()
+                    location["near_locations"].append(near_location)
+
                 self.failed_entries.append(location)
 
 
+class ImportEntry(View):
+    """
+    Imports one specific entry to a specific location
+    """
+
+
+    def get(self, request, *args, **kwargs):
+        # TODO: import the entry
+        return HttpResponse()
