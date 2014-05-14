@@ -9,6 +9,8 @@ from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models.signals import post_delete
 from django.dispatch.dispatcher import receiver
+from django.conf import settings
+import os.path
 import mimetypes
 
 
@@ -124,7 +126,10 @@ class MediaSource(models.Model):
     """
 
     def get_upload_path(self, filename):
-        return str(self.media_object.entry.id) + "/" + filename
+        i = 0
+        while os.path.isfile(settings.MEDIA_ROOT + str(self.media_object.entry.id) + "/" + str(i) + filename):
+            i += 1
+        return str(self.media_object.entry.id) + "/" + str(i) + filename
 
     created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     modified = models.DateTimeField(auto_now=True, null=True, blank=True)

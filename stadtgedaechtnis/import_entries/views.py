@@ -2,13 +2,16 @@ from abc import ABCMeta, abstractmethod
 import urllib2
 import json
 import time
+import os
 
-from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core.urlresolvers import reverse
 from django.views.generic import TemplateView
+from django.conf import settings
+from datetime import datetime
 
 from stadtgedaechtnis.utils import replace_multiple
-from stadtgedaechtnis.models import Location, Entry, EntryType
+from stadtgedaechtnis.models import Location, Entry, EntryType, MediaObject, MediaSource
 
 
 __author__ = 'jpi'
@@ -109,15 +112,18 @@ class SimpleJSONImport(ImportView):
         # filter for all the locations
         location_items = filter(lambda entry: "id" in entry, items)
         story_items = filter(lambda entry: "label" in entry, items)
+
         # iterate over all the located stories
         for location in location_items:
             lat, lon = location["addressLatLng"].split(",")
             lat, lon = round(float(lat), 10), round(float(lon), 10)
             label = location["id"]
+
             try:
                 location_object = Location.objects.get(latitude=lat, longitude=lon)
                 # find the story
                 story = filter(lambda entry: entry["label"] == label, story_items)[0]
+
                 # only insert story if story does not exist so far
                 if not Entry.objects.filter(title=label).exists():
                     entry = Entry()
@@ -125,19 +131,57 @@ class SimpleJSONImport(ImportView):
                     entry.location = location_object
                     entry.author = story["author"]
                     entry.abstract = story["preview"]
+
                     if "timeStart" in story:
                         entry.time_start = story["timeStart"]
                     else:
                         entry.time_start = time.strftime(
                             "%Y-%m-%d",
                             time.strptime(story["created"], "%d.%m.%Y %H:%M:%S"))
+
                     if "timeEnd" in story:
                         entry.time_end = story["timeEnd"]
                     entry.type = EntryType.objects.get(label=story["typename"])
                     # TODO: add more infos
-                    entry.save()
+
+                    if "pic" in story and story["pic"] != "":
+                        picture_url = "http://www.stadtgeschichte-coburg.de/" + story["pic"]
+                        # populate the MediaObject
+                        media_object = MediaObject()
+                        media_object.type = MediaObject.IMAGE
+                        media_object.created = datetime.now()
+                        media_object.modified = datetime.now()
+                        media_object.alt = story["pic_text"] if "pic_text" in story else ""
+                        media_object.entry = entry
+
+                        # populate the MediaSource
+                        media_source = MediaSource()
+                        media_source.created = datetime.now()
+                        media_source.modified = datetime.now()
+                        media_source.media_object = media_object
+
+                        # get a correct upload path for the image
+                        filename = media_source.get_upload_path("upload.jpg")
+                        download_file = urllib2.urlopen(picture_url)
+
+                        # create intermittent directories if not present
+                        if not os.path.exists(os.path.dirname(settings.MEDIA_ROOT + filename)):
+                            os.makedirs(os.path.dirname(settings.MEDIA_ROOT + filename))
+                        # open local file
+                        media_file = open(settings.MEDIA_ROOT + filename, "wb")
+                        # download and save file at once (memory!)
+                        media_file.write(download_file.read())
+                        media_file.close()
+                        media_source.file.name = filename
+                        entry.save()
+                        media_object.save()
+                        media_source.save()
+
+                    else:
+                        entry.save()
                     # Add entry to succeeded entry list
                     self.success_entries.append(entry)
+                    
                 else:
                     entry = dict()
                     entry["title"] = label
