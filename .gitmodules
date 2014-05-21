@@ -1,6 +1,6 @@
 [submodule "stadtgedaechtnis_backend"]
 	path = stadtgedaechtnis_backend
-	url = git@github.com:codeforeurope/stadtgedaechtnis_backend.git
+	url = https://github.com/codeforeurope/stadtgedaechtnis_backend.git
 [submodule "stadtgedaechtnis_frontend"]
 	path = stadtgedaechtnis_frontend
-	url = git@github.com:codeforeurope/stadtgedaechtnis_frontend.git
+	url = https://github.com/codeforeurope/stadtgedaechtnis_frontend.git
