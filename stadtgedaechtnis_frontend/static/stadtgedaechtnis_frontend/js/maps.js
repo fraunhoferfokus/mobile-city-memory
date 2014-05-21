@@ -108,7 +108,7 @@ function openEntry(location) {
                             <div class="article-heading-row">';
         if (i > 0) {
             entryList += '    <a href="#" class="previous"><div class="article-heading-cell entry-slide previous">\
-                <img src="/static/stadtgedaechtnis/img/left.png">\
+                <img src="/static/stadtgedaechtnis_frontend/img/left.png">\
             </div></a>'
         }
         entryList += '<div class="article-heading-cell">\
@@ -116,7 +116,7 @@ function openEntry(location) {
                                 </div>';
         if (i < location.entries.length - 1) {
             entryList += '<a href="#" class="next"><div class="article-heading-cell entry-slide next">\
-                <img src="/static/stadtgedaechtnis/img/right.png">\
+                <img src="/static/stadtgedaechtnis_frontend/img/right.png">\
             </div></a>';
         }
         entryList += '</div>\
@@ -125,7 +125,7 @@ function openEntry(location) {
             entryList += '<img src="' + location.entries[i].image + '" alt="' + location.entries[i].alt + '" id="entry-first-' + i + '"/>';
         }
         entryList += '<div class="center">\
-                            <img src="/static/stadtgedaechtnis/img/ajax-loader.gif" id="load-more-' + i + '" class="load-more">\
+                            <img src="/static/stadtgedaechtnis_frontend/img/ajax-loader.gif" id="load-more-' + i + '" class="load-more">\
                         </div>\
                         <article class="entry-more" id="entry-more-' + i + '">\
                         </article>\
