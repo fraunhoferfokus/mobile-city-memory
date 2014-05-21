@@ -11,3 +11,5 @@ https://github.com/codeforeurope/stadtgedaechtnis_frontend
 Installation
 ------------
 Make sure you have Python 2.7 or a later Python 2.x version installed. Then run setup.py from the console.
+
+Look at the local_settings.template.py and follow the instructions there.
