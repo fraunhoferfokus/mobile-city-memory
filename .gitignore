@@ -56,3 +56,4 @@ setuptools-3.4.1.zip
 # Media
 media/
 Mobiles_Stadtgedaechtnis/local_settings.py
+db.sqlite3-journal
