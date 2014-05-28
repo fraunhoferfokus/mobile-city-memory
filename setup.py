@@ -22,6 +22,7 @@ setup(
         "django-apptemplates",
         "django-mssql >= 1.5",
         "pywin32 >= 219"
+        "djangorestframework",
         ],
 
     classifiers = [
