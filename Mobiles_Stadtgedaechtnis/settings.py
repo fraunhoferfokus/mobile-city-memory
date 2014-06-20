@@ -131,7 +131,6 @@ INSTALLED_APPS = (
     'stadtgedaechtnis_frontend',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
-    'rest_framework.authtoken',
     'django_js_utils',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
