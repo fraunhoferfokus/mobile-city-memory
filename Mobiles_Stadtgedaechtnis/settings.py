@@ -101,10 +101,12 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    # 'django.contrib.sessions.middleware.SessionMiddleware',
+    'stadtgedaechtnis_backend.services.authentication.middleware.TokenSessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.gzip.GZipMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
@@ -132,7 +134,8 @@ INSTALLED_APPS = (
     'stadtgedaechtnis_backend',
     'stadtgedaechtnis_frontend',
     # Uncomment the next line to enable the admin:
-    'django.contrib.admin'
+    'django.contrib.admin',
+    'django_js_utils',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )

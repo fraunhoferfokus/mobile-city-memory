@@ -23,6 +23,7 @@ setup(
         "django-mssql >= 1.5",
         "pywin32 >= 219"
         "djangorestframework",
+        "django-js-utils >= 0.0.5dev",
         ],
 
     classifiers = [
