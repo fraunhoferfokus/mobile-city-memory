@@ -26,8 +26,9 @@ def run_cronjobs():
     import schedule
     import time
     from stadtgedaechtnis_backend.import_entries.importers import do_silent_json_import
+    from stadtgedaechtnis_backend.import_entries.urls import JSON_URL
 
-    schedule.every().day.at("23:00").do(do_silent_json_import)
+    schedule.every().day.at("23:00").do(do_silent_json_import, JSON_URL)
 
     while True:
         schedule.run_pending()
