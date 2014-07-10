@@ -21,6 +21,7 @@ setup(
         "jsonpickle >= 0.7.0",
         "django-apptemplates",
         "djangorestframework",
+        "schedule",
         ],
 
     classifiers = [
