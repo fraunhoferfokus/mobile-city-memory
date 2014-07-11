@@ -20,8 +20,6 @@ setup(
         "django >= 1.6",
         "jsonpickle >= 0.7.0",
         "django-apptemplates",
-        "django-mssql >= 1.5",
-        "pywin32 >= 219",
         "djangorestframework",
         "schedule",
         ],
