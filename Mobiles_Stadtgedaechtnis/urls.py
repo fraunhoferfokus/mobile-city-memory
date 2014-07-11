@@ -34,4 +34,4 @@ def run_cronjobs():
         schedule.run_pending()
         time.sleep(1)
 
-start_new_thread(run_cronjobs, [])
+start_new_thread(run_cronjobs, ())
