@@ -14,3 +14,15 @@ SECRET_KEY = 'use_a_unique_secret_key'
 # for further information.
 # Can be either "user_authentication" or "moderation"
 AUTHENTICATION_MODE = 'user_authentication'
+
+# This points to the SMTP server to use for sending emails.
+EMAIL_HOST = "localhost"
+
+# This is the port that will be used to connect to the SMTP server.
+EMAIL_PORT = 1025
+
+# This is used to authenticate against the SMTP server.
+EMAIL_HOST_USER = ""
+
+# This is used to authenticate against the SMTP server.
+EMAIL_HOST_PASSWORD = ""
