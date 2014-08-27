@@ -22,7 +22,13 @@ EMAIL_HOST = "localhost"
 EMAIL_PORT = 1025
 
 # This is used to authenticate against the SMTP server.
-EMAIL_HOST_USER = ""
+EMAIL_HOST_USER = "username"
 
 # This is used to authenticate against the SMTP server.
-EMAIL_HOST_PASSWORD = ""
+EMAIL_HOST_PASSWORD = "password"
+
+# This specifies the E-mail recipient for a new entry
+NEW_ENTRY_EMAIL_RECIPIENT = "some@email.com"
+
+# This specifies the sender e-mail address
+NEW_ENTRY_EMAIL_SENDER = "some@email.com"
