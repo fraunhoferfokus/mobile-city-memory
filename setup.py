@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = "mobile-city-history",
-    version = 0.1,
+    version = "1.0.0b1",
     author = "Jan-Christopher Pien",
     author_email = "jan_christopher.pien@fokus.fraunhofer.de",
     url = "http://www.foo.bar",
@@ -28,7 +28,7 @@ setup(
 
     classifiers = [
         "Programming Language :: Python",
-        "Development Status :: 2 - Pre-Alpha",
+        "Development Status :: 4 - Beta",
         "Environment :: Web Environment",
         "Intended Audience :: Other Audience",
         "Framework :: Django",
