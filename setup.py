@@ -22,6 +22,7 @@ setup(
         "django-apptemplates",
         "djangorestframework",
         "schedule",
+        "django-cache-machine >= 0.8",
         ],
 
     classifiers = [

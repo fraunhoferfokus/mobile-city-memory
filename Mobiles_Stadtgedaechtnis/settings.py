@@ -44,6 +44,15 @@ LANGUAGES = (
 
 SITE_ID = 1
 
+# Caching to local memcache
+CACHES = {
+    'default': {
+        'BACKEND': 'caching.backends.locmem.LocMemCache',
+        'LOCATION': 'mobile-city-memory',
+        'PREFIX': 'mcm:',
+    }
+}
+
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
 USE_I18N = True
@@ -101,7 +110,9 @@ MIDDLEWARE_CLASSES = (
     # 'django.contrib.sessions.middleware.SessionMiddleware',
     'stadtgedaechtnis_backend.services.authentication.middleware.TokenSessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    # 'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
+    # 'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.gzip.GZipMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -145,6 +156,11 @@ INSTALLED_APPS = (
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
@@ -155,15 +171,24 @@ LOGGING = {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
     },
     'loggers': {
         'django.request': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
-            'propagate': True,
+            'propagate': False,
         },
-    }
+    },
+    'root': {
+        'level': 'DEBUG',
+        'handlers': ['console'],
+    },
 }
 
 from local_settings import *
