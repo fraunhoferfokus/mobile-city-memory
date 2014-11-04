@@ -24,6 +24,7 @@ setup(
         "pywin32 >= 219",
         "djangorestframework",
         "schedule",
+        "django-cache-machine >= 0.8",
         ],
 
     classifiers = [
