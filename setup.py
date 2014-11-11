@@ -23,6 +23,7 @@ setup(
         "djangorestframework",
         "schedule",
         "django-cache-machine >= 0.8",
+        "mysql-python"
         ],
 
     classifiers = [

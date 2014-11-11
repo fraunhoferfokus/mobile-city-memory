@@ -32,6 +32,7 @@ The following python packages are required (the version in brackets indicates th
 - djangorestframework
 - schedule
 - django-cache-machine (>= 0.8)
+- mysql-python
 
 Installation
 ------------
@@ -48,4 +49,4 @@ Look at the local_settings.template.py and follow the instructions there.
 
 Additional versions
 -------------------
-This version runs with an SQLite database. See the branches for additional versions.
+This version runs with a MySQL database. See the branches for additional versions.
