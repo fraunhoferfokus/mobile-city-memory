@@ -29,6 +29,8 @@ The following python packages are required (the version in brackets indicates th
 - django (>= 1.6)
 - jsonpickle (>= 0.7.0)
 - django-apptemplates
+- django-mssql (>= 1.5)
+- pywin32 (>= 219)
 - djangorestframework
 - schedule
 - django-cache-machine (>= 0.8)
