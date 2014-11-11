@@ -23,6 +23,7 @@ Requirements
 ------------
 The following software is required to use the mobile city history (the version in brackets indicates the tested version):
 - Python 2 (2.7.6 32-bit)
+- MSSQL (2008)
 
 The following python packages are required (the version in brackets indicates the tested version):
 - sparqlwrapper
@@ -50,4 +51,4 @@ Look at the local_settings.template.py and follow the instructions there.
 
 Additional versions
 -------------------
-This version runs with an SQLite database. See the branches for additional versions.
+This version runs with an MSSQL database. See the branches for additional versions.
