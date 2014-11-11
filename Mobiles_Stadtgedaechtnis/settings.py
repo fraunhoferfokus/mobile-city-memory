@@ -13,6 +13,10 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+ALLOWED_HOSTS = [
+    '193.175.133.253',
+]
+
 DATABASES = {
     'default': {
         'ENGINE': 'sqlserver_ado',       # MSSQL
