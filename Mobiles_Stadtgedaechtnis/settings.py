@@ -4,7 +4,7 @@ from os import path
 from django.utils.translation import ugettext_lazy as _
 
 PROJECT_ROOT = path.dirname(path.abspath(path.dirname(__file__)))
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
