@@ -5,7 +5,7 @@ __author__ = 'jpi'
 # to local_settings.py. Django will not work unless doing so. Never put the resulting file under version control!
 
 # User settings, not Django settings from here
-GOOGLE_API_KEY = 'paste_your_google_api_key_here'  # for testing only!
+GOOGLE_API_KEY = 'paste_your_google_api_key_here'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'use_a_unique_secret_key'
