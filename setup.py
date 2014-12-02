@@ -20,7 +20,7 @@ setup(
         "django >= 1.6",
         "jsonpickle >= 0.7.0",
         "django-apptemplates",
-        "djangorestframework",
+        "djangorestframework = 2.3",
         "schedule",
         "django-cache-machine >= 0.8",
         ],
