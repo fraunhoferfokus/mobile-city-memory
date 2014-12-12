@@ -17,14 +17,14 @@ setup(
 
     install_requires = [
         "sparqlwrapper",
-        "django >= 1.6",
+        "django == 1.6.2",
         "jsonpickle >= 0.7.0",
         "django-apptemplates",
         "django-mssql >= 1.5",
         "pywin32 >= 219",
-        "djangorestframework",
+        "djangorestframework == 2.3.13",
         "schedule",
-        "django-cache-machine >= 0.8",
+        "django-cache-machine == 0.8",
         ],
 
     classifiers = [
